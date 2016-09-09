@@ -9,13 +9,22 @@ namespace BPA_RPG
     /// </summary>
     public class MainGame : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public static int WindowWidth = 1024;
+        public static int WindowHeight = 576;
+
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            this.IsMouseVisible = true;
+
+            graphics.PreferredBackBufferWidth = WindowWidth;
+            graphics.PreferredBackBufferHeight = WindowHeight;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -59,7 +68,7 @@ namespace BPA_RPG
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
