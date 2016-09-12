@@ -1,17 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace BPA_RPG.Screens
+namespace BPA_RPG
 {
     public class Camera
     {
         public Matrix transform;
         Vector2 center;
-        Game game;
-
-        public Camera(Game game)
-        {
-            this.game = game;
-        }
 
         public void Update(Vector2 position)
         {

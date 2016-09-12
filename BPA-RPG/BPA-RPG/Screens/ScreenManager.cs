@@ -25,7 +25,7 @@ namespace BPA_RPG.Screens
         }
 
         /// <summary>
-        /// Initialize all screens in the active screen list.
+        /// Loads all screens in the active screen list.
         /// </summary>
         public void LoadContent()
         {

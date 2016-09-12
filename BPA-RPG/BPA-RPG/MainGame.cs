@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using BPA_RPG.Screens;
 
 namespace BPA_RPG
 {
@@ -14,6 +15,7 @@ namespace BPA_RPG
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private ScreenManager screenManager;
 
         public MainGame()
         {
@@ -25,6 +27,8 @@ namespace BPA_RPG
             graphics.PreferredBackBufferWidth = WindowWidth;
             graphics.PreferredBackBufferHeight = WindowHeight;
             graphics.ApplyChanges();
+
+            screenManager = new ScreenManager(Content);
         }
 
         /// <summary>
@@ -35,8 +39,6 @@ namespace BPA_RPG
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -49,7 +51,10 @@ namespace BPA_RPG
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            screenManager.Push(new MainMenuScreen());
+
+
+            screenManager.LoadContent();
         }
 
         /// <summary>
@@ -71,7 +76,8 @@ namespace BPA_RPG
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+
+            screenManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -84,7 +90,7 @@ namespace BPA_RPG
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            screenManager.Draw(gameTime, spriteBatch);
 
             base.Draw(gameTime);
         }

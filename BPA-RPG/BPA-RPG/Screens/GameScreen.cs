@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BPA_RPG.Screens
 {
     class GameScreen : Screen
     {
-        public GameScreen() 
-            : base()
+        public override void LoadContent(ContentManager content)
         {
-
+            base.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)
@@ -22,8 +22,6 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
-
-
             base.Draw(gameTime, spritebatch);
         }
 

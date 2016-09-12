@@ -41,7 +41,7 @@ namespace BPA_RPG.Screens
         }
 
         /// <summary>
-        /// Initializes every Component of this screen.
+        /// Loads every component of this screen.
         /// </summary>
         public virtual void LoadContent(ContentManager content)
         {
@@ -49,14 +49,14 @@ namespace BPA_RPG.Screens
         }
 
         /// <summary>
-        /// Updates every Component of this screen.
+        /// Updates every component of this screen.
         /// </summary>
         public virtual void Update(GameTime gameTime)
         {
         }
 
         /// <summary>
-        /// Draw every Visible Component of this screen.
+        /// Draw every visible component of this screen.
         /// </summary>
         public virtual void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
