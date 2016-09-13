@@ -114,7 +114,7 @@ namespace BPA_RPG.GameObjects
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="spritebatch">Spritebatch object to draw objects with</param>
-        public virtual void Draw(SpriteBatch spritebatch)
+        public virtual void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
             if (visible && texture != null)
             {
