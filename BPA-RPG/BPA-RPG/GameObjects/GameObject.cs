@@ -36,8 +36,6 @@ namespace BPA_RPG.GameObjects
 
         private Texture2D Texture;
 
-        protected ContentManager content;
-
         public int Width { get; protected set; }
         public int Height { get; protected set; }
 
@@ -95,9 +93,9 @@ namespace BPA_RPG.GameObjects
         }
 
 
-        public GameObject(ContentManager content)
+        public GameObject(Texture2D texture)
         {
-            this.content = content;
+            this.texture = texture;
             position = new Vector2(0, 0);
         }
 
@@ -116,7 +114,7 @@ namespace BPA_RPG.GameObjects
         /// <param name="spritebatch">Spritebatch object to draw objects with</param>
         public virtual void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
-            if (visible && texture != null)
+            if (visible)
             {
                 Rectangle source = new Rectangle(0, 0, Width, Height);
                 spritebatch.Draw(texture, position, source, Color.White, rotation,

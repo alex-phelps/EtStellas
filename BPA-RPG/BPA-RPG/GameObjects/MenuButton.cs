@@ -18,14 +18,13 @@ namespace BPA_RPG.GameObjects
         private SpriteFont menuFont;
 
         public MenuButton(ContentManager content, EventHandler buttonEvent, Vector2 position, string text) 
-            : base(content)
+            : base(content.Load<Texture2D>("Images/MenuButton"))
         {
             this.buttonEvent = buttonEvent;
             this.position = position;
             this.text = text;
 
             menuFont = content.Load<SpriteFont>("Fonts/MenuButtonFont");
-            texture = content.Load<Texture2D>("Images/MenuButton");
         }
 
         public override void Update(GameTime gameTime)

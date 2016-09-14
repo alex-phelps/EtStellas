@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BPA_RPG.Screens;
+using BPA_RPG.GameItems;
 
 namespace BPA_RPG
 {
@@ -53,6 +54,7 @@ namespace BPA_RPG
 
             screenManager.Push(new MainMenuScreen());
 
+            PlayerData.ship = new Ship("Debug Ship", Content.Load<Texture2D>("Images/DebugShip"));
 
             screenManager.LoadContent();
         }

@@ -42,9 +42,13 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GameItems\GameItem.cs" />
+    <Compile Include="GameItems\Ship.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\MenuButton.cs" />
+    <Compile Include="GameObjects\Planet.cs" />
     <Compile Include="MainGame.cs" />
+    <Compile Include="PlayerData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Camera.cs" />
@@ -61,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\DebugPlanet.png" />
+    <Content Include="Content\Images\DebugShip.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
