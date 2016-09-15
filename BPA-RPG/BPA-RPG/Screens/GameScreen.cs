@@ -11,7 +11,6 @@ namespace BPA_RPG.Screens
 {
     class GameScreen : Screen
     {
-        private GameObject playerShip;
         private List<Planet> planets;
 
         private Camera camera;
@@ -21,19 +20,20 @@ namespace BPA_RPG.Screens
             camera = new Camera();
 
             planets = new List<Planet>();
-
-            planets.Add(new Planet(content, "Debug Planet", 
-                new Vector2(MainGame.WindowWidth / 2, MainGame.WindowHeight / 2), DebugPlanetEvent));
-
-            playerShip = new GameObject(PlayerData.ship.texture)
-                { position = new Vector2(MainGame.WindowWidth / 2, MainGame.WindowHeight / 2) };
+            planets.Add(Planet.DebugPlanet);
+            
+            PlayerData.ship.currentPlanet = planets[0];
+            PlayerData.ship.inOrbit = true;
+            PlayerData.ship.position = PlayerData.ship.currentPlanet.position - new Vector2(100, 0);
 
             base.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)
         {
-            camera.Update(playerShip.position);
+            camera.Update(PlayerData.ship.position);
+
+            PlayerData.ship.Update(gameTime);
 
             foreach (Planet planet in planets)
             {
@@ -67,7 +67,7 @@ namespace BPA_RPG.Screens
                 planet.Draw(gameTime, spritebatch);
             }
 
-            playerShip.Draw(gameTime, spritebatch);
+            PlayerData.ship.Draw(gameTime, spritebatch);
 
             spritebatch.End();
             spritebatch.Begin();

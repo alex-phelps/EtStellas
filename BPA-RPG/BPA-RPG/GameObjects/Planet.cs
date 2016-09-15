@@ -11,15 +11,17 @@ namespace BPA_RPG.GameObjects
 {
     class Planet : GameObject
     {
+        //Static planets
+        public static Planet DebugPlanet;
+
+
         public string name { get; private set; }
         private EventHandler storyEvent;
 
-        public Planet(ContentManager content, string name, Vector2 position, EventHandler storyEvent) 
-            : base(content.Load<Texture2D>("Images/DebugPlanet"))
+        public Planet(string name, Texture2D texture) 
+            : base(texture)
         {
             this.name = name;
-            this.position = position;
-            this.storyEvent = storyEvent;
         }
     }
 }

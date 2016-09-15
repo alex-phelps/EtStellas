@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BPA_RPG.Screens;
 using BPA_RPG.GameItems;
+using Microsoft.Xna.Framework.Content;
+using BPA_RPG.GameObjects;
 
 namespace BPA_RPG
 {
@@ -49,12 +51,20 @@ namespace BPA_RPG
         /// </summary>
         protected override void LoadContent()
         {
+            //Define static ships
+            Ship.DebugShip = new Ship("Debug Ship", Content.Load<Texture2D>("Images/DebugShip"));
+
+
+            //Define static planets
+            Planet.DebugPlanet = new Planet("Debug Planet", Content.Load<Texture2D>("Images/DebugPlanet"));
+
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             screenManager.Push(new MainMenuScreen());
 
-            PlayerData.ship = new Ship("Debug Ship", Content.Load<Texture2D>("Images/DebugShip"));
+            PlayerData.ship = new PlayerShip(Ship.DebugShip);
 
             screenManager.LoadContent();
         }

@@ -10,6 +10,11 @@ namespace BPA_RPG.GameItems
 {
     class Ship : GameItem
     {
+        //Static ships
+        public static Ship DebugShip;
+
+
+
         public string name { get; private set; }
         public Texture2D texture { get; private set; }
 

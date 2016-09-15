@@ -10,8 +10,7 @@ namespace BPA_RPG
 {
     static class PlayerData
     {
-        public static Ship ship;
-        public static Planet currentPlanet;
+        public static PlayerShip ship;
 
 
         public static void Save(string filename)
