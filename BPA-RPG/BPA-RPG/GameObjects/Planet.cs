@@ -13,6 +13,7 @@ namespace BPA_RPG.GameObjects
     {
         //Static planets
         public static Planet DebugPlanet;
+        public static Planet DebugPlanet2;
 
 
         public string name { get; private set; }

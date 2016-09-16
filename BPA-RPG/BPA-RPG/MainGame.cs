@@ -57,6 +57,10 @@ namespace BPA_RPG
 
             //Define static planets
             Planet.DebugPlanet = new Planet("Debug Planet", Content.Load<Texture2D>("Images/DebugPlanet"));
+            Planet.DebugPlanet2 = new Planet("Debug Planet 2", Content.Load<Texture2D>("Images/DebugPlanet"))
+            {
+                position = new Vector2(300, 200)
+            };
 
 
             // Create a new SpriteBatch, which can be used to draw textures.
