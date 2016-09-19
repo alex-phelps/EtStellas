@@ -17,12 +17,20 @@ namespace BPA_RPG.GameItems
 
         public string name { get; private set; }
         public Texture2D texture { get; private set; }
+        public float maxSpeed { get; private set; }
+        public float accel { get; private set; }
+        public float maxRotSpeed { get; private set; }
+        public float rotAccel { get; private set; }
 
-        public Ship(string name, Texture2D texture) 
+        public Ship(string name, Texture2D texture, float maxSpeed, float accel, float maxRotSpeed, float rotAccel) 
             : base()
         {
             this.name = name;
             this.texture = texture;
+            this.maxSpeed = maxSpeed;
+            this.accel = accel;
+            this.maxRotSpeed = maxRotSpeed;
+            this.rotAccel = rotAccel;
         }
     }
 }

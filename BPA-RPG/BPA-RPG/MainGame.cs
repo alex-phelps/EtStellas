@@ -52,14 +52,14 @@ namespace BPA_RPG
         protected override void LoadContent()
         {
             //Define static ships
-            Ship.DebugShip = new Ship("Debug Ship", Content.Load<Texture2D>("Images/DebugShip"));
+            Ship.DebugShip = new Ship("Debug Ship", Content.Load<Texture2D>("Images/DebugShip"), 5, 0.05f, 0.0005f, 0.0002f);
 
 
             //Define static planets
             Planet.DebugPlanet = new Planet("Debug Planet", Content.Load<Texture2D>("Images/DebugPlanet"));
             Planet.DebugPlanet2 = new Planet("Debug Planet 2", Content.Load<Texture2D>("Images/DebugPlanet"))
             {
-                position = new Vector2(300, 200)
+                position = new Vector2(3000, 2000)
             };
 
 

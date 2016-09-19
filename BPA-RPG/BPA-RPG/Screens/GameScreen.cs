@@ -15,7 +15,7 @@ namespace BPA_RPG.Screens
         private List<Planet> planets;
 
         private Camera camera;
-        private KeyboardState keyState;
+        private KeyboardState oldKeyState;
 
         public override void LoadContent(ContentManager content)
         {
@@ -25,16 +25,16 @@ namespace BPA_RPG.Screens
             planets.Add(Planet.DebugPlanet);
             planets.Add(Planet.DebugPlanet2);
             
-            PlayerData.ship.currentPlanet = planets[0];
+            PlayerData.ship.lastPlanet = planets[0];
             PlayerData.ship.inOrbit = true;
-            PlayerData.ship.position = PlayerData.ship.currentPlanet.position - new Vector2(100, 0);
+            PlayerData.ship.position = PlayerData.ship.lastPlanet.position - new Vector2(planets[0].orbitDistance, 0);
 
             base.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)
         {
-            keyState = Keyboard.GetState();
+            KeyboardState newKeyState = Keyboard.GetState();
 
             camera.Update(PlayerData.ship.position);
 
@@ -43,13 +43,16 @@ namespace BPA_RPG.Screens
             foreach (Planet planet in planets)
             {
                 planet.Update(gameTime);
+
+                if (PlayerData.ship.inOrbit == false && PlayerData.ship.autoPilotActive == false &&
+                    Math.Tan(Math.Abs(PlayerData.ship.position.Y - planet.position.Y) / 
+                    Math.Abs(PlayerData.ship.position.X - planet.position.X)) <= planet.orbitDistance)
+                {
+                    PlayerData.ship.lastPlanet = planet;
+                }
             }
 
-            if (keyState.IsKeyDown(Keys.D1))
-                PlayerData.ship.currentPlanet = planets[0];
-            else if (keyState.IsKeyDown(Keys.D2))
-                PlayerData.ship.currentPlanet = planets[1];
-
+            oldKeyState = newKeyState;
             base.Update(gameTime);
         }
 

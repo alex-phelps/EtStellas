@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,74 +16,97 @@ namespace BPA_RPG.GameObjects
     /// </summary>
     class PlayerShip : GameObject
     {
-        public Planet currentPlanet
+        public Planet lastPlanet
         {
-            get
-            {
-                return CurrentPlanet;
-            }
+            get { return LastPlanet; }
             set
             {
-                CurrentPlanet = value;
-                inOrbit = false;
+                LastPlanet = value;
+                inOrbit = true;
             }
         }
-        private Planet CurrentPlanet;
+        private Planet LastPlanet;
+
+        private Ship baseShip;
+        private KeyboardState oldKeyState;
 
         public bool inOrbit;
+        public bool autoPilotActive;
 
         public Vector2 velocity;
         public float speed;
-        public float accel;
+        public float accel => baseShip.accel;
+        public float maxSpeed => baseShip.maxSpeed;
+        public float rotSpeed;
+        public float maxRotSpeed => baseShip.maxRotSpeed;
+        public float rotAccel => baseShip.rotAccel;
 
         public PlayerShip(Ship ship) 
             : base(ship.texture)
         {
+            baseShip = ship;
+
             velocity = new Vector2();
             speed = 1f;
-            accel = 0f;
         }
 
         public override void Update(GameTime gameTime)
         {
+            KeyboardState newKeyState = Keyboard.GetState();
+
             //Get angle to orbit planet
             if (inOrbit)
             {
                 //Find angle to the target planet
-                double angleToPlanet = Math.Atan2(position.Y - currentPlanet.position.Y, position.X - currentPlanet.position.X);
+                double angleToPlanet = Math.Atan2(position.Y - lastPlanet.position.Y, position.X - lastPlanet.position.X);
 
                 rotation = (float)(angleToPlanet + Math.PI);
 
-                if (Microsoft.Xna.Framework.Input.Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space))
-                    Console.WriteLine(angleToPlanet);
+                if (newKeyState.IsKeyDown(Keys.Space))
+                {
+                    inOrbit = false;
+                    autoPilotActive = true;
+                }
+            }
+            else if (autoPilotActive)
+            {
+
+
+                autoPilotActive = false;
             }
             else
             {
-                //Find angle to the target planet
-                double angleToPlanet = Math.Atan2(position.Y - currentPlanet.position.Y, position.X - currentPlanet.position.X);
-                angleToPlanet -= Math.PI / 4; //Adjust angle origin to north instead of east
+                if (newKeyState.IsKeyDown(Keys.W))
+                    speed += accel;
 
-                //Find angle from sightline to target planet
-                if (angleToPlanet > 0)
-                    angleToPlanet -= rotation;
-                else angleToPlanet += rotation;
+                if (newKeyState.IsKeyDown(Keys.S))
+                    speed -= accel;
 
-                if (angleToPlanet > 0)
+                if (newKeyState.IsKeyDown(Keys.D))
+                    rotSpeed += rotAccel;
+
+                if (newKeyState.IsKeyDown(Keys.A))
+                    rotSpeed -= rotAccel;
+
+                if (newKeyState.IsKeyUp(Keys.W) && newKeyState.IsKeyUp(Keys.S))
                 {
-                    rotation -= 0.005f;
+                    if (speed < -0.25f) // Not 0 here to fix any rounding errors
+                        speed += 0.025f;
+                    else if (speed > 0.25f) //Not 0 here to fix any rounding errors
+                        speed -= 0.025f;
+                    else speed = 0;
                 }
-                else
+                if (newKeyState.IsKeyUp(Keys.A) && newKeyState.IsKeyUp(Keys.D))
                 {
-                    rotation += 0.005f;
+                    if (rotSpeed < -0.05f) // Not 0 here to fix any rounding errors
+                        rotSpeed += 0.03f;
+                    else if (rotSpeed > 0.05f) //Not 0 here to fix any rounding errors
+                        rotSpeed -= 0.03f;
+                    else rotSpeed = 0;
                 }
-
-                rotation %= (float)Math.PI * 2;
-                if (rotation < 0)
-                    rotation = (float)(Math.PI * 2 - rotation);
-
-                //if (angleToPlanet <= 0.1 && angleToPlanet >= -0.1)
-                //    rotation += (float)angleToPlanet;
             }
+            
+            
 
             //Update velocity
             velocity.X = (float)Math.Sin(rotation) * speed;
@@ -91,6 +115,11 @@ namespace BPA_RPG.GameObjects
             //Update position
             position += velocity;
 
+            //Update rotation
+            rotation += rotSpeed;
+            rotation %= (float)(Math.PI * 2);
+
+            oldKeyState = newKeyState;
             base.Update(gameTime);
         }
     }
