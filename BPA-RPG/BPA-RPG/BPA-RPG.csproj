@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="GameItems\GameItem.cs" />
     <Compile Include="GameItems\Ship.cs" />
+    <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\MenuButton.cs" />
     <Compile Include="GameObjects\Planet.cs" />
@@ -69,6 +70,7 @@
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\DebugShip.png" />
     <Content Include="Content\Images\MenuButton.png" />
+    <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

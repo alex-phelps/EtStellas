@@ -13,6 +13,7 @@ namespace BPA_RPG.Screens
     class GameScreen : Screen
     {
         private List<Planet> planets;
+        private Background starBackground;
 
         private Camera camera;
         private KeyboardState oldKeyState;
@@ -28,6 +29,8 @@ namespace BPA_RPG.Screens
             PlayerData.ship.lastPlanet = planets[0];
             PlayerData.ship.inOrbit = true;
             PlayerData.ship.position = PlayerData.ship.lastPlanet.position - new Vector2(planets[0].orbitDistance, 0);
+
+            starBackground = new Background(content.Load<Texture2D>("Images/StarBackground"));
 
             base.LoadContent(content);
         }
@@ -45,11 +48,8 @@ namespace BPA_RPG.Screens
                 planet.Update(gameTime);
 
                 if (PlayerData.ship.inOrbit == false && PlayerData.ship.autoPilotActive == false &&
-                    Math.Tan(Math.Abs(PlayerData.ship.position.Y - planet.position.Y) / 
-                    Math.Abs(PlayerData.ship.position.X - planet.position.X)) <= planet.orbitDistance)
-                {
+                    Vector2.Distance(PlayerData.ship.position, planet.position) <= planet.orbitDistance)
                     PlayerData.ship.lastPlanet = planet;
-                }
             }
 
             oldKeyState = newKeyState;
@@ -58,6 +58,7 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
+            DrawBackground(gameTime, spritebatch, camera);
             DrawSprites(gameTime, spritebatch, camera);
 
             base.Draw(gameTime, spritebatch);
@@ -86,9 +87,13 @@ namespace BPA_RPG.Screens
             spritebatch.Begin();
         }
 
-        private void DebugPlanetEvent(object sender, EventArgs e)
+        private void DrawBackground(GameTime gameTime, SpriteBatch spritebatch, Camera camera)
         {
-
+            spritebatch.End();
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null, null, null);
+            starBackground.Draw(gameTime, spritebatch);
+            spritebatch.End();
+            spritebatch.Begin();
         }
     }
 }

@@ -18,7 +18,10 @@ namespace BPA_RPG.GameObjects
     {
         public Planet lastPlanet
         {
-            get { return LastPlanet; }
+            get
+            {
+                return LastPlanet;
+            }
             set
             {
                 LastPlanet = value;
@@ -32,6 +35,7 @@ namespace BPA_RPG.GameObjects
 
         public bool inOrbit;
         public bool autoPilotActive;
+        private double autoPilotTimer;
 
         public Vector2 velocity;
         public float speed;
@@ -47,7 +51,7 @@ namespace BPA_RPG.GameObjects
             baseShip = ship;
 
             velocity = new Vector2();
-            speed = 1f;
+            speed = 1.5f;
         }
 
         public override void Update(GameTime gameTime)
@@ -57,6 +61,10 @@ namespace BPA_RPG.GameObjects
             //Get angle to orbit planet
             if (inOrbit)
             {
+                //Reset speeds
+                speed = 1.5f;
+                rotSpeed = 0;
+
                 //Find angle to the target planet
                 double angleToPlanet = Math.Atan2(position.Y - lastPlanet.position.Y, position.X - lastPlanet.position.X);
 
@@ -70,9 +78,13 @@ namespace BPA_RPG.GameObjects
             }
             else if (autoPilotActive)
             {
+                autoPilotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-
-                autoPilotActive = false;
+                if (autoPilotTimer >= 4500)
+                {
+                    autoPilotTimer -= 4500;
+                    autoPilotActive = false;
+                }
             }
             else
             {
