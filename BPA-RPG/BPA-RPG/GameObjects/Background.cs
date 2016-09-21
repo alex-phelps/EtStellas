@@ -26,6 +26,9 @@ namespace BPA_RPG.GameObjects
         {
             scrollX = (int)(scroll.X * -speed);
             scrollY = (int)(scroll.Y * -speed);
+
+            scrollX %= texture.Width;
+            scrollY %= texture.Height;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
