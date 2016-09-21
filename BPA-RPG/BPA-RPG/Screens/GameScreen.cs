@@ -52,6 +52,8 @@ namespace BPA_RPG.Screens
                     PlayerData.ship.lastPlanet = planet;
             }
 
+            starBackground.Scroll(PlayerData.ship.position, .8f);
+
             oldKeyState = newKeyState;
             base.Update(gameTime);
         }
@@ -90,7 +92,7 @@ namespace BPA_RPG.Screens
         private void DrawBackground(GameTime gameTime, SpriteBatch spritebatch, Camera camera)
         {
             spritebatch.End();
-            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null, null, null);
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null, null);
             starBackground.Draw(gameTime, spritebatch);
             spritebatch.End();
             spritebatch.Begin();
