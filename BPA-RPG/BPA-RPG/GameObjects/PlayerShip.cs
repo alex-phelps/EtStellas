@@ -35,6 +35,7 @@ namespace BPA_RPG.GameObjects
 
         public bool inOrbit;
         public bool autoPilotActive;
+        private bool accelerating;
         private double autoPilotTimer;
 
         public Vector2 velocity;
@@ -70,6 +71,9 @@ namespace BPA_RPG.GameObjects
 
                 rotation = (float)(angleToPlanet + Math.PI);
 
+
+                // Check keyboard input
+
                 if (newKeyState.IsKeyDown(Keys.Space))
                 {
                     inOrbit = false;
@@ -78,6 +82,8 @@ namespace BPA_RPG.GameObjects
             }
             else if (autoPilotActive)
             {
+                // Wait 4.5 seconds until player is given control
+
                 autoPilotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
                 if (autoPilotTimer >= 4500)
@@ -88,11 +94,19 @@ namespace BPA_RPG.GameObjects
             }
             else
             {
+
+                //Keyboard input
+
                 if (newKeyState.IsKeyDown(Keys.W))
+                {
                     speed += accel;
+                    accelerating = true;
+                }
+                else accelerating = false;
 
                 if (newKeyState.IsKeyDown(Keys.S))
-                    speed -= accel;
+                    if (speed > 0)
+                        speed -= accel;
 
                 if (newKeyState.IsKeyDown(Keys.D))
                     rotSpeed += rotAccel;
@@ -100,12 +114,16 @@ namespace BPA_RPG.GameObjects
                 if (newKeyState.IsKeyDown(Keys.A))
                     rotSpeed -= rotAccel;
 
+                // Cap speed
+                if (speed > maxSpeed)
+                    speed = maxSpeed;
+
                 if (newKeyState.IsKeyUp(Keys.W) && newKeyState.IsKeyUp(Keys.S))
                 {
                     if (speed < -0.25f) // Not 0 here to fix any rounding errors
-                        speed += 0.025f;
+                        speed += 0.05f;
                     else if (speed > 0.25f) //Not 0 here to fix any rounding errors
-                        speed -= 0.025f;
+                        speed -= 0.05f;
                     else speed = 0;
                 }
                 if (newKeyState.IsKeyUp(Keys.A) && newKeyState.IsKeyUp(Keys.D))
@@ -133,6 +151,17 @@ namespace BPA_RPG.GameObjects
 
             oldKeyState = newKeyState;
             base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
+        {
+            // Draw right half of texture if idle, draw left half if accelerating
+            Rectangle source;
+            if (accelerating)
+                source = new Rectangle(texture.Width / 2, 0, texture.Width / 2, texture.Height);
+            else source = new Rectangle(0, 0, texture.Width / 2, texture.Height);
+
+            spritebatch.Draw(texture, position, source, Color.White, rotation, new Vector2(texture.Width / 4, texture.Height / 2), scale, SpriteEffects.None, 1);
         }
     }
 }

@@ -52,7 +52,7 @@ namespace BPA_RPG
         protected override void LoadContent()
         {
             //Define static ships
-            Ship.DebugShip = new Ship("Debug Ship", Content.Load<Texture2D>("Images/DebugShip"), 0.5f, 0.05f, 0.0008f, 0.0002f);
+            Ship.StarterShip = new Ship("Debug Ship", Content.Load<Texture2D>("Images/StarterShip"), 6f, 0.05f, 0.0008f, 0.0002f);
 
 
             //Define static planets
@@ -68,7 +68,7 @@ namespace BPA_RPG
 
             screenManager.Push(new MainMenuScreen());
 
-            PlayerData.ship = new PlayerShip(Ship.DebugShip);
+            PlayerData.ship = new PlayerShip(Ship.StarterShip);
 
             screenManager.LoadContent();
         }

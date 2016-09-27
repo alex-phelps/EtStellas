@@ -68,9 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\DebugPlanet.png" />
-    <Content Include="Content\Images\DebugShip.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\StarBackground.png" />
+    <Content Include="Content\Images\StarterShip.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
