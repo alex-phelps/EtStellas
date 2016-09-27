@@ -24,5 +24,11 @@ namespace BPA_RPG.GameObjects
         {
             this.name = name;
         }
+
+        public Planet(string name, Texture2D texture, Vector2 position) 
+            : this(name, texture)
+        {
+            this.position = position;
+        }
     }
 }

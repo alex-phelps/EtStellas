@@ -14,6 +14,7 @@ namespace BPA_RPG.Screens
     {
         private List<Planet> planets;
         private Background starBackground;
+        private Background starBackground2;
 
         private Camera camera;
         private KeyboardState oldKeyState;
@@ -31,6 +32,7 @@ namespace BPA_RPG.Screens
             PlayerData.ship.position = PlayerData.ship.lastPlanet.position - new Vector2(planets[0].orbitDistance, 0);
 
             starBackground = new Background(content.Load<Texture2D>("Images/StarBackground"));
+            starBackground2 = new Background(content.Load<Texture2D>("Images/StarBackground2"));
 
             base.LoadContent(content);
         }
@@ -47,12 +49,14 @@ namespace BPA_RPG.Screens
             {
                 planet.Update(gameTime);
 
+                //If player is within planet distance, set the player ship
                 if (PlayerData.ship.inOrbit == false && PlayerData.ship.autoPilotActive == false &&
                     Vector2.Distance(PlayerData.ship.position, planet.position) <= planet.orbitDistance)
                     PlayerData.ship.lastPlanet = planet;
             }
 
-            starBackground.Scroll(PlayerData.ship.position, .2f);
+            starBackground.Scroll(PlayerData.ship.position, .25f);
+            starBackground2.Scroll(PlayerData.ship.position, .28f);
 
             oldKeyState = newKeyState;
             base.Update(gameTime);
@@ -94,6 +98,7 @@ namespace BPA_RPG.Screens
             spritebatch.End();
             spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null, null);
             starBackground.Draw(gameTime, spritebatch);
+            starBackground2.Draw(gameTime, spritebatch);
             spritebatch.End();
             spritebatch.Begin();
         }

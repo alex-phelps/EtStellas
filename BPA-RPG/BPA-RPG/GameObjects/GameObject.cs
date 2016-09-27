@@ -97,6 +97,8 @@ namespace BPA_RPG.GameObjects
         {
             this.texture = texture;
             position = new Vector2(0, 0);
+
+            MainGame.eventLogger.Log(this, "Loaded");
         }
 
         /// <summary>

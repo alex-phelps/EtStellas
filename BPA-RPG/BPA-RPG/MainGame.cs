@@ -15,6 +15,7 @@ namespace BPA_RPG
     {
         public static int WindowWidth = 1024;
         public static int WindowHeight = 576;
+        public static EventLogger eventLogger;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -30,8 +31,6 @@ namespace BPA_RPG
             graphics.PreferredBackBufferWidth = WindowWidth;
             graphics.PreferredBackBufferHeight = WindowHeight;
             graphics.ApplyChanges();
-
-            screenManager = new ScreenManager(Content);
         }
 
         /// <summary>
@@ -51,26 +50,36 @@ namespace BPA_RPG
         /// </summary>
         protected override void LoadContent()
         {
+            //Create new EventLogger to log important events
+            eventLogger = new EventLogger();
+
             //Define static ships
-            Ship.StarterShip = new Ship("Debug Ship", Content.Load<Texture2D>("Images/StarterShip"), 6f, 0.05f, 0.0008f, 0.0002f);
+            Ship.StarterShip = new Ship("Starter Ship", Content.Load<Texture2D>("Images/StarterShip"), 7f, 0.05f, 0.025f, 0.0005f);
 
-
+            eventLogger.Log(this, "Finished loading static ships");
+            
             //Define static planets
             Planet.DebugPlanet = new Planet("Debug Planet", Content.Load<Texture2D>("Images/DebugPlanet"));
-            Planet.DebugPlanet2 = new Planet("Debug Planet 2", Content.Load<Texture2D>("Images/DebugPlanet"))
-            {
-                position = new Vector2(3000, 2000)
-            };
+            Planet.DebugPlanet2 = new Planet("Debug Planet 2", Content.Load<Texture2D>("Images/DebugPlanet"), new Vector2(3000, 2000));
 
+            eventLogger.Log(this, "Finished loading static planets");
 
-            // Create a new SpriteBatch, which can be used to draw textures.
+            //Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Create a new ScreenManager to handle different screens.
+            screenManager = new ScreenManager(Content);
+
+            //Create the Main Menu Screen
             screenManager.Push(new MainMenuScreen());
 
+            //Set default player ship
             PlayerData.ship = new PlayerShip(Ship.StarterShip);
 
+            //Load ScreenManager
             screenManager.LoadContent();
+
+            eventLogger.Log(this, "Done loading");
         }
 
         /// <summary>

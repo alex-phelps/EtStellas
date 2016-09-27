@@ -13,6 +13,7 @@ namespace BPA_RPG.GameItems
     {
         public GameItem()
         {
+            MainGame.eventLogger.Log(this, "Loaded");
         }
     }
 }

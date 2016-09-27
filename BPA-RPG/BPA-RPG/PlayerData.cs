@@ -16,11 +16,15 @@ namespace BPA_RPG
         public static void Save(string filename)
         {
 
+
+            MainGame.eventLogger.Log(typeof(PlayerData), "Saved Game to \"" + filename + "\"");
         }
 
         public static void Load(string filename)
         {
 
+
+            MainGame.eventLogger.Log(typeof(PlayerData), "Loaded \"" + filename + "\"");
         }
     }
 }

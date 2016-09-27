@@ -62,9 +62,10 @@ namespace BPA_RPG.GameObjects
             //Get angle to orbit planet
             if (inOrbit)
             {
-                //Reset speeds
+                //Reset values
                 speed = 1.5f;
                 rotSpeed = 0;
+                accelerating = true;
 
                 //Find angle to the target planet
                 double angleToPlanet = Math.Atan2(position.Y - lastPlanet.position.Y, position.X - lastPlanet.position.X);
@@ -114,24 +115,27 @@ namespace BPA_RPG.GameObjects
                 if (newKeyState.IsKeyDown(Keys.A))
                     rotSpeed -= rotAccel;
 
-                // Cap speed
+                // Cap speeds
                 if (speed > maxSpeed)
                     speed = maxSpeed;
+
+                if (rotSpeed > maxRotSpeed)
+                    rotSpeed = maxRotSpeed;
 
                 if (newKeyState.IsKeyUp(Keys.W) && newKeyState.IsKeyUp(Keys.S))
                 {
                     if (speed < -0.25f) // Not 0 here to fix any rounding errors
-                        speed += 0.05f;
+                        speed += 0.025f;
                     else if (speed > 0.25f) //Not 0 here to fix any rounding errors
-                        speed -= 0.05f;
+                        speed -= 0.025f;
                     else speed = 0;
                 }
                 if (newKeyState.IsKeyUp(Keys.A) && newKeyState.IsKeyUp(Keys.D))
                 {
                     if (rotSpeed < -0.05f) // Not 0 here to fix any rounding errors
-                        rotSpeed += 0.03f;
+                        rotSpeed += 0.005f;
                     else if (rotSpeed > 0.05f) //Not 0 here to fix any rounding errors
-                        rotSpeed -= 0.03f;
+                        rotSpeed -= 0.005f;
                     else rotSpeed = 0;
                 }
             }

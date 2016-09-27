@@ -32,6 +32,8 @@ namespace BPA_RPG.Screens
             foreach (Screen s in this.screens)
                 s.LoadContent(content);
             this.loaded = true;
+
+            MainGame.eventLogger.Log(this, "Loaded");
         }
 
         /// <summary>
