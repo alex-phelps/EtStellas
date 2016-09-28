@@ -59,8 +59,8 @@ namespace BPA_RPG
             eventLogger.Log(this, "Finished loading static ships");
             
             //Define static planets
-            Planet.DebugPlanet = new Planet("Debug Planet", Content.Load<Texture2D>("Images/DebugPlanet"));
-            Planet.DebugPlanet2 = new Planet("Debug Planet 2", Content.Load<Texture2D>("Images/DebugPlanet"), new Vector2(3000, 2000));
+            Planet.DebugPlanet = new Planet("Debug Planet", Content.Load<Texture2D>("Images/PlanetA"));
+            Planet.DebugPlanet2 = new Planet("Debug Planet 2", Content.Load<Texture2D>("Images/PlanetA"), new Vector2(3000, 2000));
 
             eventLogger.Log(this, "Finished loading static planets");
 

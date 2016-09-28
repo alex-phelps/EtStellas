@@ -121,6 +121,8 @@ namespace BPA_RPG.GameObjects
 
                 if (rotSpeed > maxRotSpeed)
                     rotSpeed = maxRotSpeed;
+                else if (rotSpeed < -maxRotSpeed)
+                    rotSpeed = -maxRotSpeed;
 
                 if (newKeyState.IsKeyUp(Keys.W) && newKeyState.IsKeyUp(Keys.S))
                 {
@@ -132,10 +134,10 @@ namespace BPA_RPG.GameObjects
                 }
                 if (newKeyState.IsKeyUp(Keys.A) && newKeyState.IsKeyUp(Keys.D))
                 {
-                    if (rotSpeed < -0.05f) // Not 0 here to fix any rounding errors
-                        rotSpeed += 0.005f;
-                    else if (rotSpeed > 0.05f) //Not 0 here to fix any rounding errors
-                        rotSpeed -= 0.005f;
+                    if (rotSpeed < -0.002f) // Not 0 here to fix any rounding errors
+                        rotSpeed += 0.001f;
+                    else if (rotSpeed > 0.002f) //Not 0 here to fix any rounding errors
+                        rotSpeed -= 0.001f;
                     else rotSpeed = 0;
                 }
             }

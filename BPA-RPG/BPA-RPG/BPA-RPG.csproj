@@ -85,6 +85,7 @@
   <ItemGroup>
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\MenuButton.png" />
+    <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />
     <Content Include="Content\Images\StarterShip.png" />
