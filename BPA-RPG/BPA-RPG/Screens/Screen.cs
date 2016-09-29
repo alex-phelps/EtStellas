@@ -23,7 +23,6 @@ namespace BPA_RPG.Screens
 
         public Screen()
         {
-            translucent = false;
         }
 
         /// <summary>

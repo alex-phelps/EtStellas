@@ -1,0 +1,10 @@
+﻿Text to print out
+
+[item1,item2]
+Choice 1 text
+{
+Choice 1.1 Text
+
+>
+
+}
