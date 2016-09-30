@@ -7,19 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BPA_RPG.Choice;
 
 namespace BPA_RPG.Screens
 {
     class PlanetScreen : Screen
     {
-        Planet planet;
+        private Planet planet;
+        private MenuChoice currentChoice;        
+
 
         public PlanetScreen(Planet planet)
         {
             this.planet = planet;
-
             translucent = true;
-
+            
+            LoadEvents();
         }
 
         public override void Update(GameTime gameTime)
@@ -46,7 +49,14 @@ namespace BPA_RPG.Screens
                 throw e;
             }
 
-            
+            //Loop through line for the choice
+            List<string> lines = new List<string>();
+            while (!file.EndOfStream)
+            {
+                lines.Add(file.ReadLine());
+            }
+
+            currentChoice = MenuChoice.CreateChoice(lines);
         }
     }
 }

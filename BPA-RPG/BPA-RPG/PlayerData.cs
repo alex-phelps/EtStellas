@@ -10,12 +10,13 @@ namespace BPA_RPG
 {
     static class PlayerData
     {
+        public static List<GameItem> inventory = new List<GameItem>();
         public static PlayerShip ship;
+        public static int credits;
 
 
         public static void Save(string filename)
         {
-
 
             MainGame.eventLogger.Log(typeof(PlayerData), "Saved Game to \"" + filename + "\"");
         }

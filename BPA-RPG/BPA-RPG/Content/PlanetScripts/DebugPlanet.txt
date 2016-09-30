@@ -1,10 +1,7 @@
-﻿Text to print out
+﻿blah blah
 
-[item1,item2]
-Choice 1 text
+Option
 {
-Choice 1.1 Text
-
->
-
+>Text
+credits 500
 }

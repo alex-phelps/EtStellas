@@ -57,7 +57,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MenuChoice.cs" />
+    <Compile Include="Choice\MenuChoice.cs" />
+    <Compile Include="Choice\ChoiceOption.cs" />
     <Compile Include="EventLogger.cs" />
     <Compile Include="GameItems\GameItem.cs" />
     <Compile Include="GameItems\Ship.cs" />
