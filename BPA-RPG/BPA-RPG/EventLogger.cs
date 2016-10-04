@@ -12,7 +12,7 @@ namespace BPA_RPG
             if (!Directory.Exists("Logs"))
                 Directory.CreateDirectory("Logs");
 
-            file = File.CreateText("Logs/" + string.Format("{0:yyyyMMddHHmmss}", DateTime.Now) + ".txt");
+            file = File.CreateText("Logs/log_" + string.Format("{0:yyyy-MM-dd_HH-mm-ss}", DateTime.Now) + ".txt");
         }
 
         public void Log(Type type, string log)

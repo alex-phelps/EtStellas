@@ -27,9 +27,7 @@ namespace BPA_RPG.Screens
             planets.Add(Planet.DebugPlanet);
             planets.Add(Planet.DebugPlanet2);
             
-            PlayerData.ship.lastPlanet = planets[0];
-            PlayerData.ship.inOrbit = true;
-            PlayerData.ship.position = PlayerData.ship.lastPlanet.position - new Vector2(planets[0].orbitDistance, 0);
+            PlayerData.ship.position = planets[0].position - new Vector2(planets[0].orbitDistance - 1, 0);
 
             starBackground = new Background(content.Load<Texture2D>("Images/StarBackground"));
             starBackground2 = new Background(content.Load<Texture2D>("Images/StarBackground2"));
@@ -52,7 +50,10 @@ namespace BPA_RPG.Screens
                 //If player is within planet distance, set the player ship
                 if (PlayerData.ship.inOrbit == false && PlayerData.ship.autoPilotActive == false &&
                     Vector2.Distance(PlayerData.ship.position, planet.position) <= planet.orbitDistance)
+                {
                     PlayerData.ship.lastPlanet = planet;
+                    manager.Push(new PlanetScreen(planet));
+                }
             }
 
             starBackground.Scroll(PlayerData.ship.position, .25f);

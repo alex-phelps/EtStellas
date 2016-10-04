@@ -16,7 +16,7 @@ namespace BPA_RPG.GameObjects
         public Background(Texture2D texture) 
             : base(texture)
         {
-            position = new Vector2(MainGame.WindowWidth / 2, MainGame.WindowHeight / 2);
+            position = MainGame.WindowCenter;
 
             scrollX = 0;
             scrollY = 0;

@@ -15,6 +15,7 @@ namespace BPA_RPG
     {
         public static int WindowWidth = 1024;
         public static int WindowHeight = 576;
+        public static Vector2 WindowCenter => new Vector2(WindowWidth / 2, WindowHeight / 2);
         public static EventLogger eventLogger;
 
         private GraphicsDeviceManager graphics;

@@ -25,7 +25,7 @@ namespace BPA_RPG.Choice
         /// </summary>
         /// <param name="lines">Lines of text that represent a choice</param>
         /// <returns></returns>
-        public static MenuChoice CreateChoice(List<string> lines)
+        public static MenuChoice ChoiceFromText(List<string> lines)
         {
             int lineNum = 0;
             bool endOfLine = false;
@@ -38,7 +38,7 @@ namespace BPA_RPG.Choice
                 synopsis.Add(lines[lineNum]);
                 lineNum++;
 
-                if (lineNum > lines.Count)
+                if (lineNum >= lines.Count)
                     endOfLine = true;
             }
             lineNum += 2;
@@ -52,7 +52,7 @@ namespace BPA_RPG.Choice
                     optionLines.Add(lines[lineNum]);
                     lineNum++;
 
-                    if (lineNum > lines.Count)
+                    if (lineNum >= lines.Count)
                         endOfLine = true;
                 }
                 lineNum++;
@@ -61,7 +61,7 @@ namespace BPA_RPG.Choice
                 if (!endOfLine)
                     options.Add(ChoiceOption.OptionFromText(optionLines));
 
-                if (lineNum > lines.Count)
+                if (lineNum >= lines.Count)
                     endOfLine = true;
             }
 

@@ -1,7 +1,8 @@
-﻿blah blah
+﻿
+blah blah
 
-Option
+choice
 {
->Text
+> Text
 credits 500
 }

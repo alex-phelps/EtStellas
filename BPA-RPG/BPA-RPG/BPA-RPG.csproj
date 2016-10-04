@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Choice\MenuChoice.cs" />
     <Compile Include="Choice\ChoiceOption.cs" />
+    <Compile Include="DrawableString.cs" />
     <Compile Include="EventLogger.cs" />
     <Compile Include="GameItems\GameItem.cs" />
     <Compile Include="GameItems\Ship.cs" />
@@ -90,10 +91,12 @@
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
+    <Content Include="Content\Images\PlanetMenu.png" />
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />
     <Content Include="Content\Images\StarterShip.png" />
     <Content Include="Content\PlanetScripts\DebugPlanet.txt" />
+    <Content Include="Content\PlanetScripts\Script Syntax.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Content\Fonts\ChoiceFont.spritefont" />
     <None Include="Content\Fonts\MenuButtonFont.spritefont" />
   </ItemGroup>
   <ItemGroup>

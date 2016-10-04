@@ -1,0 +1,17 @@
+﻿synopsis
+synopsis
+synopsis
+choice //starts a choice
+{
+>choice text
+// choice methods
+credits 500 //adds 500 credits to player's bank
+get item // gives player an item
+remove item // removes an item from the player
+
+choice // nested choices
+{
+//stuff
+}
+
+} // ends choice

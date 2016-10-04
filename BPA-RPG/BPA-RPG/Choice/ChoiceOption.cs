@@ -75,35 +75,11 @@ namespace BPA_RPG.Choice
                     case "remove":
                         actions.Add(() => RemoveItem(lineParts[1]));
                         break;
-
-                    case "option":
-                        lineNum++;
-
-                        if (lineNum > lines.Count)
-                            endOfLine = true;
-
-                        List<string> optionLines = new List<string>();
-                        while (!lines[lineNum].StartsWith("}") && !endOfLine)
-                        {
-                            optionLines.Add(lines[lineNum]);
-                            lineNum++;
-
-                            if (lineNum > lines.Count)
-                                endOfLine = true;
-                        }
-                        lineNum++;
-
-                        //Creates a choice unless there was some error and syntax was not fully completed
-                        if (!endOfLine)
-                            actions.Add(() => OptionFromText(optionLines));
-
-                        if (lineNum > lines.Count)
-                            endOfLine = true;
-
-                        break;
                 }
 
                 lineNum++;
+                if (lineNum >= lines.Count)
+                    endOfLine = true;
             }
 
             return new ChoiceOption(synopsis, actions);
