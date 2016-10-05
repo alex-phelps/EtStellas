@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BPA_RPG.Screens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,11 @@ namespace BPA_RPG.Choice
     {
         public List<string> synopsis { get; private set; }
         public List<ChoiceOption> options { get; private set; }
+        private MenuChoiceScreen screen;
 
-        public MenuChoice(List<string> synopsis, List<ChoiceOption> options)
+        public MenuChoice(MenuChoiceScreen screen, List<string> synopsis, List<ChoiceOption> options)
         {
+            this.screen = screen;
             this.synopsis = synopsis;
             this.options = options;
         }
@@ -25,7 +28,7 @@ namespace BPA_RPG.Choice
         /// </summary>
         /// <param name="lines">Lines of text that represent a choice</param>
         /// <returns></returns>
-        public static MenuChoice ChoiceFromText(List<string> lines)
+        public static MenuChoice ChoiceFromText(MenuChoiceScreen screen, List<string> lines)
         {
             int lineNum = 0;
             bool endOfLine = false;
@@ -33,7 +36,7 @@ namespace BPA_RPG.Choice
             List<ChoiceOption> options = new List<ChoiceOption>();
 
             //Loop through lines that make up the Choice synopsis
-            while (!lines[lineNum].ToLower().StartsWith("option") && !endOfLine)
+            while (!endOfLine && !lines[lineNum].ToLower().StartsWith(">"))
             {
                 synopsis.Add(lines[lineNum]);
                 lineNum++;
@@ -42,33 +45,36 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            //Loop through the choices for this option
+            //Loop through the options for this choice
             while (!endOfLine)
             {
                 List<string> optionLines = new List<string>();
+                optionLines.Add(lines[lineNum]);
+                lineNum++;
 
-                if (lines[lineNum].ToLower().StartsWith("option") && !endOfLine)
-                    lineNum += 2;
+                bool inNewChoice = false;
 
-                while (!lines[lineNum].StartsWith("}") && !endOfLine)
+                while (!endOfLine && (!lines[lineNum].StartsWith(">") || inNewChoice))
                 {
+                    if (lines[lineNum].StartsWith("choice"))
+                        inNewChoice = true;
+                    else if (lines[lineNum].StartsWith("}"))
+                        inNewChoice = false;
+
                     optionLines.Add(lines[lineNum]);
                     lineNum++;
 
                     if (lineNum >= lines.Count)
                         endOfLine = true;
                 }
-                lineNum++;
-
-                //Creates a choice unless there was some error and syntax was not fully completed
-                if (!endOfLine)
-                    options.Add(ChoiceOption.OptionFromText(optionLines));
+                
+                options.Add(ChoiceOption.OptionFromText(screen, optionLines));
 
                 if (lineNum >= lines.Count)
                     endOfLine = true;
             }
 
-            return new MenuChoice(synopsis, options);
+            return new MenuChoice(screen, synopsis, options);
         }
     }
 }

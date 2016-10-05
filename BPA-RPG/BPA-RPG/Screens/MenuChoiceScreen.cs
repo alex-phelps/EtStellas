@@ -1,10 +1,6 @@
-﻿using BPA_RPG.GameObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.Choice;
@@ -13,10 +9,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BPA_RPG.Screens
 {
-    public class PlanetScreen : Screen
+    public class MenuChoiceScreen : Screen
     {
         private MenuChoice CurrentChoice;
-        private MenuChoice currentChoice
+        public MenuChoice currentChoice
         {
             get
             {
@@ -37,34 +33,28 @@ namespace BPA_RPG.Screens
 
                 for (int i = 0; i < value.options.Count; i++)
                 {
-                    string optionSynopsis = "";
-                    foreach (string line in value.options[i].synopsis)
-                    {
-                        optionSynopsis += line + "\n";
-                    }
-
-                    options.Add(new DrawableString(choiceFont, optionSynopsis, synopsis.position + new Vector2(0, synopsis.boundingRectangle.Y + 30 + 40 * i), Color.White));
+                    options.Add(new DrawableString(choiceFont, value.options[i].synopsis, synopsis.position + new Vector2(0, synopsis.boundingRectangle.Y + 30 + 40 * i), Color.White));
                 }
             }
         }
 
-        private Planet planet;
+        private string scriptName;
         private DrawableString synopsis;
         private List<DrawableString> options;
         private SpriteFont choiceFont;
-        private Texture2D planetMenu;
+        private Texture2D choiceMenu;
         private MouseState oldMouseState;
 
-        public PlanetScreen(Planet planet)
+        public MenuChoiceScreen(string scriptName)
         {
-            this.planet = planet;
+            this.scriptName = scriptName;
             translucent = true;
         }
 
         public override void LoadContent(ContentManager content)
         {
             choiceFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
-            planetMenu = content.Load<Texture2D>("Images/PlanetMenu");
+            choiceMenu = content.Load<Texture2D>("Images/ChoiceMenu");
 
             LoadEvents();
 
@@ -92,7 +82,7 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
-            spritebatch.Draw(planetMenu, MainGame.WindowCenter, new Rectangle(0, 0, planetMenu.Width, planetMenu.Height), Color.White, 0, new Vector2(planetMenu.Width / 2, planetMenu.Height / 2), 1, SpriteEffects.None, 1);
+            spritebatch.Draw(choiceMenu, MainGame.WindowCenter, new Rectangle(0, 0, choiceMenu.Width, choiceMenu.Height), Color.White, 0, new Vector2(choiceMenu.Width / 2, choiceMenu.Height / 2), 1, SpriteEffects.None, 1);
 
             synopsis.Draw(spritebatch, gameTime);
             foreach (DrawableString option in options)
@@ -112,7 +102,7 @@ namespace BPA_RPG.Screens
             {
                 StreamReader file;
 
-                file = File.OpenText("Content/PlanetScripts/" + planet.name.Replace(" ", "") + ".txt");
+                file = File.OpenText("Content/Scripts/" + scriptName + ".txt");
 
                 //Loop through line for the choice
                 List<string> lines = new List<string>();
@@ -121,7 +111,7 @@ namespace BPA_RPG.Screens
                     lines.Add(file.ReadLine());
                 }
 
-                currentChoice = MenuChoice.ChoiceFromText(lines);
+                currentChoice = MenuChoice.ChoiceFromText(this, lines);
             }
             catch (Exception e)
             {

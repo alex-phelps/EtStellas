@@ -1,4 +1,5 @@
 ﻿using BPA_RPG.GameItems;
+using BPA_RPG.Screens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,13 @@ namespace BPA_RPG.Choice
     /// </summary>
     public class ChoiceOption
     {
-        public List<string> synopsis { get; private set; }
+        public string synopsis { get; private set; }
         private List<Action> actions;
+        private MenuChoiceScreen screen;
 
-        public ChoiceOption(List<string> synopsis, List<Action> actions)
+        public ChoiceOption(MenuChoiceScreen screen, string synopsis, List<Action> actions)
         {
+            this.screen = screen;
             this.synopsis = synopsis;
             this.actions = actions;
         }
@@ -36,22 +39,18 @@ namespace BPA_RPG.Choice
         /// </summary>
         /// <param name="lines">Lines of text that represent an option</param>
         /// <returns></returns>
-        public static ChoiceOption OptionFromText(List<string> lines)
+        public static ChoiceOption OptionFromText(MenuChoiceScreen screen, List<string> lines)
         {
             int lineNum = 0;
             bool endOfLine = false;
-            List<string> synopsis = new List<string>();
+            string synopsis;
             List<Action> actions = new List<Action>();
 
-            //Loop through synopsis lines
-            while (lines[lineNum].StartsWith(">") && !endOfLine)
-            {
-                synopsis.Add(lines[lineNum]);
-                lineNum++;
+            synopsis = lines[lineNum];
+            lineNum++;
 
-                if (lineNum > lines.Count)
-                    endOfLine = true;
-            }
+            if (lineNum >= lines.Count)
+                endOfLine = true;
 
             //Loop through action lines
             while (!endOfLine)
@@ -75,6 +74,27 @@ namespace BPA_RPG.Choice
                     case "remove":
                         actions.Add(() => RemoveItem(lineParts[1]));
                         break;
+                    case "choice":
+                        lineNum += 2;
+
+                        if (lineNum >= lines.Count)
+                            endOfLine = true;
+
+                        List<string> choiceLines = new List<string>();
+
+                        while (!endOfLine && !lines[lineNum].StartsWith("]"))
+                        {
+                            choiceLines.Add(lines[lineNum]);
+                            lineNum++;
+
+                            if (lineNum >= lines.Count)
+                                endOfLine = true;
+                        }
+                        lineNum++;
+
+                        actions.Add(() => screen.currentChoice = MenuChoice.ChoiceFromText(screen, choiceLines));
+
+                        break;
                 }
 
                 lineNum++;
@@ -82,7 +102,7 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new ChoiceOption(synopsis, actions);
+            return new ChoiceOption(screen, synopsis, actions);
         }
 
         /// <summary>

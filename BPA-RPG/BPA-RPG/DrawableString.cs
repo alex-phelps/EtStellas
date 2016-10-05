@@ -21,8 +21,7 @@ namespace BPA_RPG
             {
                 Vector2 size = font.MeasureString(text);
 
-                return new Rectangle((int)position.X, (int)position.Y,
-                    (int)size.X, (int)size.Y);
+                return new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             }
         }
 

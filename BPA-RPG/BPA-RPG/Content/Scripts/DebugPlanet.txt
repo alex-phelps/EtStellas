@@ -1,0 +1,11 @@
+﻿blah
+> Text 1
+credits 500
+choice
+{
+blah blah
+> Text 1.2
+credits 400
+}
+> Text 2
+credits -500

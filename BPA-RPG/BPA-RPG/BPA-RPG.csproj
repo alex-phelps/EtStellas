@@ -75,7 +75,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
-    <Compile Include="Screens\PlanetScreen.cs" />
+    <Compile Include="Screens\MenuChoiceScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
   </ItemGroup>
@@ -91,12 +91,12 @@
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
-    <Content Include="Content\Images\PlanetMenu.png" />
+    <Content Include="Content\Images\ChoiceMenu.png" />
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />
     <Content Include="Content\Images\StarterShip.png" />
-    <Content Include="Content\PlanetScripts\DebugPlanet.txt" />
-    <Content Include="Content\PlanetScripts\Script Syntax.txt" />
+    <Content Include="Content\Scripts\DebugPlanet.txt" />
+    <Content Include="Content\Scripts\Script Syntax.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
