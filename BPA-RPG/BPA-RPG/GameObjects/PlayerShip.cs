@@ -14,7 +14,7 @@ namespace BPA_RPG.GameObjects
     /// <summary>
     /// Represents the player's specific ship
     /// </summary>
-    class PlayerShip : GameObject
+    public class PlayerShip : GameObject
     {
         public Planet lastPlanet
         {

@@ -33,7 +33,7 @@ namespace BPA_RPG.Choice
             List<ChoiceOption> options = new List<ChoiceOption>();
 
             //Loop through lines that make up the Choice synopsis
-            while (!lines[lineNum].ToLower().StartsWith("choice") && !endOfLine)
+            while (!lines[lineNum].ToLower().StartsWith("option") && !endOfLine)
             {
                 synopsis.Add(lines[lineNum]);
                 lineNum++;
@@ -41,12 +41,15 @@ namespace BPA_RPG.Choice
                 if (lineNum >= lines.Count)
                     endOfLine = true;
             }
-            lineNum += 2;
 
             //Loop through the choices for this option
             while (!endOfLine)
             {
                 List<string> optionLines = new List<string>();
+
+                if (lines[lineNum].ToLower().StartsWith("option") && !endOfLine)
+                    lineNum += 2;
+
                 while (!lines[lineNum].StartsWith("}") && !endOfLine)
                 {
                     optionLines.Add(lines[lineNum]);

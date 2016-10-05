@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BPA_RPG.GameItems
 {
-    class GameItem
+    public class GameItem
     {
         public GameItem()
         {

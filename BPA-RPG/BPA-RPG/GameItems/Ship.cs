@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BPA_RPG.GameItems
 {
-    class Ship : GameItem
+    public class Ship : GameItem
     {
         //Static ships
         public static Ship StarterShip;

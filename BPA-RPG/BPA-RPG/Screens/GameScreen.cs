@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BPA_RPG.Screens
 {
-    class GameScreen : Screen
+    public class GameScreen : Screen
     {
         private List<Planet> planets;
         private Background starBackground;

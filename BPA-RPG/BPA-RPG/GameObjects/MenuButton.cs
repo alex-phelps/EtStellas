@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BPA_RPG.GameObjects
 {
-    class MenuButton : GameObject
+    public class MenuButton : GameObject
     {
         private EventHandler buttonEvent;
         private MouseState oldMouseState;

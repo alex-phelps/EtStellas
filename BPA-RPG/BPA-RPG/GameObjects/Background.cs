@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace BPA_RPG.GameObjects
 {
-    class Background : GameObject
+    public class Background : GameObject
     {
         private int scrollX;
         private int scrollY;

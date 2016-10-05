@@ -9,7 +9,7 @@ using BPA_RPG.GameObjects;
 
 namespace BPA_RPG.Screens
 {
-    class MainMenuScreen : Screen
+    public class MainMenuScreen : Screen
     {
         private List<MenuButton> buttons;
 

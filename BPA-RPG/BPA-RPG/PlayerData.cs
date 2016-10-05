@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BPA_RPG
 {
-    static class PlayerData
+    public static class PlayerData
     {
         public static List<GameItem> inventory = new List<GameItem>();
         public static PlayerShip ship;

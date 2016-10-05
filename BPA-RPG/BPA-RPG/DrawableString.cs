@@ -28,8 +28,10 @@ namespace BPA_RPG
 
         public DrawableString(SpriteFont font, string text, Vector2 position, Color color)
         {
+            this.font = font;
             this.text = text;
             this.position = position;
+            this.color = color;
         }
 
         public DrawableString(SpriteFont font, string text)

@@ -9,10 +9,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.Choice;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace BPA_RPG.Screens
 {
-    class PlanetScreen : Screen
+    public class PlanetScreen : Screen
     {
         private MenuChoice CurrentChoice;
         private MenuChoice currentChoice
@@ -26,7 +27,7 @@ namespace BPA_RPG.Screens
             {
                 CurrentChoice = value;
 
-                synopsis = new DrawableString(choiceFont, "", new Vector2(300, 150), Color.White);
+                synopsis = new DrawableString(choiceFont, "", new Vector2(250, 100), Color.White);
                 options = new List<DrawableString>();
 
                 foreach (string line in value.synopsis)
@@ -42,7 +43,7 @@ namespace BPA_RPG.Screens
                         optionSynopsis += line + "\n";
                     }
 
-                    options.Add(new DrawableString(choiceFont, optionSynopsis, synopsis.position + new Vector2(0, synopsis.boundingRectangle.Y + 50 + 20 * i), Color.White));
+                    options.Add(new DrawableString(choiceFont, optionSynopsis, synopsis.position + new Vector2(0, synopsis.boundingRectangle.Y + 30 + 40 * i), Color.White));
                 }
             }
         }
@@ -50,9 +51,9 @@ namespace BPA_RPG.Screens
         private Planet planet;
         private DrawableString synopsis;
         private List<DrawableString> options;
-
         private SpriteFont choiceFont;
         private Texture2D planetMenu;
+        private MouseState oldMouseState;
 
         public PlanetScreen(Planet planet)
         {
@@ -72,10 +73,19 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (Microsoft.Xna.Framework.Input.Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter))
+            MouseState newMouseState = Mouse.GetState();
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 manager.Pop();
             }
+
+            for (int i = 0; i < options.Count; i++)
+                if (options[i].boundingRectangle.Contains(newMouseState.Position) &&
+                    newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                    currentChoice.options[i].Activate();
+
+            oldMouseState = newMouseState;
 
             base.Update(gameTime);
         }
@@ -84,29 +94,34 @@ namespace BPA_RPG.Screens
         {
             spritebatch.Draw(planetMenu, MainGame.WindowCenter, new Rectangle(0, 0, planetMenu.Width, planetMenu.Height), Color.White, 0, new Vector2(planetMenu.Width / 2, planetMenu.Height / 2), 1, SpriteEffects.None, 1);
 
-            
+            synopsis.Draw(spritebatch, gameTime);
+            foreach (DrawableString option in options)
+            {
+                option.Draw(spritebatch, gameTime);
+            }
 
             base.Draw(gameTime, spritebatch);
         }
 
+        /// <summary>
+        /// Loads the dedicated script for this screen's planet.
+        /// </summary>
         private void LoadEvents()
         {
-            StreamReader file;
-
-            file = File.OpenText("Content/PlanetScripts/" + planet.name.Replace(" ", "") + ".txt");
-
-            //Loop through line for the choice
-            List<string> lines = new List<string>();
-            while (!file.EndOfStream)
-            {
-                lines.Add(file.ReadLine());
-            }
-
-            currentChoice = MenuChoice.ChoiceFromText(lines);
-
             try
             {
-                
+                StreamReader file;
+
+                file = File.OpenText("Content/PlanetScripts/" + planet.name.Replace(" ", "") + ".txt");
+
+                //Loop through line for the choice
+                List<string> lines = new List<string>();
+                while (!file.EndOfStream)
+                {
+                    lines.Add(file.ReadLine());
+                }
+
+                currentChoice = MenuChoice.ChoiceFromText(lines);
             }
             catch (Exception e)
             {

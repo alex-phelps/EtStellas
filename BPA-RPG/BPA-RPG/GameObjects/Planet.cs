@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BPA_RPG.GameObjects
 {
-    class Planet : GameObject
+    public class Planet : GameObject
     {
         //Static planets
         public static Planet DebugPlanet;

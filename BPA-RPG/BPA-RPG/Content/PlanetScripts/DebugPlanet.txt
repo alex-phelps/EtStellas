@@ -1,8 +1,13 @@
 ﻿
 blah blah
 
-choice
+option
 {
 > Text
 credits 500
+}
+option
+{
+> Text 2
+credits -200
 }
