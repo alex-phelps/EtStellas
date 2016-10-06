@@ -11,8 +11,12 @@ namespace BPA_RPG.GameItems
 {
     public class GameItem
     {
-        public GameItem()
+        public string name { get; protected set; }
+
+        public GameItem(string name)
         {
+            this.name = name;
+
             MainGame.eventLogger.Log(this, "Loaded");
         }
     }

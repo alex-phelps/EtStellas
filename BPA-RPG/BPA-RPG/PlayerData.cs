@@ -23,6 +23,7 @@ namespace BPA_RPG
                 MainGame.eventLogger.Log(typeof(PlayerData), "Player ship = " + Ship);
             }
         }
+
         private static int Credits;
         public static int credits
         {
@@ -42,7 +43,7 @@ namespace BPA_RPG
         /// <summary>
         /// Saves player data to file
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">Save location</param>
         public static void Save(string filename)
         {
 
@@ -52,7 +53,7 @@ namespace BPA_RPG
         /// <summary>
         /// Saves player data to file
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">Load file location</param>
         public static void Load(string filename)
         {
 

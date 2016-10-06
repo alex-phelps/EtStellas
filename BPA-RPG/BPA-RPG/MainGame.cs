@@ -99,10 +99,6 @@ namespace BPA_RPG
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-
             screenManager.Update(gameTime);
 
             base.Update(gameTime);

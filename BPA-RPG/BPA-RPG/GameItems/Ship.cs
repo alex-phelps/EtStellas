@@ -13,9 +13,7 @@ namespace BPA_RPG.GameItems
         //Static ships
         public static Ship StarterShip;
 
-
-
-        public string name { get; private set; }
+        
         public Texture2D texture { get; private set; }
         public float maxSpeed { get; private set; }
         public float accel { get; private set; }
@@ -23,9 +21,8 @@ namespace BPA_RPG.GameItems
         public float rotAccel { get; private set; }
 
         public Ship(string name, Texture2D texture, float maxSpeed, float accel, float maxRotSpeed, float rotAccel) 
-            : base()
+            : base(name)
         {
-            this.name = name;
             this.texture = texture;
             this.maxSpeed = maxSpeed;
             this.accel = accel;

@@ -23,7 +23,7 @@ namespace BPA_RPG.Screens
             {
                 CurrentChoice = value;
 
-                synopsis = new DrawableString(choiceFont, "", new Vector2(250, 100), Color.White);
+                synopsis = new DrawableString(choiceFont, "", new Vector2(250, 115), Color.White);
                 options = new List<DrawableString>();
 
                 foreach (string line in value.synopsis)
@@ -33,7 +33,7 @@ namespace BPA_RPG.Screens
 
                 for (int i = 0; i < value.options.Count; i++)
                 {
-                    options.Add(new DrawableString(choiceFont, value.options[i].synopsis, synopsis.position + new Vector2(0, synopsis.boundingRectangle.Y + 30 + 40 * i), Color.White));
+                    options.Add(new DrawableString(choiceFont, value.options[i].synopsis, synopsis.position + new Vector2(0, synopsis.boundingRectangle.Height + 40 + 30 * i), Color.White));
                 }
             }
         }
