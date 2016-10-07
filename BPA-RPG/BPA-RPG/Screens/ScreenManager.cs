@@ -29,9 +29,9 @@ namespace BPA_RPG.Screens
         /// </summary>
         public void LoadContent()
         {
-            foreach (Screen s in this.screens)
+            foreach (Screen s in screens)
                 s.LoadContent(content);
-            this.loaded = true;
+            loaded = true;
 
             MainGame.eventLogger.Log(this, "Loaded");
         }
@@ -52,7 +52,7 @@ namespace BPA_RPG.Screens
         public void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
             List<Screen> visible = new List<Screen>();
-            foreach (Screen s in this.screens)
+            foreach (Screen s in screens)
             {
                 visible.Add(s);
                 if (!s.translucent)
@@ -72,11 +72,11 @@ namespace BPA_RPG.Screens
         public void Push(Screen screen)
         {
             screen.manager = this;
-            if (!screen.loaded && this.loaded)
+            if (!screen.loaded && loaded)
                 screen.LoadContent(content);
-            if (this.Peek() != null)
-                this.Peek().Deactivated();
-            this.screens.Push(screen);
+            if (Peek() != null)
+                Peek().Deactivated();
+            screens.Push(screen);
         }
 
         /// <summary>
@@ -85,9 +85,9 @@ namespace BPA_RPG.Screens
         /// <returns>The active screen.</returns>
         public Screen Peek()
         {
-            if (this.screens.Count < 1)
+            if (screens.Count < 1)
                 return null;
-            return this.screens.Peek();
+            return screens.Peek();
         }
 
         /// <summary>
@@ -96,11 +96,11 @@ namespace BPA_RPG.Screens
         /// <returns>The removed screen.</returns>
         public Screen Pop()
         {
-            if (this.screens.Count < 1)
+            if (screens.Count < 1)
                 return null;
-            Screen prev = this.screens.Pop();
-            if (this.Peek() != null)
-                this.Peek().Activated();
+            Screen prev = screens.Pop();
+            if (Peek() != null)
+                Peek().Activated();
             return prev;
         }
     }

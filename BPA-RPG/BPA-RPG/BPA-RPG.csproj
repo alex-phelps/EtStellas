@@ -78,6 +78,7 @@
     <Compile Include="Screens\MenuChoiceScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
+    <Compile Include="Screens\TabManuScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

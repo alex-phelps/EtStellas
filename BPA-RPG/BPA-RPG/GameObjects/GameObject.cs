@@ -9,6 +9,7 @@ namespace BPA_RPG.GameObjects
     /// </summary>
     public class GameObject
     {
+        private Texture2D Texture;
         public Texture2D texture
         {
             get
@@ -29,20 +30,19 @@ namespace BPA_RPG.GameObjects
             }
 
         }
+
         public Vector2 position;
         public float rotation = 0;
         public float scale = 1;
         public bool visible = true;
 
-        private Texture2D Texture;
-
-        public int Width { get; protected set; }
-        public int Height { get; protected set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
         /// <summary>
         /// Color data for the pixels of this objects image
         /// </summary>
-        public Color[] colorData;
+        public Color[] colorData { get; private set; }
 
         /// <summary>
         /// Matrix that represents all the transformations done on the object

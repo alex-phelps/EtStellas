@@ -38,7 +38,8 @@ namespace BPA_RPG.Screens
             }
         }
 
-        private string scriptName;
+        private readonly string scriptName;
+
         private DrawableString synopsis;
         private List<DrawableString> options;
         private SpriteFont choiceFont;
@@ -71,9 +72,14 @@ namespace BPA_RPG.Screens
             }
 
             for (int i = 0; i < options.Count; i++)
-                if (options[i].boundingRectangle.Contains(newMouseState.Position) &&
-                    newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
-                    currentChoice.options[i].Activate();
+                if (options[i].boundingRectangle.Contains(newMouseState.Position))
+                {
+                    options[i].color = new Color(0, 60, 255);
+                    if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                        currentChoice.options[i].Activate();
+                }
+                else options[i].color = Color.White;
+                                
 
             oldMouseState = newMouseState;
 

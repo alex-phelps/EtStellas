@@ -5,7 +5,7 @@ namespace BPA_RPG
 {
     public class EventLogger
     {
-        StreamWriter file;
+        private readonly StreamWriter file;
 
         public EventLogger()
         {
