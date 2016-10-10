@@ -38,6 +38,7 @@ namespace BPA_RPG.GameObjects
         private bool accelerating;
         private double autoPilotTimer;
 
+        public string name => baseShip.name;
         public Vector2 velocity;
         public float speed;
         public float accel => baseShip.accel;

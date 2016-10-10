@@ -21,8 +21,14 @@ namespace BPA_RPG.Screens
         public ScreenManager manager { get; set; }
         public bool loaded { get; private set; }
 
-        public Screen()
+        /// <summary>
+        /// Title name of this screen
+        /// </summary>
+        public readonly string title;
+
+        public Screen(string title)
         {
+            this.title = title;
         }
 
         /// <summary>

@@ -1,13 +1,15 @@
 ﻿using BPA_RPG.GameItems;
 using BPA_RPG.GameObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BPA_RPG
 {
+    public enum Currency
+    {
+        credits,
+        jex
+    }
+
     public static class PlayerData
     {
         private static PlayerShip Ship;
@@ -20,7 +22,7 @@ namespace BPA_RPG
             set
             {
                 Ship = value;
-                MainGame.eventLogger.Log(typeof(PlayerData), "Player ship = " + Ship);
+                MainGame.eventLogger.Log(typeof(PlayerData), "Player ship = " + Ship.name);
             }
         }
 
@@ -35,6 +37,20 @@ namespace BPA_RPG
             {
                 Credits = value;
                 MainGame.eventLogger.Log(typeof(PlayerData), "Player credits = " + Credits);
+            }
+        }
+
+        private static int Jex;
+        public static int jex
+        {
+            get
+            {
+                return Jex;
+            }
+            set
+            {
+                Credits = value;
+                MainGame.eventLogger.Log(typeof(PlayerData), "Player jex = " + Jex);
             }
         }
 

@@ -12,14 +12,38 @@ namespace BPA_RPG.GameItems
 {
     public class GameItem : GameObject
     {
+        //Static items
+        public static GameItem Fuel { get; private set; }
+
+
         public readonly string name;
 
-        public GameItem(string name, Texture2D texture)
+        protected GameItem(string name, Texture2D texture)
             : base(texture)
         {
             this.name = name;
 
-            MainGame.eventLogger.Log(this, "Loaded");
+            MainGame.eventLogger.Log(this, "Loaded " + name);
+        }
+
+        public static void LoadContent(ContentManager content)
+        {
+            MainGame.eventLogger.Log(typeof(GameItem), "Begin loading game items.");
+
+            Fuel = new GameItem("Fuel", content.Load<Texture2D>("Images/DebugTexture"));
+
+            MainGame.eventLogger.Log(typeof(GameItem), "Finished loading game items.");
+        }
+
+        public static GameItem ItemFromText(string line)
+        {
+            switch (line.ToLower())
+            {
+                case "fuel":
+                    return Fuel;
+                default:
+                    return Fuel;
+            }
         }
     }
 }

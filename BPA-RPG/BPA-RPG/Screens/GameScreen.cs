@@ -19,6 +19,11 @@ namespace BPA_RPG.Screens
         private Camera camera;
         private KeyboardState oldKeyState;
 
+        public GameScreen()
+            : base("Game")
+        {
+        }
+
         public override void LoadContent(ContentManager content)
         {
             camera = new Camera();
@@ -52,7 +57,10 @@ namespace BPA_RPG.Screens
                     Vector2.Distance(PlayerData.ship.position, planet.position) <= planet.orbitDistance)
                 {
                     PlayerData.ship.lastPlanet = planet;
-                    manager.Push(new MenuChoiceScreen(planet.name.Replace(" ", "")));
+                    manager.Push(new TabManuScreen(
+                        new MenuChoiceScreen(planet.name, planet.name.Replace(" ", "")),
+                        new MenuChoiceScreen(planet.name, planet.name.Replace(" ", ""))
+                        ));
                 }
             }
 

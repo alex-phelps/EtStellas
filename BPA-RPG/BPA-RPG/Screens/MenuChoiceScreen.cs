@@ -37,16 +37,18 @@ namespace BPA_RPG.Screens
                 }
             }
         }
-
+        
         private readonly string scriptName;
 
+        private ShopScreen shop;
         private DrawableString synopsis;
         private List<DrawableString> options;
         private SpriteFont choiceFont;
         private Texture2D choiceMenu;
         private MouseState oldMouseState;
 
-        public MenuChoiceScreen(string scriptName)
+        public MenuChoiceScreen(string title, string scriptName)
+            : base(title)
         {
             this.scriptName = scriptName;
             translucent = true;
@@ -90,10 +92,10 @@ namespace BPA_RPG.Screens
         {
             spritebatch.Draw(choiceMenu, MainGame.WindowCenter, new Rectangle(0, 0, choiceMenu.Width, choiceMenu.Height), Color.White, 0, new Vector2(choiceMenu.Width / 2, choiceMenu.Height / 2), 1, SpriteEffects.None, 1);
 
-            synopsis.Draw(spritebatch, gameTime);
+            synopsis.Draw(gameTime, spritebatch);
             foreach (DrawableString option in options)
             {
-                option.Draw(spritebatch, gameTime);
+                option.Draw(gameTime, spritebatch);
             }
 
             base.Draw(gameTime, spritebatch);
@@ -118,6 +120,31 @@ namespace BPA_RPG.Screens
                 }
 
                 currentChoice = MenuChoice.ChoiceFromText(this, lines);
+            }
+            catch (Exception e)
+            {
+                MainGame.eventLogger.Log(this, "ERROR: " + e.Message);
+                throw e;
+            }
+
+            try
+            {
+                StreamReader file;
+
+                file = File.OpenText("Content/Scripts/" + scriptName + "Shop.txt");
+
+                //Loop through line for the choice
+                List<string> lines = new List<string>();
+                while (!file.EndOfStream)
+                {
+                    lines.Add(file.ReadLine());
+                }
+
+                shop = ShopScreen.ShopFromText(lines);
+            }
+            catch (FileNotFoundException e)
+            {
+                MainGame.eventLogger.Log(this, "No shop file found, proceeding without shop.");
             }
             catch (Exception e)
             {

@@ -54,16 +54,10 @@ namespace BPA_RPG
             //Create new EventLogger to log important events
             eventLogger = new EventLogger();
 
-            //Define static ships
-            Ship.StarterShip = new Ship("Starter Ship", Content.Load<Texture2D>("Images/StarterShip"), 7f, 0.05f, 0.025f, 0.0005f);
-
-            eventLogger.Log(this, "Finished loading static ships");
-            
-            //Define static planets
-            Planet.DebugPlanet = new Planet("Debug Planet", Content.Load<Texture2D>("Images/DebugPlanet"));
-            Planet.DebugPlanet2 = new Planet("Debug Planet 2", Content.Load<Texture2D>("Images/PlanetA"), new Vector2(3000, 2000));
-
-            eventLogger.Log(this, "Finished loading static planets");
+            //Load game items, ships, and planets
+            GameItem.LoadContent(Content);
+            Ship.LoadContent(Content);
+            Planet.LoadContent(Content);
 
             //Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);

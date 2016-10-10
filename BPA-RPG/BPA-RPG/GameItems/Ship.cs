@@ -11,7 +11,7 @@ namespace BPA_RPG.GameItems
     public class Ship : GameItem
     {
         //Static ships
-        public static Ship StarterShip;
+        public static Ship StarterShip { get; private set; }
 
 
         public readonly float maxSpeed;
@@ -26,6 +26,16 @@ namespace BPA_RPG.GameItems
             this.accel = accel;
             this.maxRotSpeed = maxRotSpeed;
             this.rotAccel = rotAccel;
+        }
+
+        public static new void LoadContent(ContentManager content)
+        {
+            MainGame.eventLogger.Log(typeof(Ship), "Begin loading static ships");
+
+            //Define static ships
+            StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/StarterShip"), 7f, 0.05f, 0.025f, 0.0005f);
+
+            MainGame.eventLogger.Log(typeof(Ship), "Finished loading static ships");
         }
     }
 }

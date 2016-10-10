@@ -114,12 +114,29 @@ namespace BPA_RPG.GameObjects
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="spritebatch">Spritebatch object to draw objects with</param>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public virtual void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
             if (visible)
             {
                 Rectangle source = new Rectangle(0, 0, Width, Height);
                 spritebatch.Draw(texture, position, source, Color.White, rotation,
+                    new Vector2(Width / 2, Height / 2), scale, SpriteEffects.None, 1);
+            }
+        }
+
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="spritebatch">Spritebatch object to draw objects with</param>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// <param name="color">Color to draw in.</param>
+        public virtual void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
+        {
+            if (visible)
+            {
+                Rectangle source = new Rectangle(0, 0, Width, Height);
+                spritebatch.Draw(texture, position, source, color, rotation,
                     new Vector2(Width / 2, Height / 2), scale, SpriteEffects.None, 1);
             }
         }

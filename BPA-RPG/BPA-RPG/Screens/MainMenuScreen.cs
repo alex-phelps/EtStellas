@@ -13,6 +13,12 @@ namespace BPA_RPG.Screens
     {
         private List<MenuButton> buttons;
 
+        public MainMenuScreen() 
+            : base("Main Menu")
+        {
+
+        }
+
         public override void LoadContent(ContentManager content)
         {
             buttons = new List<MenuButton>();
