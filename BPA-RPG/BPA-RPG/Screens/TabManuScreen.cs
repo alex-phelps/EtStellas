@@ -38,6 +38,12 @@ namespace BPA_RPG.Screens
             {
                 menuScreens[i].manager = manager;
                 menuScreens[i].LoadContent(content);
+
+                // Expression returns null if there is no shop or if screen is not a MenuChoiceScreen
+                if ((menuScreens[i] as MenuChoiceScreen)?.shop != null)
+                    // Adds a shop if the screen has one
+                    menuScreens.Insert(i + 1, ((MenuChoiceScreen)menuScreens[i]).shop);
+
                 menuTabs.Add(new GameObject(menuTab)
                 {
                     position = MainGame.WindowCenter - new Vector2(228 - (i * 165), 242)

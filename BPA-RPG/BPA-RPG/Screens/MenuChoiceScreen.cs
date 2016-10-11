@@ -40,7 +40,8 @@ namespace BPA_RPG.Screens
         
         private readonly string scriptName;
 
-        private ShopScreen shop;
+        public ShopScreen shop { get; private set; }
+
         private DrawableString synopsis;
         private List<DrawableString> options;
         private SpriteFont choiceFont;
@@ -142,7 +143,7 @@ namespace BPA_RPG.Screens
 
                 shop = ShopScreen.ShopFromText(lines);
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 MainGame.eventLogger.Log(this, "No shop file found, proceeding without shop.");
             }

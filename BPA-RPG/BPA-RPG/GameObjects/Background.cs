@@ -31,9 +31,9 @@ namespace BPA_RPG.GameObjects
             scrollY %= texture.Height;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
         {
-            spritebatch.Draw(texture, position, new Rectangle(-scrollX, -scrollY, texture.Width, texture.Height), Color.White, rotation, 
+            spritebatch.Draw(texture, position, new Rectangle(-scrollX, -scrollY, texture.Width, texture.Height), color, rotation, 
                 new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 1);
         }
     }

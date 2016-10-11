@@ -160,7 +160,7 @@ namespace BPA_RPG.GameObjects
             base.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
         {
             // Draw right half of texture if idle, draw left half if accelerating
             Rectangle source;
@@ -168,7 +168,7 @@ namespace BPA_RPG.GameObjects
                 source = new Rectangle(texture.Width / 2, 0, texture.Width / 2, texture.Height);
             else source = new Rectangle(0, 0, texture.Width / 2, texture.Height);
 
-            spritebatch.Draw(texture, position, source, Color.White, rotation, new Vector2(texture.Width / 4, texture.Height / 2), scale, SpriteEffects.None, 1);
+            spritebatch.Draw(texture, position, source, color, rotation, new Vector2(texture.Width / 4, texture.Height / 2), scale, SpriteEffects.None, 1);
         }
     }
 }

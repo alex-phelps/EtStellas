@@ -42,9 +42,9 @@ namespace BPA_RPG.GameObjects
             base.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
         {
-            base.Draw(gameTime, spritebatch);
+            base.Draw(gameTime, spritebatch, color);
             spritebatch.DrawString(menuFont, text, position - 
                 new Vector2(menuFont.MeasureString(text).X / 2, menuFont.MeasureString(text).Y / 2), Color.Black);
         }

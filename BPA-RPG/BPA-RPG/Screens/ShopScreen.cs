@@ -6,31 +6,66 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using BPA_RPG.GameObjects;
 
 namespace BPA_RPG.Screens
 {
-    class ShopScreen : Screen
+    public class ShopScreen : Screen
     {
-        List<Deal> deals;
+        private readonly List<Deal> deals;
+        private readonly List<GameObject> textures;
+        private readonly List<DrawableString> itemNames;
+        private readonly List<DrawableString> buyPrices;
+        private readonly List<DrawableString> sellPrices;
+
+        private SpriteFont font;
+        private Texture2D menu;
+        private MouseState oldMouseState;
 
         public ShopScreen(List<Deal> deals) 
             : base("Shop")
         {
             this.deals = deals;
+            buyPrices = new List<DrawableString>();
+            sellPrices = new List<DrawableString>();
         }
 
         public override void LoadContent(ContentManager content)
         {
+            font = content.Load<SpriteFont>("Fonts/ChoiceFont");
+            menu = content.Load<Texture2D>("Images/ChoiceMenu");
+            
+            for (int i = 0; i < deals.Count; i++)
+            {
+                if (deals[i].canBuy)
+                    buyPrices.Add(new DrawableString(font, deals[i].buyPrice + " " + deals[i].currency.ToString()));
+                else buyPrices.Add(new DrawableString(font, "N/A"));
+
+                if (deals[i].canSell)
+                    sellPrices.Add(new DrawableString(font, deals[i].sellPrice + " " + deals[i].currency.ToString()));
+                else sellPrices.Add(new DrawableString(font, "N/A"));
+            }
+
             base.LoadContent(content);
         }
-
+        
         public override void Update(GameTime gameTime)
         {
+            MouseState newMouseState = Mouse.GetState();
+            
+            
+
+            oldMouseState = newMouseState;
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
+            spritebatch.Draw(menu, MainGame.WindowCenter, new Rectangle(0, 0, menu.Width, menu.Height), Color.White, 0, new Vector2(menu.Width / 2, menu.Height / 2), 1, SpriteEffects.None, 1);
+
+
+
             base.Draw(gameTime, spritebatch);
         }
 

@@ -157,3 +157,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/DebugTexture.png
 
+#begin Scripts/DebugPlanetShop.txt
+/copy:Scripts/DebugPlanetShop.txt
+

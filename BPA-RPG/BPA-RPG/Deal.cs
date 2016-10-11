@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BPA_RPG
 {
-    class Deal
+    public class Deal
     {
         public readonly GameItem item;
         public readonly bool canBuy;
@@ -45,6 +45,9 @@ namespace BPA_RPG
 
             switch (lineParts[1].ToLower())
             {
+                case "credits":
+                    currency = Currency.credits;
+                    break;
                 case "jex":
                     currency = Currency.jex;
                     break;
@@ -53,13 +56,15 @@ namespace BPA_RPG
                     break;
             }
 
-            if (lineParts[2].ToLower() == "null")
-                buyPrice = null;
-            else buyPrice = Convert.ToInt32(lineParts[2]);
+            int intPrice;
 
-            if (lineParts[3].ToLower() == "null")
+            if (!int.TryParse(lineParts[2].ToLower(), out intPrice))
+                buyPrice = null;
+            else buyPrice = intPrice;
+            
+            if (!int.TryParse(lineParts[3].ToLower(), out intPrice))
                 sellPrice = null;
-            else sellPrice = Convert.ToInt32(lineParts[3]);
+            else sellPrice = intPrice;
 
             return new Deal(item, buyPrice, sellPrice, currency);
         }
