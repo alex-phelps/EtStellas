@@ -60,11 +60,23 @@ namespace BPA_RPG.Choice
                 switch (lineParts[0].ToLower())
                 {
                     case "credits":
-                        int amount;
-                        if (!int.TryParse(lineParts[1], out amount))
-                            break;
+                        {
+                            int amount;
+                            if (!int.TryParse(lineParts[1], out amount))
+                                break;
 
-                        actions.Add(() => PlayerData.credits += amount);
+                            actions.Add(() => PlayerData.AddMoney(Currency.credits, amount));
+                        }
+                        break;
+
+                    case "jex":
+                        {
+                            int amount;
+                            if (!int.TryParse(lineParts[1], out amount))
+                                break;
+
+                            actions.Add(() => PlayerData.AddMoney(Currency.jex, amount));
+                        }
                         break;
 
                     case "get":

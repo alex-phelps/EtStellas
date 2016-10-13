@@ -27,6 +27,8 @@ namespace BPA_RPG.Screens
             : base("Shop")
         {
             this.deals = deals;
+            textures = new List<GameObject>();
+            itemNames = new List<DrawableString>();
             buyPrices = new List<DrawableString>();
             sellPrices = new List<DrawableString>();
         }
@@ -38,13 +40,27 @@ namespace BPA_RPG.Screens
             
             for (int i = 0; i < deals.Count; i++)
             {
-                if (deals[i].canBuy)
-                    buyPrices.Add(new DrawableString(font, deals[i].buyPrice + " " + deals[i].currency.ToString()));
-                else buyPrices.Add(new DrawableString(font, "N/A"));
+                Vector2 pos = new Vector2(240, 115 + i * 35);
 
+                textures.Add(new GameObject(deals[i].item.texture)
+                {
+                    position = pos
+                });
+
+                pos += new Vector2(80, 0);
+                itemNames.Add(new DrawableString(font, deals[i].item.name, pos - font.MeasureString(deals[i].item.name) / 2, Color.White));
+
+                pos += new Vector2(280, 0);
+                if (deals[i].canBuy) 
+                    buyPrices.Add(new DrawableString(font, deals[i].buyPrice + " " + deals[i].currency.ToString(),
+                        pos - font.MeasureString(deals[i].buyPrice + " " + deals[i].currency.ToString()) / 2, Color.White));
+                else buyPrices.Add(new DrawableString(font, "N/A", pos - font.MeasureString("N/A") / 2, Color.White));
+
+                pos += new Vector2(150, 0);
                 if (deals[i].canSell)
-                    sellPrices.Add(new DrawableString(font, deals[i].sellPrice + " " + deals[i].currency.ToString()));
-                else sellPrices.Add(new DrawableString(font, "N/A"));
+                    sellPrices.Add(new DrawableString(font, deals[i].sellPrice + " " + deals[i].currency.ToString(),
+                        pos - font.MeasureString(deals[i].sellPrice + " " + deals[i].currency.ToString()) / 2, Color.White));
+                else sellPrices.Add(new DrawableString(font, "N/A", pos - font.MeasureString("N/A") / 2, Color.White));
             }
 
             base.LoadContent(content);
@@ -54,7 +70,52 @@ namespace BPA_RPG.Screens
         {
             MouseState newMouseState = Mouse.GetState();
             
-            
+            foreach (DrawableString buyPrice in buyPrices)
+            {
+                int i = buyPrices.IndexOf(buyPrice);
+
+                if (deals[i].canBuy && buyPrice.boundingRectangle.Contains(newMouseState.Position))
+                {
+                    buyPrice.color = new Color(0, 60, 255);
+
+                    if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                    {
+                        if (PlayerData.GetMoney(deals[i].currency) >= deals[i].buyPrice)
+                        {
+                            PlayerData.inventory.Add(deals[i].item);
+                            PlayerData.AddMoney(deals[i].currency, -deals[i].buyPrice);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+                else buyPrice.color = Color.White;
+            }
+
+            foreach (DrawableString sellPrice in sellPrices)
+            {
+                int i = sellPrices.IndexOf(sellPrice);
+
+                if (deals[i].canSell && sellPrice.boundingRectangle.Contains(newMouseState.Position))
+                {
+                    sellPrice.color = new Color(0, 60, 255);
+
+                    if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                    {
+                        if (PlayerData.inventory.Remove(deals[i].item))
+                        {
+                            PlayerData.AddMoney(deals[i].currency, deals[i].sellPrice);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+                else sellPrice.color = Color.White;
+            }
 
             oldMouseState = newMouseState;
             base.Update(gameTime);
@@ -64,7 +125,25 @@ namespace BPA_RPG.Screens
         {
             spritebatch.Draw(menu, MainGame.WindowCenter, new Rectangle(0, 0, menu.Width, menu.Height), Color.White, 0, new Vector2(menu.Width / 2, menu.Height / 2), 1, SpriteEffects.None, 1);
 
+            foreach (GameObject texture in textures)
+            {
+                texture.Draw(gameTime, spritebatch);
+            }
 
+            foreach (DrawableString name in itemNames)
+            {
+                name.Draw(gameTime, spritebatch);
+            }
+
+            foreach (DrawableString buyPrice in buyPrices)
+            {
+                buyPrice.Draw(gameTime, spritebatch);
+            }
+
+            foreach (DrawableString sellPrice in sellPrices)
+            {
+                sellPrice.Draw(gameTime, spritebatch);
+            }
 
             base.Draw(gameTime, spritebatch);
         }

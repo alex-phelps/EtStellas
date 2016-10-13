@@ -42,10 +42,5 @@ namespace BPA_RPG
         {
             spritebatch.DrawString(font, text, position, color);
         }
-
-        public void DrawCenter(GameTime gameTime, SpriteBatch spritebatch)
-        {
-            spritebatch.DrawString(font, text, position - font.MeasureString(text) / 2, color);
-        }
     }
 }

@@ -25,36 +25,45 @@ namespace BPA_RPG
                 MainGame.eventLogger.Log(typeof(PlayerData), "Player ship = " + Ship.name);
             }
         }
-
-        private static int Credits;
-        public static int credits
-        {
-            get
-            {
-                return Credits;
-            }
-            set
-            {
-                Credits = value;
-                MainGame.eventLogger.Log(typeof(PlayerData), "Player credits = " + Credits);
-            }
-        }
-
-        private static int Jex;
-        public static int jex
-        {
-            get
-            {
-                return Jex;
-            }
-            set
-            {
-                Credits = value;
-                MainGame.eventLogger.Log(typeof(PlayerData), "Player jex = " + Jex);
-            }
-        }
+        
+        private static int credits;
+        private static int jex;
 
         public static List<GameItem> inventory = new List<GameItem>();
+
+        public static void AddMoney(Currency currency, int value)
+        {
+            switch (currency)
+            {
+                case Currency.credits:
+                    credits += value;
+                    if (credits < 0)
+                        credits = 0;
+
+                    MainGame.eventLogger.Log(typeof(PlayerData), "Player credits = " + credits);
+                    break;
+                case Currency.jex:
+                    jex += value;
+                    if (jex < 0)
+                        jex = 0;
+
+                    MainGame.eventLogger.Log(typeof(PlayerData), "Player jex = " + jex);
+                    break;
+            }
+        }
+
+        public static int GetMoney(Currency currency)
+        {
+            switch (currency)
+            {
+                case Currency.credits:
+                    return credits;
+                case Currency.jex:
+                    return jex;
+                default:
+                    return -1;
+            }
+        }
 
         /// <summary>
         /// Saves player data to file

@@ -48,7 +48,7 @@ namespace BPA_RPG.Screens
                 {
                     position = MainGame.WindowCenter - new Vector2(228 - (i * 165), 242)
                 });
-                tabStrings.Add(new DrawableString(tabFont, menuScreens[i].title, MainGame.WindowCenter - new Vector2(228 - (i * 165), 242), Color.White));
+                tabStrings.Add(new DrawableString(tabFont, menuScreens[i].title, MainGame.WindowCenter - new Vector2(228 - (i * 165), 242) - tabFont.MeasureString(menuScreens[i].title) / 2, Color.White));
             }
 
             base.LoadContent(content);
@@ -83,12 +83,12 @@ namespace BPA_RPG.Screens
                 {
                     menuTabs[i].Draw(gameTime, spritebatch, Color.Gray);
                     tabStrings[i].color = Color.Gray;
-                    tabStrings[i].DrawCenter(gameTime, spritebatch);
+                    tabStrings[i].Draw(gameTime, spritebatch);
                 }
             }
             menuTabs[selectedScreen].Draw(gameTime, spritebatch);
             tabStrings[selectedScreen].color = Color.White;
-            tabStrings[selectedScreen].DrawCenter(gameTime, spritebatch);
+            tabStrings[selectedScreen].Draw(gameTime, spritebatch);
 
             base.Draw(gameTime, spritebatch);
         }
