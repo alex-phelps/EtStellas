@@ -57,7 +57,7 @@ namespace BPA_RPG.Screens
                     Vector2.Distance(PlayerData.ship.position, planet.position) <= planet.orbitDistance)
                 {
                     PlayerData.ship.lastPlanet = planet;
-                    manager.Push(new TabManuScreen(new MenuChoiceScreen(planet.name, planet.name.Replace(" ", ""))));
+                    manager.Push(new TabManuScreen(new MenuChoiceScreen(planet.name, planet.name.Replace(" ", "")), new ShipHoldScreen()));
                 }
             }
 

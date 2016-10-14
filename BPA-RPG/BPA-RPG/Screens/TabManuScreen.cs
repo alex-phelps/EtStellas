@@ -58,6 +58,11 @@ namespace BPA_RPG.Screens
         {
             MouseState newMouseState = Mouse.GetState();
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                manager.Pop();
+            }
+
             menuScreens[selectedScreen].Update(gameTime);
 
             for (int i = 0; i < menuTabs.Count; i++)
@@ -77,7 +82,7 @@ namespace BPA_RPG.Screens
         {
             menuScreens[selectedScreen].Draw(gameTime, spritebatch);
 
-            for (int i = 0; i < menuTabs.Count; i++)
+            for (int i = menuTabs.Count - 1; i >= 0; i--)
             {
                 if (i != selectedScreen)
                 {

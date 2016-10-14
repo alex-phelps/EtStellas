@@ -8,6 +8,8 @@ blah blah
 jex 400
 > Text 1.3
 credits 400
+> Return
+return
 }
 > Text 2
 credits -500

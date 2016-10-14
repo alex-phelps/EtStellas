@@ -69,11 +69,6 @@ namespace BPA_RPG.Screens
         {
             MouseState newMouseState = Mouse.GetState();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-            {
-                manager.Pop();
-            }
-
             for (int i = 0; i < options.Count; i++)
                 if (options[i].boundingRectangle.Contains(newMouseState.Position))
                 {

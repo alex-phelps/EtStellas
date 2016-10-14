@@ -16,6 +16,7 @@ namespace BPA_RPG.GameItems
         public static GameItem Fuel { get; private set; }
 
 
+
         public readonly string name;
 
         protected GameItem(string name, Texture2D texture)

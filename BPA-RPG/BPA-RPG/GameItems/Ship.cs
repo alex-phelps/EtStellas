@@ -14,14 +14,16 @@ namespace BPA_RPG.GameItems
         public static Ship StarterShip { get; private set; }
 
 
+        public readonly int holdSize;
         public readonly float maxSpeed;
         public readonly float accel;
         public readonly float maxRotSpeed;
         public readonly float rotAccel;
 
-        public Ship(string name, Texture2D texture, float maxSpeed, float accel, float maxRotSpeed, float rotAccel) 
+        public Ship(string name, Texture2D texture, int holdSize, float maxSpeed, float accel, float maxRotSpeed, float rotAccel) 
             : base(name, texture)
         {
+            this.holdSize = holdSize;
             this.maxSpeed = maxSpeed;
             this.accel = accel;
             this.maxRotSpeed = maxRotSpeed;
@@ -33,7 +35,7 @@ namespace BPA_RPG.GameItems
             MainGame.eventLogger.Log(typeof(Ship), "Begin loading static ships");
 
             //Define static ships
-            StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/StarterShip"), 7f, 0.05f, 0.025f, 0.0005f);
+            StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/StarterShip"), 20, 7f, 0.05f, 0.025f, 0.0005f);
 
             MainGame.eventLogger.Log(typeof(Ship), "Finished loading static ships");
         }

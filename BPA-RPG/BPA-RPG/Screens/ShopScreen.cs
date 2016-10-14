@@ -107,6 +107,8 @@ namespace BPA_RPG.Screens
                         if (PlayerData.inventory.Remove(deals[i].item))
                         {
                             PlayerData.AddMoney(deals[i].currency, deals[i].sellPrice);
+
+                            // Add sounds here
                         }
                         else
                         {

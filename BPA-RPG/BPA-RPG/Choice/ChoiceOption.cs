@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 namespace BPA_RPG.Choice
 {
     /// <summary>
-    /// Represents an option for a choice
+    /// Represents an option in a MenuChoice
     /// </summary>
     public class ChoiceOption
     {
         public string synopsis { get; private set; }
         private List<Action> actions;
-        private MenuChoiceScreen screen;
 
-        public ChoiceOption(MenuChoiceScreen screen, string synopsis, List<Action> actions)
+        /// <summary>
+        /// Creates a new ChoiceOption ojbect
+        /// </summary>
+        /// <param name="synopsis">Option synopsis</param>
+        /// <param name="actions">Actions that execution on selection of this option</param>
+        public ChoiceOption(string synopsis, List<Action> actions)
         {
-            this.screen = screen;
             this.synopsis = synopsis;
             this.actions = actions;
         }
@@ -37,6 +40,7 @@ namespace BPA_RPG.Choice
         /// <summary>
         /// Creates a ChoiceOption object from text
         /// </summary>
+        /// <param name="screen">Screen that holds this option</param>
         /// <param name="lines">Lines of text that represent an option</param>
         /// <returns></returns>
         public static ChoiceOption OptionFromText(MenuChoiceScreen screen, List<string> lines)
@@ -86,6 +90,9 @@ namespace BPA_RPG.Choice
                     case "remove":
                         actions.Add(() => RemoveItem(lineParts[1]));
                         break;
+                    case "return":
+                        actions.Add(() => screen.currentChoice = screen.currentChoice.baseChoice);
+                        break;
                     case "choice":
                         lineNum += 2;
 
@@ -104,7 +111,7 @@ namespace BPA_RPG.Choice
                         }
                         lineNum++;
 
-                        actions.Add(() => screen.currentChoice = MenuChoice.ChoiceFromText(screen, choiceLines));
+                        actions.Add(() => screen.currentChoice = MenuChoice.ChoiceFromText(screen, choiceLines, screen.currentChoice.baseChoice));
 
                         break;
                 }
@@ -114,7 +121,7 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new ChoiceOption(screen, synopsis, actions);
+            return new ChoiceOption(synopsis, actions);
         }
 
         /// <summary>
