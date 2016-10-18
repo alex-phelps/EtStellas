@@ -93,11 +93,13 @@
   <ItemGroup>
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
+    <Content Include="Content\Images\ItemHoverRect.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\MenuTab.png" />
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
     <Content Include="Content\Images\ChoiceMenu.png" />
+    <Content Include="Content\Images\ShipHoldMenu.png" />
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />
     <Content Include="Content\Images\StarterShip.png" />

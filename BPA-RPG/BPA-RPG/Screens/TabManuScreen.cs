@@ -46,9 +46,9 @@ namespace BPA_RPG.Screens
 
                 menuTabs.Add(new GameObject(menuTab)
                 {
-                    position = MainGame.WindowCenter - new Vector2(228 - (i * 165), 242)
+                    position = MainGame.WindowCenter - new Vector2(230 - (i * 150), 242)
                 });
-                tabStrings.Add(new DrawableString(tabFont, menuScreens[i].title, MainGame.WindowCenter - new Vector2(228 - (i * 165), 242) - tabFont.MeasureString(menuScreens[i].title) / 2, Color.White));
+                tabStrings.Add(new DrawableString(tabFont, menuScreens[i].title, MainGame.WindowCenter - new Vector2(230 - (i * 150), 242) - tabFont.MeasureString(menuScreens[i].title) / 2, Color.White));
             }
 
             base.LoadContent(content);
