@@ -25,7 +25,7 @@ namespace BPA_RPG
                 MainGame.eventLogger.Log(typeof(PlayerData), "Player ship = " + Ship.name);
             }
         }
-        
+
         private static int credits;
         private static int jex;
 

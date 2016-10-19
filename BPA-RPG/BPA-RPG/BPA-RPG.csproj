@@ -93,6 +93,8 @@
   <ItemGroup>
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
+    <Content Include="Content\Images\HoldScrollArrow.png" />
+    <Content Include="Content\Images\HoldScrollArrowBlue.png" />
     <Content Include="Content\Images\ItemHoverRect.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\MenuTab.png" />
