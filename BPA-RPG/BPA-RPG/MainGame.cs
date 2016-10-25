@@ -16,7 +16,9 @@ namespace BPA_RPG
         public static readonly int WindowWidth = 1024;
         public static readonly int WindowHeight = 576;
         public static Vector2 WindowCenter => new Vector2(WindowWidth / 2, WindowHeight / 2);
-        public static EventLogger eventLogger;
+
+        public static GraphicsDevice graphicsDevice { get; private set; }
+        public static EventLogger eventLogger { get; private set; }
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -27,11 +29,13 @@ namespace BPA_RPG
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            this.IsMouseVisible = true;
+            IsMouseVisible = true;
 
             graphics.PreferredBackBufferWidth = WindowWidth;
             graphics.PreferredBackBufferHeight = WindowHeight;
             graphics.ApplyChanges();
+
+            graphicsDevice = GraphicsDevice;
         }
 
         /// <summary>

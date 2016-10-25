@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BPA_RPG.Screens
 {
-    class TabManuScreen : Screen
+    class TabMenuScreen : Screen
     {
         private readonly List<Screen> menuScreens;
         private List<GameObject> menuTabs;
@@ -19,7 +19,7 @@ namespace BPA_RPG.Screens
         private MouseState oldMouseState;
         private int selectedScreen = 0;
 
-        public TabManuScreen(params Screen[] menuScreens)
+        public TabMenuScreen(params Screen[] menuScreens)
             : base("Tab Menu")
         {
             this.menuScreens = new List<Screen>(menuScreens);

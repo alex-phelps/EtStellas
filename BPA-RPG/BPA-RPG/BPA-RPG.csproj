@@ -65,6 +65,7 @@
     <Compile Include="GameItems\GameItem.cs" />
     <Compile Include="GameItems\Ship.cs" />
     <Compile Include="GameObjects\Background.cs" />
+    <Compile Include="GameObjects\EnemyShip.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\MenuButton.cs" />
     <Compile Include="GameObjects\Planet.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Screens\BattleScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\MenuChoiceScreen.cs" />
@@ -81,7 +83,7 @@
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Screens\ShipHoldScreen.cs" />
     <Compile Include="Screens\ShopScreen.cs" />
-    <Compile Include="Screens\TabManuScreen.cs" />
+    <Compile Include="Screens\TabMenuScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
