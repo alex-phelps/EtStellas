@@ -15,6 +15,8 @@ namespace BPA_RPG.Screens
         private PlayerShip player;
         private EnemyShip enemy;
 
+        private Background stars;
+
         private Viewport defaultView, playerView, enemyView;
 
         public BattleScreen(PlayerShip player, EnemyShip enemy)
@@ -30,13 +32,13 @@ namespace BPA_RPG.Screens
             playerView.Height /= 2;
 
             enemyView = playerView;
-            enemyView.X = (int)MainGame.WindowCenter.X;
-            enemyView.Y = (int)MainGame.WindowCenter.Y;
+            enemyView.X = playerView.Width;
+            enemyView.Y = playerView.Height;
         }
 
         public override void LoadContent(ContentManager content)
         {
-
+            stars = new Background(content.Load<Texture2D>("Images/StarBackground"));
 
             base.LoadContent(content);
         }
@@ -50,14 +52,28 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
+            spritebatch.End();
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            
             //Draw player viewport
             MainGame.graphicsDevice.Viewport = playerView;
+
+            stars.Draw(gameTime, spritebatch);
+            spritebatch.Draw(player.texture, MainGame.WindowCenter, new Rectangle(0, 0, player.Width / 2, player.Height),
+                Color.White, MathHelper.PiOver2, new Vector2(player.Width / 4, player.Height / 2), 4,
+                SpriteEffects.None, 1);
+
 
             //Draw enemy viewport
             MainGame.graphicsDevice.Viewport = enemyView;
 
+
+
             //Draw the rest of the screen
             MainGame.graphicsDevice.Viewport = defaultView;
+
+            spritebatch.End();
+            spritebatch.Begin();
 
             base.Draw(gameTime, spritebatch);
         }

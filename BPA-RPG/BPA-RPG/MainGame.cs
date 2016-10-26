@@ -34,8 +34,6 @@ namespace BPA_RPG
             graphics.PreferredBackBufferWidth = WindowWidth;
             graphics.PreferredBackBufferHeight = WindowHeight;
             graphics.ApplyChanges();
-
-            graphicsDevice = GraphicsDevice;
         }
 
         /// <summary>
@@ -46,6 +44,11 @@ namespace BPA_RPG
         /// </summary>
         protected override void Initialize()
         {
+            graphicsDevice = GraphicsDevice;
+
+            //Create new EventLogger to log important events
+            eventLogger = new EventLogger();
+
             base.Initialize();
         }
 
@@ -55,9 +58,6 @@ namespace BPA_RPG
         /// </summary>
         protected override void LoadContent()
         {
-            //Create new EventLogger to log important events
-            eventLogger = new EventLogger();
-
             //Load game items, ships, and planets
             GameItem.LoadContent(Content);
             Ship.LoadContent(Content);
@@ -109,7 +109,7 @@ namespace BPA_RPG
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             spriteBatch.Begin();
             screenManager.Draw(gameTime, spriteBatch);
             spriteBatch.End();

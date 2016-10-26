@@ -33,9 +33,6 @@ namespace BPA_RPG.Screens
             : base("Hold")
         {
             itemRects = new List<GameObject>();
-
-            for (int i = 0; i < 20; i++)
-                inventory.Add(GameItem.Fuel);
         }
 
         public override void LoadContent(ContentManager content)
@@ -123,11 +120,13 @@ namespace BPA_RPG.Screens
             {
                 int k = i + firstRender;
 
+                //BIG PROBLEMO
+
                 if (k >= inventory.Count)
                     break;
 
                 spritebatch.Draw(inventory[k].texture, new Vector2(250, 145 + (i * 30)), Color.White);
-                spritebatch.DrawString(font, k + inventory[k].name, 
+                spritebatch.DrawString(font, inventory[k].name, 
                     new Vector2(300 + font.MeasureString(inventory[k].name).X / 2, 145 + (i * 30)), Color.White);
 
                 holdScrollArrowTop.Draw(gameTime, spritebatch);

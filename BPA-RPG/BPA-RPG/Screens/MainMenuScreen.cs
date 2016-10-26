@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
+using BPA_RPG.GameItems;
 
 namespace BPA_RPG.Screens
 {
@@ -50,6 +51,7 @@ namespace BPA_RPG.Screens
         private void PlayButtonEvent(object sender, EventArgs e)
         {
             manager.Push(new GameScreen());
+            //manager.Push(new BattleScreen(PlayerData.ship, new EnemyShip(Ship.StarterShip)));
         }
     }
 }
