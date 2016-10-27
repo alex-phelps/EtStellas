@@ -100,6 +100,9 @@ namespace BPA_RPG.Screens
             else if (firstRender > inventory.Count - 10)
                 firstRender = inventory.Count - 10;
 
+            if (firstRender < 0)
+                firstRender = 0;
+
             oldMouseState = newMouseState;
             base.Update(gameTime);
         }
@@ -119,8 +122,6 @@ namespace BPA_RPG.Screens
             for (int i = 0; i < 10; i++)
             {
                 int k = i + firstRender;
-
-                //BIG PROBLEMO
 
                 if (k >= inventory.Count)
                     break;

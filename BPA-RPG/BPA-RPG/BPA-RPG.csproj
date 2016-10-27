@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\BattleOverlay.png" />
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
     <Content Include="Content\Images\HoldScrollArrow.png" />

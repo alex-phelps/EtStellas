@@ -51,7 +51,7 @@ namespace BPA_RPG.Screens
         private void PlayButtonEvent(object sender, EventArgs e)
         {
             manager.Push(new GameScreen());
-            //manager.Push(new BattleScreen(PlayerData.ship, new EnemyShip(Ship.StarterShip)));
+            manager.Push(new BattleScreen(PlayerData.ship, new EnemyShip(Ship.StarterShip)));
         }
     }
 }

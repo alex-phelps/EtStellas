@@ -22,6 +22,10 @@ namespace BPA_RPG.Screens
         public GameScreen()
             : base("Game")
         {
+            //Viewport vp = MainGame.graphicsDevice.Viewport;
+            //vp.X = 100;
+            //MainGame.graphicsDevice.Viewport = vp;
+
         }
 
         public override void LoadContent(ContentManager content)
@@ -102,9 +106,11 @@ namespace BPA_RPG.Screens
         private void DrawBackground(GameTime gameTime, SpriteBatch spritebatch)
         {
             spritebatch.End();
-            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null, null);
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap);
+
             starBackground.Draw(gameTime, spritebatch);
             starBackground2.Draw(gameTime, spritebatch);
+
             spritebatch.End();
             spritebatch.Begin();
         }
