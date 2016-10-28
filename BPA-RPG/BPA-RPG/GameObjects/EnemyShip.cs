@@ -11,10 +11,16 @@ namespace BPA_RPG.GameObjects
     {
         private Ship baseShip;
 
+        public string name => "Enemy " + baseShip.name;
+        public int hullPoints;
+        public int maxHullPoints => baseShip.maxHullPoints;
+
         public EnemyShip(Ship baseShip)
             : base(baseShip.texture)
         {
             this.baseShip = baseShip;
+
+            hullPoints = maxHullPoints;
         }
     }
 }

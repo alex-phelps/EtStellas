@@ -1,5 +1,6 @@
 ﻿using BPA_RPG.GameItems;
 using BPA_RPG.GameObjects;
+using System;
 using System.Collections.Generic;
 
 namespace BPA_RPG
@@ -26,10 +27,12 @@ namespace BPA_RPG
             }
         }
 
+        public static string name = "TestName";
+        public static List<GameItem> inventory = new List<GameItem>();
+
         private static int credits;
         private static int jex;
 
-        public static List<GameItem> inventory = new List<GameItem>();
 
         public static void AddMoney(Currency currency, int value)
         {

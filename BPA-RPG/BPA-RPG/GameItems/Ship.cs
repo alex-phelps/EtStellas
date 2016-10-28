@@ -14,18 +14,19 @@ namespace BPA_RPG.GameItems
         public static Ship StarterShip { get; private set; }
 
 
-        public readonly int hullPoints;
+
         public readonly int holdSize;
+        public readonly int maxHullPoints;
         public readonly float maxSpeed;
         public readonly float accel;
         public readonly float maxRotSpeed;
         public readonly float rotAccel;
 
-        public Ship(string name, Texture2D texture, int hullPoints, int holdSize, float maxSpeed, float accel,
+        public Ship(string name, Texture2D texture, int maxHullPoints, int holdSize, float maxSpeed, float accel,
             float maxRotSpeed, float rotAccel) 
             : base(name, texture)
         {
-            this.hullPoints = hullPoints;
+            this.maxHullPoints = maxHullPoints;
             this.holdSize = holdSize;
             this.maxSpeed = maxSpeed;
             this.accel = accel;

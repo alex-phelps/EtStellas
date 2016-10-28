@@ -19,7 +19,10 @@ namespace BPA_RPG.Screens
         private Background stars;
         private Background stars2;
 
+        private SpriteFont nameFont;
         private Texture2D overlay;
+        private Texture2D shipHealthBar;
+        private Texture2D healthGreen;
 
         private Viewport defaultView, playerView, enemyView;
 
@@ -46,6 +49,11 @@ namespace BPA_RPG.Screens
             stars2 = new Background(content.Load<Texture2D>("Images/StarBackground2"));
 
             overlay = content.Load<Texture2D>("Images/BattleOverlay");
+
+            shipHealthBar = content.Load<Texture2D>("Images/ShipHealthBar");
+            healthGreen = content.Load<Texture2D>("Images/HealthGreen");
+
+            nameFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
 
             base.LoadContent(content);
         }
@@ -104,6 +112,27 @@ namespace BPA_RPG.Screens
             spritebatch.Begin();
 
             MainGame.graphicsDevice.Viewport = defaultView;
+
+
+            //Draw Player health
+            spritebatch.Draw(healthGreen, new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 60),
+                new Rectangle(0, 0, healthGreen.Width, healthGreen.Height), Color.White, 0,
+                new Vector2(healthGreen.Width / 2, healthGreen.Height / 2), 1, SpriteEffects.None, 1);
+            spritebatch.Draw(shipHealthBar, new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 60),
+                new Rectangle(0, 0, shipHealthBar.Width, shipHealthBar.Height), Color.White, 0,
+                new Vector2(shipHealthBar.Width / 2, shipHealthBar.Height / 2), 1, SpriteEffects.None, 1);
+
+            //Draw enemy health
+            spritebatch.Draw(healthGreen, new Vector2(MainGame.WindowWidth * 3 / 4, 60),
+                new Rectangle(0, 0, healthGreen.Width, healthGreen.Height), Color.White, 0,
+                new Vector2(healthGreen.Width / 2, healthGreen.Height / 2), 1, SpriteEffects.None, 1);
+            spritebatch.Draw(shipHealthBar, new Vector2(MainGame.WindowWidth * 3 / 4, 60),
+                new Rectangle(0, 0, shipHealthBar.Width, shipHealthBar.Height), Color.White, 0,
+                new Vector2(shipHealthBar.Width / 2, shipHealthBar.Height / 2), 1, SpriteEffects.None, 1);
+
+            //Draw ship names
+            spritebatch.DrawString(nameFont, player.name, new Vector2(MainGame.WindowWidth / 4 - shipHealthBar.Width / 2, MainGame.WindowHeight / 2 + 30), Color.White);
+            spritebatch.DrawString(nameFont, enemy.name, new Vector2(MainGame.WindowWidth * 3 / 4 - shipHealthBar.Width / 2, 30), Color.White);
 
             spritebatch.Draw(overlay, Vector2.Zero, Color.White);
 

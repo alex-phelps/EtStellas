@@ -64,6 +64,7 @@
     <Compile Include="EventLogger.cs" />
     <Compile Include="GameItems\GameItem.cs" />
     <Compile Include="GameItems\Ship.cs" />
+    <Compile Include="GameItems\Weapon.cs" />
     <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\EnemyShip.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
@@ -96,6 +97,7 @@
     <Content Include="Content\Images\BattleOverlay.png" />
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
+    <Content Include="Content\Images\HealthGreen.png" />
     <Content Include="Content\Images\HoldScrollArrow.png" />
     <Content Include="Content\Images\HoldScrollArrowBlue.png" />
     <Content Include="Content\Images\ItemHoverRect.png" />
@@ -104,6 +106,7 @@
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
     <Content Include="Content\Images\ChoiceMenu.png" />
+    <Content Include="Content\Images\ShipHealthBar.png" />
     <Content Include="Content\Images\ShipHoldMenu.png" />
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />

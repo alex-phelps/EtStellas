@@ -38,14 +38,15 @@ namespace BPA_RPG.GameObjects
         private bool accelerating;
         private double autoPilotTimer;
 
-        public Vector2 velocity;
-        public float speed;
-        public float rotSpeed;
-
-        public string name => baseShip.name;
+        public string name => PlayerData.name + "'s " + baseShip.name;
+        public int hullPoints;
+        public int maxHullPoints => baseShip.maxHullPoints;
         public int holdSize => baseShip.holdSize;
         public float accel => baseShip.accel;
+        public Vector2 velocity;
+        public float speed;
         public float maxSpeed => baseShip.maxSpeed;
+        public float rotSpeed;
         public float maxRotSpeed => baseShip.maxRotSpeed;
         public float rotAccel => baseShip.rotAccel;
 
@@ -56,6 +57,8 @@ namespace BPA_RPG.GameObjects
 
             velocity = new Vector2();
             speed = 1.5f;
+
+            hullPoints = maxHullPoints;
         }
 
         public override void Update(GameTime gameTime)
