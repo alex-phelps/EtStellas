@@ -7,18 +7,20 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Input;
+using BPA_RPG.GameItems;
 
 namespace BPA_RPG.Screens
 {
     public class GameScreen : Screen
     {
+        private PlayerShip ship => PlayerData.ship;
         private List<Planet> planets;
         private Background starBackground;
         private Background starBackground2;
 
         private Camera camera;
         private KeyboardState oldKeyState;
-
+        
         public GameScreen()
             : base("Game")
         {
@@ -35,8 +37,8 @@ namespace BPA_RPG.Screens
             planets = new List<Planet>();
             planets.Add(Planet.DebugPlanet);
             planets.Add(Planet.DebugPlanet2);
-            
-            PlayerData.ship.position = planets[0].position - new Vector2(planets[0].orbitDistance - 1, 0);
+
+            ship.position = planets[0].position - new Vector2(planets[0].orbitDistance - 1, 0);
 
             starBackground = new Background(content.Load<Texture2D>("Images/StarBackground"));
             starBackground2 = new Background(content.Load<Texture2D>("Images/StarBackground2"));
@@ -48,25 +50,25 @@ namespace BPA_RPG.Screens
         {
             KeyboardState newKeyState = Keyboard.GetState();
 
-            camera.Update(PlayerData.ship.position);
-
-            PlayerData.ship.Update(gameTime);
+            camera.Update(ship.position);
+            
+            ship.Update(gameTime);
 
             foreach (Planet planet in planets)
             {
                 planet.Update(gameTime);
 
                 //If player is within planet distance, set the player ship
-                if (PlayerData.ship.inOrbit == false && PlayerData.ship.autoPilotActive == false &&
-                    Vector2.Distance(PlayerData.ship.position, planet.position) <= planet.orbitDistance)
+                if (ship.inOrbit == false && ship.autoPilotActive == false &&
+                    Vector2.Distance(ship.position, planet.position) <= planet.orbitDistance)
                 {
-                    PlayerData.ship.lastPlanet = planet;
+                    ship.lastPlanet = planet;
                     manager.Push(new TabMenuScreen(new MenuChoiceScreen(planet.name, planet.name.Replace(" ", "")), new ShipHoldScreen()));
                 }
             }
 
-            starBackground.Scroll(PlayerData.ship.position, .25f);
-            starBackground2.Scroll(PlayerData.ship.position, .28f);
+            starBackground.Scroll(ship.position, .25f);
+            starBackground2.Scroll(ship.position, .28f);
 
             oldKeyState = newKeyState;
             base.Update(gameTime);
@@ -97,7 +99,7 @@ namespace BPA_RPG.Screens
                 planet.Draw(gameTime, spritebatch);
             }
 
-            PlayerData.ship.Draw(gameTime, spritebatch);
+            ship.Draw(gameTime, spritebatch);
 
             spritebatch.End();
             spritebatch.Begin();

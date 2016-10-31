@@ -62,8 +62,11 @@
     <Compile Include="Deal.cs" />
     <Compile Include="DrawableString.cs" />
     <Compile Include="EventLogger.cs" />
+    <Compile Include="GameItems\Engine.cs" />
     <Compile Include="GameItems\GameItem.cs" />
+    <Compile Include="GameItems\LaserWeapon.cs" />
     <Compile Include="GameItems\Ship.cs" />
+    <Compile Include="GameItems\ShipPart.cs" />
     <Compile Include="GameItems\Weapon.cs" />
     <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\EnemyShip.cs" />
@@ -103,6 +106,7 @@
     <Content Include="Content\Images\ItemHoverRect.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\MenuTab.png" />
+    <Content Include="Content\Images\PartInv.png" />
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
     <Content Include="Content\Images\ChoiceMenu.png" />

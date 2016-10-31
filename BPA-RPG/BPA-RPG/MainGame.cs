@@ -60,6 +60,8 @@ namespace BPA_RPG
         {
             //Load game items, ships, and planets
             GameItem.LoadContent(Content);
+            Engine.LoadContent(Content);
+            Weapon.LoadContent(Content);
             Ship.LoadContent(Content);
             Planet.LoadContent(Content);
 
@@ -74,6 +76,17 @@ namespace BPA_RPG
 
             //Set default player ship
             PlayerData.ship = new PlayerShip(Ship.StarterShip);
+
+            //Give player starter items
+            PlayerData.inventory.AddRange(new GameItem[] 
+            {
+                GameItem.Fuel,
+                GameItem.Fuel,
+                GameItem.Fuel,
+                GameItem.Fuel,
+                GameItem.Fuel
+            });
+            PlayerData.engine = Engine.BasicEngine;
 
             //Load ScreenManager
             screenManager.LoadContent();

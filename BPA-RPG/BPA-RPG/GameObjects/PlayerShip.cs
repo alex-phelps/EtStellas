@@ -35,7 +35,7 @@ namespace BPA_RPG.GameObjects
 
         public bool inOrbit;
         public bool autoPilotActive;
-        private bool accelerating;
+        public bool accelerating;
         private double autoPilotTimer;
 
         public string name => PlayerData.name + "'s " + baseShip.name;
@@ -49,6 +49,9 @@ namespace BPA_RPG.GameObjects
         public float rotSpeed;
         public float maxRotSpeed => baseShip.maxRotSpeed;
         public float rotAccel => baseShip.rotAccel;
+
+        private float travelDistance;
+        private float fuelUsed;
 
         public PlayerShip(Ship ship) 
             : base(ship.texture)
@@ -104,31 +107,35 @@ namespace BPA_RPG.GameObjects
 
                 //Keyboard input
 
-                if (newKeyState.IsKeyDown(Keys.W))
+                if (PlayerData.inventory.Contains(GameItem.Fuel))
                 {
-                    speed += accel;
-                    accelerating = true;
+                    if (newKeyState.IsKeyDown(Keys.W))
+                    {
+                        speed += accel;
+                        accelerating = true;
+                    }
+                    else accelerating = false;
+
+                    if (newKeyState.IsKeyDown(Keys.S))
+                        if (speed > 0)
+                            speed -= accel;
+
+                    if (newKeyState.IsKeyDown(Keys.D))
+                        rotSpeed += rotAccel;
+
+                    if (newKeyState.IsKeyDown(Keys.A))
+                        rotSpeed -= rotAccel;
+
+                    // Cap speeds
+                    if (speed > maxSpeed)
+                        speed = maxSpeed;
+
+                    if (rotSpeed > maxRotSpeed)
+                        rotSpeed = maxRotSpeed;
+                    else if (rotSpeed < -maxRotSpeed)
+                        rotSpeed = -maxRotSpeed;
                 }
                 else accelerating = false;
-
-                if (newKeyState.IsKeyDown(Keys.S))
-                    if (speed > 0)
-                        speed -= accel;
-
-                if (newKeyState.IsKeyDown(Keys.D))
-                    rotSpeed += rotAccel;
-
-                if (newKeyState.IsKeyDown(Keys.A))
-                    rotSpeed -= rotAccel;
-
-                // Cap speeds
-                if (speed > maxSpeed)
-                    speed = maxSpeed;
-
-                if (rotSpeed > maxRotSpeed)
-                    rotSpeed = maxRotSpeed;
-                else if (rotSpeed < -maxRotSpeed)
-                    rotSpeed = -maxRotSpeed;
 
                 if (newKeyState.IsKeyUp(Keys.W) && newKeyState.IsKeyUp(Keys.S))
                 {
@@ -150,6 +157,8 @@ namespace BPA_RPG.GameObjects
             
             
 
+            Vector2 prevPos = position;
+
             //Update velocity
             velocity.X = (float)Math.Sin(rotation) * speed;
             velocity.Y = (float)Math.Cos(rotation) * -speed;
@@ -160,6 +169,24 @@ namespace BPA_RPG.GameObjects
             //Update rotation
             rotation += rotSpeed;
             rotation %= (float)(Math.PI * 2);
+
+            if (PlayerData.inventory.Contains(GameItem.Fuel))
+            {
+                travelDistance += Math.Abs(prevPos.X - position.X) + Math.Abs(prevPos.Y - position.Y);
+
+                if (travelDistance >= 10000)
+                {
+                    fuelUsed += PlayerData.engine.fuelRate;
+                    travelDistance = 0;
+                }
+
+                if (fuelUsed >= 1)
+                {
+                    PlayerData.inventory.Remove(GameItem.Fuel);
+                    fuelUsed = 0;
+                }
+            }
+
 
             oldKeyState = newKeyState;
             base.Update(gameTime);

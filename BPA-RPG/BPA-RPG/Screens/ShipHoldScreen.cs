@@ -15,6 +15,7 @@ namespace BPA_RPG.Screens
     public class ShipHoldScreen : Screen
     {
         private List<GameItem> inventory => PlayerData.inventory;
+        private List<Weapon> weapons => PlayerData.weapons;
         private int holdSize => PlayerData.ship.holdSize;
         private List<GameObject> itemRects;
         private GameObject holdScrollArrowTop;
@@ -28,6 +29,7 @@ namespace BPA_RPG.Screens
         private Texture2D menu;
         private Texture2D holdScrollArrowReg;
         private Texture2D holdScrollArrowBlue;
+        private Texture2D partInv;
 
         public ShipHoldScreen()
             : base("Hold")
@@ -41,6 +43,7 @@ namespace BPA_RPG.Screens
             menu = content.Load<Texture2D>("Images/ShipHoldMenu");
             holdScrollArrowReg = content.Load<Texture2D>("Images/HoldScrollArrow");
             holdScrollArrowBlue = content.Load<Texture2D>("Images/HoldScrollArrowBlue");
+            partInv = content.Load<Texture2D>("Images/PartInv");
 
             holdScrollArrowTop = new GameObject(holdScrollArrowReg) { position = new Vector2(325, 125) };
             holdScrollArrowBot = new GameObject(holdScrollArrowReg) { position = new Vector2(325, 452), rotation = (float)Math.PI };
@@ -109,7 +112,11 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
-            spritebatch.Draw(menu, MainGame.WindowCenter, new Rectangle(0, 0, menu.Width, menu.Height), Color.White, 0, new Vector2(menu.Width / 2, menu.Height / 2), 1, SpriteEffects.None, 1);
+            spritebatch.End();
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+
+            spritebatch.Draw(menu, MainGame.WindowCenter, new Rectangle(0, 0, menu.Width, menu.Height), Color.White,
+                0, new Vector2(menu.Width / 2, menu.Height / 2), 1, SpriteEffects.None, 1);
             
             for (int i = 0; i < itemRects.Count; i++)
             {
@@ -133,6 +140,20 @@ namespace BPA_RPG.Screens
                 holdScrollArrowTop.Draw(gameTime, spritebatch);
                 holdScrollArrowBot.Draw(gameTime, spritebatch);
             }
+
+            spritebatch.Draw(partInv, new Vector2(517, 107), new Rectangle(0, 0, partInv.Width, partInv.Height), Color.White);
+
+            if (PlayerData.engine != null)
+                spritebatch.Draw(PlayerData.engine.texture, new Vector2(550, 140), new Rectangle(0, 0, 20, 20), Color.White,
+                    0, new Vector2(PlayerData.engine.Width / 2, PlayerData.engine.Height / 2), 3, SpriteEffects.None, 1);
+            spritebatch.DrawString(font, "[Engine]", new Vector2(700, 125) - font.MeasureString("[Engine]") / 2, Color.White);
+
+            string name = PlayerData.engine != null ? PlayerData.engine.name : "None!";
+            spritebatch.DrawString(font, name, new Vector2(700, 155) - font.MeasureString(name) / 2, Color.White);
+
+
+            spritebatch.End();
+            spritebatch.Begin();
 
             base.Draw(gameTime, spritebatch);
         }

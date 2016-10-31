@@ -74,12 +74,12 @@ namespace BPA_RPG.Screens
 
 
             //Draw player viewport
-            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch...
+            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch.
             spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointWrap);
 
             MainGame.graphicsDevice.Viewport = playerView;
 
-            //Draw background then change its location
+            //Draw background then change its location to add variation
             stars.Draw(gameTime, spritebatch);
             stars2.Draw(gameTime, spritebatch);
             stars.position -= MainGame.WindowCenter / 2;
@@ -91,7 +91,7 @@ namespace BPA_RPG.Screens
             
             //Draw enemy viewport
 
-            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch...
+            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch.
             spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointWrap);
 
             MainGame.graphicsDevice.Viewport = enemyView;
@@ -108,7 +108,7 @@ namespace BPA_RPG.Screens
 
             //Draw the rest of the screen
 
-            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch...
+            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch.
             spritebatch.Begin();
 
             MainGame.graphicsDevice.Viewport = defaultView;

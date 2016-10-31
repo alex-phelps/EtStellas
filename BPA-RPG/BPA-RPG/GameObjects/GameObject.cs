@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BPA_RPG.GameItems;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -98,7 +99,8 @@ namespace BPA_RPG.GameObjects
             this.texture = texture;
             position = new Vector2(0, 0);
 
-            MainGame.eventLogger.Log(this, "Loaded");
+            if (!(this is GameItem))
+                MainGame.eventLogger.Log(this, "Loaded");
         }
 
         /// <summary>

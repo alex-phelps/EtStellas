@@ -24,7 +24,7 @@ namespace BPA_RPG.GameItems
         {
             this.name = name;
 
-            MainGame.eventLogger.Log(this, "Loaded " + name);
+            MainGame.eventLogger.Log(this, "Loaded \"" + name + "\"");
         }
 
         public static void LoadContent(ContentManager content)

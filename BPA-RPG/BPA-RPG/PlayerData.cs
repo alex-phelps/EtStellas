@@ -29,6 +29,8 @@ namespace BPA_RPG
 
         public static string name = "TestName";
         public static List<GameItem> inventory = new List<GameItem>();
+        public static List<Weapon> weapons = new List<Weapon>();
+        public static Engine engine;
 
         private static int credits;
         private static int jex;
