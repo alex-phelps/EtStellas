@@ -31,7 +31,6 @@ namespace BPA_RPG.GameObjects
         private Planet LastPlanet;
 
         private Ship baseShip;
-        private KeyboardState oldKeyState;
 
         public bool inOrbit;
         public bool autoPilotActive;
@@ -66,8 +65,6 @@ namespace BPA_RPG.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            KeyboardState newKeyState = Keyboard.GetState();
-
             //Get angle to orbit planet
             if (inOrbit)
             {
@@ -84,7 +81,7 @@ namespace BPA_RPG.GameObjects
 
                 // Check keyboard input
 
-                if (newKeyState.IsKeyDown(Keys.Space))
+                if (MainGame.input.newKeyState.IsKeyDown(Keys.Space))
                 {
                     inOrbit = false;
                     autoPilotActive = true;
@@ -109,21 +106,21 @@ namespace BPA_RPG.GameObjects
 
                 if (PlayerData.inventory.Contains(GameItem.Fuel))
                 {
-                    if (newKeyState.IsKeyDown(Keys.W))
+                    if (MainGame.input.newKeyState.IsKeyDown(Keys.W))
                     {
                         speed += accel;
                         accelerating = true;
                     }
                     else accelerating = false;
 
-                    if (newKeyState.IsKeyDown(Keys.S))
+                    if (MainGame.input.newKeyState.IsKeyDown(Keys.S))
                         if (speed > 0)
                             speed -= accel;
 
-                    if (newKeyState.IsKeyDown(Keys.D))
+                    if (MainGame.input.newKeyState.IsKeyDown(Keys.D))
                         rotSpeed += rotAccel;
 
-                    if (newKeyState.IsKeyDown(Keys.A))
+                    if (MainGame.input.newKeyState.IsKeyDown(Keys.A))
                         rotSpeed -= rotAccel;
 
                     // Cap speeds
@@ -137,7 +134,7 @@ namespace BPA_RPG.GameObjects
                 }
                 else accelerating = false;
 
-                if (newKeyState.IsKeyUp(Keys.W) && newKeyState.IsKeyUp(Keys.S))
+                if (MainGame.input.newKeyState.IsKeyUp(Keys.W) && MainGame.input.newKeyState.IsKeyUp(Keys.S))
                 {
                     if (speed < -0.25f) // Not 0 here to fix any rounding errors
                         speed += 0.025f;
@@ -145,7 +142,7 @@ namespace BPA_RPG.GameObjects
                         speed -= 0.025f;
                     else speed = 0;
                 }
-                if (newKeyState.IsKeyUp(Keys.A) && newKeyState.IsKeyUp(Keys.D))
+                if (MainGame.input.newKeyState.IsKeyUp(Keys.A) && MainGame.input.newKeyState.IsKeyUp(Keys.D))
                 {
                     if (rotSpeed < -0.002f) // Not 0 here to fix any rounding errors
                         rotSpeed += 0.001f;
@@ -186,21 +183,22 @@ namespace BPA_RPG.GameObjects
                     fuelUsed = 0;
                 }
             }
-
-
-            oldKeyState = newKeyState;
+            
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
         {
-            // Draw right half of texture if idle, draw left half if accelerating
-            Rectangle source;
-            if (accelerating)
-                source = new Rectangle(texture.Width / 2, 0, texture.Width / 2, texture.Height);
-            else source = new Rectangle(0, 0, texture.Width / 2, texture.Height);
+            if (visible)
+            {
+                // Draw right half of texture if idle, draw left half if accelerating
+                Rectangle source;
+                if (accelerating)
+                    source = new Rectangle(texture.Width / 2, 0, texture.Width / 2, texture.Height);
+                else source = new Rectangle(0, 0, texture.Width / 2, texture.Height);
 
-            spritebatch.Draw(texture, position, source, color, rotation, new Vector2(texture.Width / 4, texture.Height / 2), scale, SpriteEffects.None, 1);
+                spritebatch.Draw(texture, position, source, color, rotation, new Vector2(texture.Width / 4, texture.Height / 2), scale, SpriteEffects.None, 1);
+            }
         }
     }
 }

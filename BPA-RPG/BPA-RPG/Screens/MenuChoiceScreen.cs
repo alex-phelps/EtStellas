@@ -46,7 +46,6 @@ namespace BPA_RPG.Screens
         private List<DrawableString> options;
         private SpriteFont choiceFont;
         private Texture2D choiceMenu;
-        private MouseState oldMouseState;
 
         public MenuChoiceScreen(string title, string scriptName)
             : base(title)
@@ -67,20 +66,15 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
-            MouseState newMouseState = Mouse.GetState();
-
             for (int i = 0; i < options.Count; i++)
-                if (options[i].boundingRectangle.Contains(newMouseState.Position))
+                if (options[i].boundingRectangle.Contains(MainGame.input.newMouseState.Position))
                 {
                     options[i].color = new Color(0, 60, 255);
-                    if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                    if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
                         currentChoice.options[i].Activate();
                 }
                 else options[i].color = Color.White;
-                                
-
-            oldMouseState = newMouseState;
-
+            
             base.Update(gameTime);
         }
 

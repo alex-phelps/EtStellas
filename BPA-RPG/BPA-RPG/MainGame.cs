@@ -19,6 +19,7 @@ namespace BPA_RPG
 
         public static GraphicsDevice graphicsDevice { get; private set; }
         public static EventLogger eventLogger { get; private set; }
+        public static InputManager input { get; private set; }
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -48,6 +49,9 @@ namespace BPA_RPG
 
             //Create new EventLogger to log important events
             eventLogger = new EventLogger();
+
+            //Create new input manager
+            input = new InputManager();
 
             base.Initialize();
         }
@@ -110,7 +114,9 @@ namespace BPA_RPG
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            input.Begin();
             screenManager.Update(gameTime);
+            input.End();
 
             base.Update(gameTime);
         }

@@ -16,7 +16,6 @@ namespace BPA_RPG.Screens
         private readonly List<Screen> menuScreens;
         private List<GameObject> menuTabs;
         private List<DrawableString> tabStrings;
-        private MouseState oldMouseState;
         private int selectedScreen = 0;
 
         public TabMenuScreen(params Screen[] menuScreens)
@@ -56,9 +55,7 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
-            MouseState newMouseState = Mouse.GetState();
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            if (MainGame.input.newKeyState.IsKeyDown(Keys.Enter) && MainGame.input.oldKeyState.IsKeyUp(Keys.Enter))
             {
                 manager.Pop();
             }
@@ -68,20 +65,22 @@ namespace BPA_RPG.Screens
             for (int i = 0; i < menuTabs.Count; i++)
             {
                 //Check if tab is clicked
-                if (menuTabs[i].boundingRectangle.Contains(newMouseState.Position) &&
-                    newMouseState.LeftButton == ButtonState.Pressed && 
-                    oldMouseState.LeftButton == ButtonState.Pressed)
+                if (selectedScreen != i &&
+                    menuTabs[i].boundingRectangle.Contains(MainGame.input.newMouseState.Position) &&
+                    MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && 
+                    MainGame.input.oldMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    menuScreens[selectedScreen].Deactivated();
                     selectedScreen = i;
+                    menuScreens[selectedScreen].Activated();
+                }
             }
 
-            oldMouseState = newMouseState;
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
-            menuScreens[selectedScreen].Draw(gameTime, spritebatch);
-
             for (int i = menuTabs.Count - 1; i >= 0; i--)
             {
                 if (i != selectedScreen)
@@ -94,6 +93,8 @@ namespace BPA_RPG.Screens
             menuTabs[selectedScreen].Draw(gameTime, spritebatch);
             tabStrings[selectedScreen].color = Color.White;
             tabStrings[selectedScreen].Draw(gameTime, spritebatch);
+
+            menuScreens[selectedScreen].Draw(gameTime, spritebatch);
 
             base.Draw(gameTime, spritebatch);
         }

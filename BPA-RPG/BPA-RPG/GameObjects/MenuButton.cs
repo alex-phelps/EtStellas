@@ -12,7 +12,6 @@ namespace BPA_RPG.GameObjects
     public class MenuButton : GameObject
     {
         private EventHandler buttonEvent;
-        private MouseState oldMouseState;
         private string text;
 
         private SpriteFont menuFont;
@@ -29,24 +28,22 @@ namespace BPA_RPG.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            MouseState newMouseState = Mouse.GetState();
-
-            if (boundingRectangle.Contains(newMouseState.Position))
+            if (boundingRectangle.Contains(MainGame.input.newMouseState.Position))
             {
-                if (newMouseState.LeftButton == ButtonState.Pressed)
+                if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed)
                     buttonEvent.Invoke(this, new EventArgs());
             }
-
-            oldMouseState = newMouseState;
-
+            
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
         {
             base.Draw(gameTime, spritebatch, color);
-            spritebatch.DrawString(menuFont, text, position - 
-                new Vector2(menuFont.MeasureString(text).X / 2, menuFont.MeasureString(text).Y / 2), Color.Black);
+
+            if (visible)
+                spritebatch.DrawString(menuFont, text, position -
+                    new Vector2(menuFont.MeasureString(text).X / 2, menuFont.MeasureString(text).Y / 2), Color.Black);
         }
     }
 }

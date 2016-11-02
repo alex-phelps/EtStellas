@@ -21,7 +21,6 @@ namespace BPA_RPG.Screens
 
         private SpriteFont font;
         private Texture2D menu;
-        private MouseState oldMouseState;
 
         public ShopScreen(List<Deal> deals) 
             : base("Shop")
@@ -68,17 +67,15 @@ namespace BPA_RPG.Screens
         
         public override void Update(GameTime gameTime)
         {
-            MouseState newMouseState = Mouse.GetState();
-            
             foreach (DrawableString buyPrice in buyPrices)
             {
                 int i = buyPrices.IndexOf(buyPrice);
 
-                if (deals[i].canBuy && buyPrice.boundingRectangle.Contains(newMouseState.Position))
+                if (deals[i].canBuy && buyPrice.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
                 {
                     buyPrice.color = new Color(0, 60, 255);
 
-                    if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                    if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
                     {
                         if (PlayerData.GetMoney(deals[i].currency) >= deals[i].buyPrice)
                         {
@@ -98,11 +95,11 @@ namespace BPA_RPG.Screens
             {
                 int i = sellPrices.IndexOf(sellPrice);
 
-                if (deals[i].canSell && sellPrice.boundingRectangle.Contains(newMouseState.Position))
+                if (deals[i].canSell && sellPrice.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
                 {
                     sellPrice.color = new Color(0, 60, 255);
 
-                    if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                    if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
                     {
                         if (PlayerData.inventory.Remove(deals[i].item))
                         {
@@ -118,8 +115,7 @@ namespace BPA_RPG.Screens
                 }
                 else sellPrice.color = Color.White;
             }
-
-            oldMouseState = newMouseState;
+            
             base.Update(gameTime);
         }
 

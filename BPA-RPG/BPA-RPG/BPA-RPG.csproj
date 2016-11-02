@@ -74,6 +74,7 @@
     <Compile Include="GameObjects\MenuButton.cs" />
     <Compile Include="GameObjects\Planet.cs" />
     <Compile Include="GameObjects\PlayerShip.cs" />
+    <Compile Include="InputManager.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="PlayerData.cs" />
     <Compile Include="Program.cs" />

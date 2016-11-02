@@ -33,8 +33,9 @@ namespace BPA_RPG.GameObjects
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
         {
-            spritebatch.Draw(texture, position, new Rectangle(-scrollX, -scrollY, texture.Width, texture.Height), color, rotation, 
-                new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 1);
+            if (visible)
+                spritebatch.Draw(texture, position, new Rectangle(-scrollX, -scrollY, texture.Width, texture.Height), color, rotation,
+                    new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 1);
         }
     }
 }

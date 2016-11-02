@@ -21,9 +21,9 @@ namespace BPA_RPG.Screens
         private GameObject holdScrollArrowTop;
         private GameObject holdScrollArrowBot;
 
-        private int firstRender;
+        private GameItem mouseItem;
 
-        private MouseState oldMouseState;
+        private int firstRender;
 
         private SpriteFont font;
         private Texture2D menu;
@@ -57,45 +57,100 @@ namespace BPA_RPG.Screens
             base.LoadContent(content);
         }
 
+        public override void Deactivated()
+        {
+            if (mouseItem != null)
+            {
+                inventory.Add(mouseItem);
+                mouseItem = null;
+            }
+
+            base.Deactivated();
+        }
+
         public override void Update(GameTime gameTime)
         {
-            MouseState newMouseState = Mouse.GetState();
-
-            foreach (GameObject obj in itemRects)
+            for (int i = 0; i < itemRects.Count; i++)
             {
-                if (obj.boundingRectangle.Contains(Mouse.GetState().Position))
+                GameObject obj = itemRects[i];
+
+                if (obj.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
                 {
                     obj.visible = true;
+
+                    // If you click on one
+                    if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+                    {
+                        if (i < inventory.Count - firstRender)
+                        {
+                            if (mouseItem == null)
+                            {
+                                mouseItem = inventory[i + firstRender];
+                                inventory.RemoveAt(i + firstRender);
+                            }
+                            else
+                            {
+                                Rectangle rect = obj.boundingRectangle;
+                                rect.Height /= 2;
+                                if (rect.Contains(MainGame.input.newMouseState.Position))
+                                    inventory.Insert(i + firstRender, mouseItem);
+                                else inventory.Insert(i + firstRender + 1, mouseItem);
+
+                                mouseItem = null;
+                            }
+                        }
+                        else if (mouseItem != null)
+                        {
+                            inventory.Insert(inventory.Count, mouseItem);
+                            mouseItem = null;
+                        }
+                    }
                 }
                 else obj.visible = false;
             }
 
+            if (new Rectangle(520, 110, 60, 60).Contains(MainGame.input.newMouseState.Position) &&
+                MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+            {
+                if (mouseItem == null)
+                {
+                    mouseItem = PlayerData.engine;
+                    PlayerData.engine = null;
+                }
+                else if (mouseItem is Engine)
+                {
+                    Engine engine = PlayerData.engine;
+                    PlayerData.engine = mouseItem as Engine;
+                    mouseItem = engine;
+                }
+            }
+
             // Check if mouse is on up scroll arrow
-            if (holdScrollArrowTop.boundingRectangle.Contains(newMouseState.Position))
+            if (holdScrollArrowTop.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
             {
                 holdScrollArrowTop.texture = holdScrollArrowBlue;
 
                 // If clicking
-                if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
                     firstRender--;
             }
             else holdScrollArrowTop.texture = holdScrollArrowReg;
 
             // Check if mouse is on down scroll arrow
-            if (holdScrollArrowBot.boundingRectangle.Contains(newMouseState.Position))
+            if (holdScrollArrowBot.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
             {
                 holdScrollArrowBot.texture = holdScrollArrowBlue;
 
                 // If clicking
-                if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
                     firstRender++;
             }
             else holdScrollArrowBot.texture = holdScrollArrowReg;
 
             // Check Mouse scroll input
-            if (newMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue) // scroll up
+            if (MainGame.input.newMouseState.ScrollWheelValue > MainGame.input.oldMouseState.ScrollWheelValue) // scroll up
                 firstRender--;
-            else if (newMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue) //scroll down
+            else if (MainGame.input.newMouseState.ScrollWheelValue < MainGame.input.oldMouseState.ScrollWheelValue) //scroll down
                 firstRender++;
 
             if (firstRender < 0)
@@ -105,8 +160,7 @@ namespace BPA_RPG.Screens
 
             if (firstRender < 0)
                 firstRender = 0;
-
-            oldMouseState = newMouseState;
+            
             base.Update(gameTime);
         }
 
@@ -134,8 +188,7 @@ namespace BPA_RPG.Screens
                     break;
 
                 spritebatch.Draw(inventory[k].texture, new Vector2(250, 145 + (i * 30)), Color.White);
-                spritebatch.DrawString(font, inventory[k].name, 
-                    new Vector2(300 + font.MeasureString(inventory[k].name).X / 2, 145 + (i * 30)), Color.White);
+                spritebatch.DrawString(font, inventory[k].name, new Vector2(290, 145 + (i * 30)), Color.White);
 
                 holdScrollArrowTop.Draw(gameTime, spritebatch);
                 holdScrollArrowBot.Draw(gameTime, spritebatch);
@@ -151,6 +204,10 @@ namespace BPA_RPG.Screens
             string name = PlayerData.engine != null ? PlayerData.engine.name : "None!";
             spritebatch.DrawString(font, name, new Vector2(700, 155) - font.MeasureString(name) / 2, Color.White);
 
+
+            if (mouseItem != null)
+                spritebatch.Draw(mouseItem.texture, MainGame.input.oldMouseState.Position.ToVector2(), 
+                    new Rectangle(0, 0, 20, 20), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 1);
 
             spritebatch.End();
             spritebatch.Begin();

@@ -19,7 +19,6 @@ namespace BPA_RPG.Screens
         private Background starBackground2;
 
         private Camera camera;
-        private KeyboardState oldKeyState;
         
         public GameScreen()
             : base("Game")
@@ -48,7 +47,8 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
-            KeyboardState newKeyState = Keyboard.GetState();
+            if (MainGame.input.newKeyState.IsKeyDown(Keys.Enter) && MainGame.input.oldKeyState.IsKeyUp(Keys.Enter) && ship.inOrbit)
+                manager.Push(new TabMenuScreen(new MenuChoiceScreen(ship.lastPlanet.name, ship.lastPlanet.name.Replace(" ", "")), new ShipHoldScreen()));
 
             camera.Update(ship.position);
             
@@ -69,8 +69,7 @@ namespace BPA_RPG.Screens
 
             starBackground.Scroll(ship.position, .25f);
             starBackground2.Scroll(ship.position, .28f);
-
-            oldKeyState = newKeyState;
+            
             base.Update(gameTime);
         }
 
