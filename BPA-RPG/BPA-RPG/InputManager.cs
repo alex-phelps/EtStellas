@@ -2,26 +2,26 @@
 
 namespace BPA_RPG
 {
-    public class InputManager
+    public static class InputManager
     {
-        public KeyboardState newKeyState { get; private set; }
-        public KeyboardState oldKeyState { get; private set; }
-        public MouseState newMouseState { get; private set; }
-        public MouseState oldMouseState { get; private set; }
+        public static KeyboardState newKeyState { get; private set; }
+        public static KeyboardState oldKeyState { get; private set; }
+        public static MouseState newMouseState { get; private set; }
+        public static MouseState oldMouseState { get; private set; }
 
-        public InputManager()
+        static InputManager()
         {
             oldKeyState = Keyboard.GetState();
             oldMouseState = Mouse.GetState();
         }
 
-        public void Begin()
+        public static void Begin()
         {
             newKeyState = Keyboard.GetState();
             newMouseState = Mouse.GetState();
         }
 
-        public void End()
+        public static void End()
         {
             oldKeyState = newKeyState;
             oldMouseState = newMouseState;

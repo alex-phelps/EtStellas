@@ -67,10 +67,10 @@ namespace BPA_RPG.Screens
         public override void Update(GameTime gameTime)
         {
             for (int i = 0; i < options.Count; i++)
-                if (options[i].boundingRectangle.Contains(MainGame.input.newMouseState.Position))
+                if (options[i].boundingRectangle.Contains(InputManager.newMouseState.Position))
                 {
                     options[i].color = new Color(0, 60, 255);
-                    if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
                         currentChoice.options[i].Activate();
                 }
                 else options[i].color = Color.White;

@@ -47,7 +47,7 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (MainGame.input.newKeyState.IsKeyDown(Keys.Enter) && MainGame.input.oldKeyState.IsKeyUp(Keys.Enter) && ship.inOrbit)
+            if (InputManager.newKeyState.IsKeyDown(Keys.Enter) && InputManager.oldKeyState.IsKeyUp(Keys.Enter) && ship.inOrbit)
                 manager.Push(new TabMenuScreen(new MenuChoiceScreen(ship.lastPlanet.name, ship.lastPlanet.name.Replace(" ", "")), new ShipHoldScreen()));
 
             camera.Update(ship.position);

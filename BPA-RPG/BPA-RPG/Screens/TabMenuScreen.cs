@@ -55,7 +55,7 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (MainGame.input.newKeyState.IsKeyDown(Keys.Enter) && MainGame.input.oldKeyState.IsKeyUp(Keys.Enter))
+            if (InputManager.newKeyState.IsKeyDown(Keys.Enter) && InputManager.oldKeyState.IsKeyUp(Keys.Enter))
             {
                 manager.Pop();
             }
@@ -66,9 +66,9 @@ namespace BPA_RPG.Screens
             {
                 //Check if tab is clicked
                 if (selectedScreen != i &&
-                    menuTabs[i].boundingRectangle.Contains(MainGame.input.newMouseState.Position) &&
-                    MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && 
-                    MainGame.input.oldMouseState.LeftButton == ButtonState.Pressed)
+                    menuTabs[i].boundingRectangle.Contains(InputManager.newMouseState.Position) &&
+                    InputManager.newMouseState.LeftButton == ButtonState.Pressed && 
+                    InputManager.oldMouseState.LeftButton == ButtonState.Pressed)
                 {
                     menuScreens[selectedScreen].Deactivated();
                     selectedScreen = i;

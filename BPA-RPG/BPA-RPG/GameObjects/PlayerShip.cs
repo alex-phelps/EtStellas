@@ -48,6 +48,7 @@ namespace BPA_RPG.GameObjects
         public float rotSpeed;
         public float maxRotSpeed => baseShip.maxRotSpeed;
         public float rotAccel => baseShip.rotAccel;
+        public List<Type> weaponHold => baseShip.weaponHold;
 
         private float travelDistance;
         private float fuelUsed;
@@ -81,7 +82,7 @@ namespace BPA_RPG.GameObjects
 
                 // Check keyboard input
 
-                if (MainGame.input.newKeyState.IsKeyDown(Keys.Space))
+                if (InputManager.newKeyState.IsKeyDown(Keys.Space))
                 {
                     inOrbit = false;
                     autoPilotActive = true;
@@ -106,21 +107,21 @@ namespace BPA_RPG.GameObjects
 
                 if (PlayerData.inventory.Contains(GameItem.Fuel))
                 {
-                    if (MainGame.input.newKeyState.IsKeyDown(Keys.W))
+                    if (InputManager.newKeyState.IsKeyDown(Keys.W))
                     {
                         speed += accel;
                         accelerating = true;
                     }
                     else accelerating = false;
 
-                    if (MainGame.input.newKeyState.IsKeyDown(Keys.S))
+                    if (InputManager.newKeyState.IsKeyDown(Keys.S))
                         if (speed > 0)
                             speed -= accel;
 
-                    if (MainGame.input.newKeyState.IsKeyDown(Keys.D))
+                    if (InputManager.newKeyState.IsKeyDown(Keys.D))
                         rotSpeed += rotAccel;
 
-                    if (MainGame.input.newKeyState.IsKeyDown(Keys.A))
+                    if (InputManager.newKeyState.IsKeyDown(Keys.A))
                         rotSpeed -= rotAccel;
 
                     // Cap speeds
@@ -134,7 +135,7 @@ namespace BPA_RPG.GameObjects
                 }
                 else accelerating = false;
 
-                if (MainGame.input.newKeyState.IsKeyUp(Keys.W) && MainGame.input.newKeyState.IsKeyUp(Keys.S))
+                if (InputManager.newKeyState.IsKeyUp(Keys.W) && InputManager.newKeyState.IsKeyUp(Keys.S))
                 {
                     if (speed < -0.25f) // Not 0 here to fix any rounding errors
                         speed += 0.025f;
@@ -142,7 +143,7 @@ namespace BPA_RPG.GameObjects
                         speed -= 0.025f;
                     else speed = 0;
                 }
-                if (MainGame.input.newKeyState.IsKeyUp(Keys.A) && MainGame.input.newKeyState.IsKeyUp(Keys.D))
+                if (InputManager.newKeyState.IsKeyUp(Keys.A) && InputManager.newKeyState.IsKeyUp(Keys.D))
                 {
                     if (rotSpeed < -0.002f) // Not 0 here to fix any rounding errors
                         rotSpeed += 0.001f;

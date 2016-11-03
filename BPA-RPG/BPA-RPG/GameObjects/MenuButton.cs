@@ -28,9 +28,9 @@ namespace BPA_RPG.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            if (boundingRectangle.Contains(MainGame.input.newMouseState.Position))
+            if (boundingRectangle.Contains(InputManager.newMouseState.Position))
             {
-                if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed)
+                if (InputManager.newMouseState.LeftButton == ButtonState.Pressed)
                     buttonEvent.Invoke(this, new EventArgs());
             }
             

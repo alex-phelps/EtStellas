@@ -9,12 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameItems;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Input;
+using System.Text.RegularExpressions;
 
 namespace BPA_RPG.Screens
 {
     public class ShipHoldScreen : Screen
     {
         private List<GameItem> inventory => PlayerData.inventory;
+        private List<Type> weaponHold => PlayerData.ship.weaponHold;
         private List<Weapon> weapons => PlayerData.weapons;
         private int holdSize => PlayerData.ship.holdSize;
         private List<GameObject> itemRects;
@@ -74,12 +76,12 @@ namespace BPA_RPG.Screens
             {
                 GameObject obj = itemRects[i];
 
-                if (obj.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
+                if (obj.boundingRectangle.Contains(InputManager.newMouseState.Position))
                 {
                     obj.visible = true;
 
                     // If you click on one
-                    if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
                     {
                         if (i < inventory.Count - firstRender)
                         {
@@ -92,7 +94,7 @@ namespace BPA_RPG.Screens
                             {
                                 Rectangle rect = obj.boundingRectangle;
                                 rect.Height /= 2;
-                                if (rect.Contains(MainGame.input.newMouseState.Position))
+                                if (rect.Contains(InputManager.newMouseState.Position))
                                     inventory.Insert(i + firstRender, mouseItem);
                                 else inventory.Insert(i + firstRender + 1, mouseItem);
 
@@ -109,8 +111,8 @@ namespace BPA_RPG.Screens
                 else obj.visible = false;
             }
 
-            if (new Rectangle(520, 110, 60, 60).Contains(MainGame.input.newMouseState.Position) &&
-                MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+            if (new Rectangle(520, 110, 60, 60).Contains(InputManager.newMouseState.Position) &&
+                InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
             {
                 if (mouseItem == null)
                 {
@@ -125,32 +127,37 @@ namespace BPA_RPG.Screens
                 }
             }
 
+            for (int i = 0; i < weaponHold.Count; i++)
+            {
+
+            }
+
             // Check if mouse is on up scroll arrow
-            if (holdScrollArrowTop.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
+            if (holdScrollArrowTop.boundingRectangle.Contains(InputManager.newMouseState.Position))
             {
                 holdScrollArrowTop.texture = holdScrollArrowBlue;
 
                 // If clicking
-                if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+                if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
                     firstRender--;
             }
             else holdScrollArrowTop.texture = holdScrollArrowReg;
 
             // Check if mouse is on down scroll arrow
-            if (holdScrollArrowBot.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
+            if (holdScrollArrowBot.boundingRectangle.Contains(InputManager.newMouseState.Position))
             {
                 holdScrollArrowBot.texture = holdScrollArrowBlue;
 
                 // If clicking
-                if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+                if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
                     firstRender++;
             }
             else holdScrollArrowBot.texture = holdScrollArrowReg;
 
             // Check Mouse scroll input
-            if (MainGame.input.newMouseState.ScrollWheelValue > MainGame.input.oldMouseState.ScrollWheelValue) // scroll up
+            if (InputManager.newMouseState.ScrollWheelValue > InputManager.oldMouseState.ScrollWheelValue) // scroll up
                 firstRender--;
-            else if (MainGame.input.newMouseState.ScrollWheelValue < MainGame.input.oldMouseState.ScrollWheelValue) //scroll down
+            else if (InputManager.newMouseState.ScrollWheelValue < InputManager.oldMouseState.ScrollWheelValue) //scroll down
                 firstRender++;
 
             if (firstRender < 0)
@@ -196,17 +203,32 @@ namespace BPA_RPG.Screens
 
             spritebatch.Draw(partInv, new Vector2(517, 107), new Rectangle(0, 0, partInv.Width, partInv.Height), Color.White);
 
+            for (int i = 0; i < weaponHold.Count; i++)
+            {
+                spritebatch.Draw(partInv, new Vector2(517, 177 + i * 70), new Rectangle(0, 0, partInv.Width, partInv.Height), Color.White);
+            }
+
+            spritebatch.DrawString(font, "[Engine]", new Vector2(700, 125) - font.MeasureString("[Engine]") / 2, Color.White);
             if (PlayerData.engine != null)
                 spritebatch.Draw(PlayerData.engine.texture, new Vector2(550, 140), new Rectangle(0, 0, 20, 20), Color.White,
                     0, new Vector2(PlayerData.engine.Width / 2, PlayerData.engine.Height / 2), 3, SpriteEffects.None, 1);
-            spritebatch.DrawString(font, "[Engine]", new Vector2(700, 125) - font.MeasureString("[Engine]") / 2, Color.White);
 
             string name = PlayerData.engine != null ? PlayerData.engine.name : "None!";
             spritebatch.DrawString(font, name, new Vector2(700, 155) - font.MeasureString(name) / 2, Color.White);
 
+            for (int i = 0; i < weaponHold.Count; i++)
+            {
+                string type = new Regex(@"(?!^)(?=[A-Z])").Replace(weaponHold[i].Name, " ");
+                spritebatch.DrawString(font, "[" + type + "]", new Vector2(700, 195 + i * 70) - font.MeasureString("[" + type + "]") / 2, Color.White);
+                if (i < weapons.Count)
+                    spritebatch.Draw(weapons[i].texture, new Vector2(550, 230 + i * 70), new Rectangle(0, 0, 20, 20), Color.White,
+                        0, new Vector2(weapons[i].Width / 2, weapons[i].Height / 2), 3, SpriteEffects.None, 1); ;
+                
+                spritebatch.DrawString(font, i < weapons.Count ? weapons[i].name : "None!", new Vector2(700, 225 + i * 70) - font.MeasureString(i < weapons.Count ? weapons[i].name : "None!") / 2, Color.White);
+            }
 
             if (mouseItem != null)
-                spritebatch.Draw(mouseItem.texture, MainGame.input.oldMouseState.Position.ToVector2(), 
+                spritebatch.Draw(mouseItem.texture, InputManager.oldMouseState.Position.ToVector2(), 
                     new Rectangle(0, 0, 20, 20), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 1);
 
             spritebatch.End();

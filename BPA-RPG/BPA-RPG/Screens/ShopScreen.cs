@@ -71,11 +71,11 @@ namespace BPA_RPG.Screens
             {
                 int i = buyPrices.IndexOf(buyPrice);
 
-                if (deals[i].canBuy && buyPrice.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
+                if (deals[i].canBuy && buyPrice.boundingRectangle.Contains(InputManager.newMouseState.Position))
                 {
                     buyPrice.color = new Color(0, 60, 255);
 
-                    if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
                     {
                         if (PlayerData.GetMoney(deals[i].currency) >= deals[i].buyPrice)
                         {
@@ -95,11 +95,11 @@ namespace BPA_RPG.Screens
             {
                 int i = sellPrices.IndexOf(sellPrice);
 
-                if (deals[i].canSell && sellPrice.boundingRectangle.Contains(MainGame.input.newMouseState.Position))
+                if (deals[i].canSell && sellPrice.boundingRectangle.Contains(InputManager.newMouseState.Position))
                 {
                     sellPrice.color = new Color(0, 60, 255);
 
-                    if (MainGame.input.newMouseState.LeftButton == ButtonState.Pressed && MainGame.input.oldMouseState.LeftButton == ButtonState.Released)
+                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
                     {
                         if (PlayerData.inventory.Remove(deals[i].item))
                         {
