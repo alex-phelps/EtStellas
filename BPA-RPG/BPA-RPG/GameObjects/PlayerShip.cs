@@ -41,13 +41,13 @@ namespace BPA_RPG.GameObjects
         public int hullPoints;
         public int maxHullPoints => baseShip.maxHullPoints;
         public int holdSize => baseShip.holdSize;
-        public float accel => baseShip.accel;
+        public float accel;
         public Vector2 velocity;
         public float speed;
         public float maxSpeed => baseShip.maxSpeed;
         public float rotSpeed;
         public float maxRotSpeed => baseShip.maxRotSpeed;
-        public float rotAccel => baseShip.rotAccel;
+        public float rotAccel;
         public List<Type> weaponHold => baseShip.weaponHold;
 
         private float travelDistance;
@@ -59,13 +59,15 @@ namespace BPA_RPG.GameObjects
             baseShip = ship;
 
             velocity = new Vector2();
-            speed = 1.5f;
 
             hullPoints = maxHullPoints;
         }
 
         public override void Update(GameTime gameTime)
         {
+            accel = PlayerData.engine == null ? 0 : baseShip.accel + 0.0001f * PlayerData.engine.power;
+            rotAccel = PlayerData.engine == null ? 0 : baseShip.rotAccel + 0.00001f * PlayerData.engine.power;
+
             //Get angle to orbit planet
             if (inOrbit)
             {
@@ -194,7 +196,7 @@ namespace BPA_RPG.GameObjects
             {
                 // Draw right half of texture if idle, draw left half if accelerating
                 Rectangle source;
-                if (accelerating)
+                if (accelerating && accel != 0)
                     source = new Rectangle(texture.Width / 2, 0, texture.Width / 2, texture.Height);
                 else source = new Rectangle(0, 0, texture.Width / 2, texture.Height);
 

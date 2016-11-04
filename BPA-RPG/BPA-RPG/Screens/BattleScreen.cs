@@ -24,6 +24,8 @@ namespace BPA_RPG.Screens
         private Texture2D shipHealthBar;
         private Texture2D healthGreen;
 
+        private GameObject shieldButton;
+
         private Viewport defaultView, playerView, enemyView;
 
         public BattleScreen(PlayerShip player, EnemyShip enemy)
@@ -52,6 +54,11 @@ namespace BPA_RPG.Screens
 
             shipHealthBar = content.Load<Texture2D>("Images/ShipHealthBar");
             healthGreen = content.Load<Texture2D>("Images/HealthGreen");
+
+            shieldButton = new GameObject(content.Load<Texture2D>("Images/ShieldButton"))
+            {
+                position = new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 100)
+            };
 
             nameFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
 
@@ -134,9 +141,11 @@ namespace BPA_RPG.Screens
             spritebatch.DrawString(nameFont, player.name, new Vector2(MainGame.WindowWidth / 4 - shipHealthBar.Width / 2, MainGame.WindowHeight / 2 + 30), Color.White);
             spritebatch.DrawString(nameFont, enemy.name, new Vector2(MainGame.WindowWidth * 3 / 4 - shipHealthBar.Width / 2, 30), Color.White);
 
+            //Draw shield button
+            shieldButton.Draw(gameTime, spritebatch);
+
             spritebatch.Draw(overlay, Vector2.Zero, Color.White);
-
-
+            
             base.Draw(gameTime, spritebatch);
         }
     }

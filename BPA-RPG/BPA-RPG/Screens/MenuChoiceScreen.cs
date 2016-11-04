@@ -110,6 +110,8 @@ namespace BPA_RPG.Screens
                 }
 
                 currentChoice = MenuChoice.ChoiceFromText(this, lines);
+
+                MainGame.eventLogger.Log(this, "Loaded script \"" + scriptName + "\"");
             }
             catch (Exception e)
             {
@@ -131,6 +133,8 @@ namespace BPA_RPG.Screens
                 }
 
                 shop = ShopScreen.ShopFromText(lines);
+
+                MainGame.eventLogger.Log(this, "Loaded script \"" + scriptName + "Shop\"");
             }
             catch (FileNotFoundException)
             {

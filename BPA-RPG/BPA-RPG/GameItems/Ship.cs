@@ -51,7 +51,8 @@ namespace BPA_RPG.GameItems
             MainGame.eventLogger.Log(typeof(Ship), "Begin loading ships");
 
             //Define static ships
-            StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/StarterShip"), 100, 20, 7f, 0.05f, 0.025f, 0.0005f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon) });
+            StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/StarterShip"),
+                100, 20, 7f, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon) });
 
             MainGame.eventLogger.Log(typeof(Ship), "Finished loading ships");
         }

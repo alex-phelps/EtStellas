@@ -100,7 +100,7 @@ namespace BPA_RPG.GameObjects
             position = new Vector2(0, 0);
 
             if (!(this is GameItem))
-                MainGame.eventLogger.Log(this, "Loaded");
+                MainGame.eventLogger.Log(this, "Loaded " + "\"" + texture.ToString() + "\"");
         }
 
         /// <summary>

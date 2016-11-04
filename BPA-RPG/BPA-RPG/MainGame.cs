@@ -84,7 +84,8 @@ namespace BPA_RPG
                 GameItem.Fuel,
                 GameItem.Fuel,
                 GameItem.Fuel,
-                GameItem.Fuel
+                GameItem.Fuel,
+                LaserWeapon.BasicLaser
             });
             PlayerData.engine = Engine.BasicEngine;
 

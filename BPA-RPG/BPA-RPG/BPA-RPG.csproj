@@ -111,6 +111,7 @@
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
     <Content Include="Content\Images\ChoiceMenu.png" />
+    <Content Include="Content\Images\ShieldButton.png" />
     <Content Include="Content\Images\ShipHealthBar.png" />
     <Content Include="Content\Images\ShipHoldMenu.png" />
     <Content Include="Content\Images\StarBackground.png" />

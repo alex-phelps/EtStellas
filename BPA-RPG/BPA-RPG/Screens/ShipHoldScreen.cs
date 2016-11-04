@@ -17,7 +17,7 @@ namespace BPA_RPG.Screens
     {
         private List<GameItem> inventory => PlayerData.inventory;
         private List<Type> weaponHold => PlayerData.ship.weaponHold;
-        private List<Weapon> weapons => PlayerData.weapons;
+        private Weapon[] weapons => PlayerData.weapons;
         private int holdSize => PlayerData.ship.holdSize;
         private List<GameObject> itemRects;
         private GameObject holdScrollArrowTop;
@@ -129,7 +129,21 @@ namespace BPA_RPG.Screens
 
             for (int i = 0; i < weaponHold.Count; i++)
             {
-
+                if (new Rectangle(520, 180 + i * 70, 60, 60).Contains(InputManager.newMouseState.Position) &&
+                    InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
+                {
+                    if (mouseItem == null)
+                    {
+                        mouseItem = weapons[i];
+                        weapons[i] = null;
+                    }
+                    else if (mouseItem.GetType() == weaponHold[i])
+                    {
+                        Weapon weapon = weapons[i];
+                        weapons[i] = mouseItem as Weapon;
+                        mouseItem = weapon;
+                    }
+                }
             }
 
             // Check if mouse is on up scroll arrow
@@ -220,11 +234,11 @@ namespace BPA_RPG.Screens
             {
                 string type = new Regex(@"(?!^)(?=[A-Z])").Replace(weaponHold[i].Name, " ");
                 spritebatch.DrawString(font, "[" + type + "]", new Vector2(700, 195 + i * 70) - font.MeasureString("[" + type + "]") / 2, Color.White);
-                if (i < weapons.Count)
-                    spritebatch.Draw(weapons[i].texture, new Vector2(550, 230 + i * 70), new Rectangle(0, 0, 20, 20), Color.White,
+                if (weapons[i] != null)
+                    spritebatch.Draw(weapons[i].texture, new Vector2(550, 210 + i * 70), new Rectangle(0, 0, 20, 20), Color.White,
                         0, new Vector2(weapons[i].Width / 2, weapons[i].Height / 2), 3, SpriteEffects.None, 1); ;
                 
-                spritebatch.DrawString(font, i < weapons.Count ? weapons[i].name : "None!", new Vector2(700, 225 + i * 70) - font.MeasureString(i < weapons.Count ? weapons[i].name : "None!") / 2, Color.White);
+                spritebatch.DrawString(font, weapons[i] != null ? weapons[i].name : "None!", new Vector2(700, 225 + i * 70) - font.MeasureString(weapons[i] != null ? weapons[i].name : "None!") / 2, Color.White);
             }
 
             if (mouseItem != null)

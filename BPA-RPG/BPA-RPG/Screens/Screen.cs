@@ -51,7 +51,7 @@ namespace BPA_RPG.Screens
         public virtual void LoadContent(ContentManager content)
         {
             loaded = true;
-            MainGame.eventLogger.Log(this, "Loaded");
+            MainGame.eventLogger.Log(this, "Loaded " + "\"" + title + "\"");
         }
 
         /// <summary>

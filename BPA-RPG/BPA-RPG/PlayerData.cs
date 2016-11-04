@@ -23,13 +23,19 @@ namespace BPA_RPG
             set
             {
                 Ship = value;
+
+                if (weapons != null)
+                    inventory.AddRange(weapons);
+
+                weapons = new Weapon[Ship.weaponHold.Count];
+
                 MainGame.eventLogger.Log(typeof(PlayerData), "Player ship = " + Ship.name);
             }
         }
 
         public static string name = "TestName";
         public static List<GameItem> inventory = new List<GameItem>();
-        public static List<Weapon> weapons = new List<Weapon>();
+        public static Weapon[] weapons;
         public static Engine engine;
 
         private static int credits;
