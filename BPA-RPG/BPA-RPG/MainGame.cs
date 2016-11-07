@@ -71,9 +71,6 @@ namespace BPA_RPG
             //Create a new ScreenManager to handle different screens.
             screenManager = new ScreenManager(Content);
 
-            //Create the Main Menu Screen
-            screenManager.Push(new MainMenuScreen());
-
             //Set default player ship
             PlayerData.ship = new PlayerShip(Ship.StarterShip);
 
@@ -88,6 +85,12 @@ namespace BPA_RPG
                 LaserWeapon.BasicLaser
             });
             PlayerData.engine = Engine.BasicEngine;
+            PlayerData.weapons[0] = LaserWeapon.BasicLaser;
+
+            //Create the Main Menu Screen
+            screenManager.Push(new MainMenuScreen());
+            screenManager.Push(new GameScreen());
+            screenManager.Push(new BattleScreen(PlayerData.ship, new EnemyShip(Ship.StarterShip)));
 
             //Load ScreenManager
             screenManager.LoadContent();

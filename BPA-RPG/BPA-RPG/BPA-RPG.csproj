@@ -69,9 +69,9 @@
     <Compile Include="GameItems\ShipPart.cs" />
     <Compile Include="GameItems\Weapon.cs" />
     <Compile Include="GameObjects\Background.cs" />
+    <Compile Include="GameObjects\ClickableObject.cs" />
     <Compile Include="GameObjects\EnemyShip.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
-    <Compile Include="GameObjects\MenuButton.cs" />
     <Compile Include="GameObjects\Planet.cs" />
     <Compile Include="GameObjects\PlayerShip.cs" />
     <Compile Include="InputManager.cs" />
@@ -101,7 +101,8 @@
     <Content Include="Content\Images\BattleOverlay.png" />
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
-    <Content Include="Content\Images\HealthGreen.png" />
+    <Content Include="Content\Images\FireButton.png" />
+    <Content Include="Content\Images\Health.png" />
     <Content Include="Content\Images\HoldScrollArrow.png" />
     <Content Include="Content\Images\HoldScrollArrowBlue.png" />
     <Content Include="Content\Images\ItemHoverRect.png" />
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Content\Fonts\BattleSubTextFont.spritefont" />
     <None Include="Content\Fonts\ChoiceTabFont.spritefont" />
     <None Include="Content\Fonts\ChoiceFont.spritefont" />
     <None Include="Content\Fonts\MenuButtonFont.spritefont" />

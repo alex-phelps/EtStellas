@@ -20,11 +20,14 @@ namespace BPA_RPG.Screens
         private Background stars2;
 
         private SpriteFont nameFont;
+        private SpriteFont subFont;
+
         private Texture2D overlay;
         private Texture2D shipHealthBar;
-        private Texture2D healthGreen;
+        private Texture2D health;
 
-        private GameObject shieldButton;
+        private List<ClickableObject> fireButtons;
+        private ClickableObject shieldButton;
 
         private Viewport defaultView, playerView, enemyView;
 
@@ -47,30 +50,69 @@ namespace BPA_RPG.Screens
 
         public override void LoadContent(ContentManager content)
         {
+            nameFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
+            subFont = content.Load<SpriteFont>("Fonts/BattleSubTextFont");
+
             stars = new Background(content.Load<Texture2D>("Images/StarBackground"));
             stars2 = new Background(content.Load<Texture2D>("Images/StarBackground2"));
 
             overlay = content.Load<Texture2D>("Images/BattleOverlay");
 
             shipHealthBar = content.Load<Texture2D>("Images/ShipHealthBar");
-            healthGreen = content.Load<Texture2D>("Images/HealthGreen");
+            health = content.Load<Texture2D>("Images/Health");
 
-            shieldButton = new GameObject(content.Load<Texture2D>("Images/ShieldButton"))
+            shieldButton = new ClickableObject(content.Load<Texture2D>("Images/ShieldButton"))
             {
                 position = new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 100)
             };
 
-            nameFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
+            fireButtons = new List<ClickableObject>();
+            for (int i = 0; i < PlayerData.weapons.Length; i++)
+            {
+                if (PlayerData.weapons[i] == null)
+                    continue;
+
+                fireButtons.Add(new ClickableObject(content.Load<Texture2D>("Images/FireButton")));
+            }
+
+            for (int i = 0; i < fireButtons.Count; i++)
+            {
+                Vector2 pos = new Vector2(0, MainGame.WindowHeight / 2 + 100);
+                switch (i)
+                {
+                    case 0:
+                        pos.X = MainGame.WindowWidth / 4 - 170;
+                        break;
+                    case 1:
+                        pos.X = MainGame.WindowWidth / 4 + 170;
+                        break;
+                    case 2:
+                        pos.X = MainGame.WindowWidth / 4 - 100;
+                        break;
+                    case 3:
+                        pos.X = MainGame.WindowWidth / 4 + 100;
+                        break;
+                }
+                fireButtons[i].position = pos;
+            }
 
             base.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (InputManager.newKeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter))
+                manager.Pop();
+
             backgroundScrollPos += new Vector2(.2f, 0.01f);
 
             stars.Scroll(backgroundScrollPos, .7f);
             stars2.Scroll(backgroundScrollPos);
+
+            shieldButton.Update(gameTime);
+
+            foreach(ClickableObject fb in fireButtons)
+                fb.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -122,17 +164,17 @@ namespace BPA_RPG.Screens
 
 
             //Draw Player health
-            spritebatch.Draw(healthGreen, new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 60),
-                new Rectangle(0, 0, healthGreen.Width, healthGreen.Height), Color.White, 0,
-                new Vector2(healthGreen.Width / 2, healthGreen.Height / 2), 1, SpriteEffects.None, 1);
+            spritebatch.Draw(health, new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 60),
+                new Rectangle(0, 0, health.Width, health.Height), Color.White, 0,
+                new Vector2(health.Width / 2, health.Height / 2), 1, SpriteEffects.None, 1);
             spritebatch.Draw(shipHealthBar, new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 60),
                 new Rectangle(0, 0, shipHealthBar.Width, shipHealthBar.Height), Color.White, 0,
                 new Vector2(shipHealthBar.Width / 2, shipHealthBar.Height / 2), 1, SpriteEffects.None, 1);
 
             //Draw enemy health
-            spritebatch.Draw(healthGreen, new Vector2(MainGame.WindowWidth * 3 / 4, 60),
-                new Rectangle(0, 0, healthGreen.Width, healthGreen.Height), Color.White, 0,
-                new Vector2(healthGreen.Width / 2, healthGreen.Height / 2), 1, SpriteEffects.None, 1);
+            spritebatch.Draw(health, new Vector2(MainGame.WindowWidth * 3 / 4, 60),
+                new Rectangle(0, 0, health.Width, health.Height), Color.White, 0,
+                new Vector2(health.Width / 2, health.Height / 2), 1, SpriteEffects.None, 1);
             spritebatch.Draw(shipHealthBar, new Vector2(MainGame.WindowWidth * 3 / 4, 60),
                 new Rectangle(0, 0, shipHealthBar.Width, shipHealthBar.Height), Color.White, 0,
                 new Vector2(shipHealthBar.Width / 2, shipHealthBar.Height / 2), 1, SpriteEffects.None, 1);
@@ -143,7 +185,26 @@ namespace BPA_RPG.Screens
 
             //Draw shield button
             shieldButton.Draw(gameTime, spritebatch);
+            spritebatch.DrawString(subFont, "Shield", shieldButton.position - subFont.MeasureString("Shield") / 2, Color.White);
 
+            //Draw fire buttons
+            int j = 0;
+            for (int i = 0; i < fireButtons.Count; i++)
+            {
+                fireButtons[i].Draw(gameTime, spritebatch);
+                spritebatch.DrawString(subFont, "Fire!", fireButtons[i].position - subFont.MeasureString("Fire!") / 2, Color.Black);
+
+                while (j < PlayerData.weapons.Length && PlayerData.weapons[j] == null)
+                    j++;
+
+                string name = PlayerData.weapons[j].name.Replace(' ', '\n');
+                spritebatch.DrawString(subFont, name,
+                    (fireButtons[i].position + new Vector2(0, 165)) - subFont.MeasureString(name) / 2, Color.White);
+
+                j++;
+            }
+
+            //Draw overlay
             spritebatch.Draw(overlay, Vector2.Zero, Color.White);
             
             base.Draw(gameTime, spritebatch);

@@ -14,7 +14,7 @@ namespace BPA_RPG.Screens
     class TabMenuScreen : Screen
     {
         private readonly List<Screen> menuScreens;
-        private List<GameObject> menuTabs;
+        private List<ClickableObject> menuTabs;
         private List<DrawableString> tabStrings;
         private int selectedScreen = 0;
 
@@ -24,7 +24,7 @@ namespace BPA_RPG.Screens
             this.menuScreens = new List<Screen>(menuScreens);
 
             translucent = true;
-            menuTabs = new List<GameObject>();
+            menuTabs = new List<ClickableObject>();
             tabStrings = new List<DrawableString>();
         }
 
@@ -43,12 +43,23 @@ namespace BPA_RPG.Screens
                     // Adds a shop if the screen has one
                     menuScreens.Insert(i + 1, ((MenuChoiceScreen)menuScreens[i]).shop);
 
-                menuTabs.Add(new GameObject(menuTab)
+                int k = i; // keeps lambda from referencing i
+                menuTabs.Add(new ClickableObject(menuTab, (o, e) =>
+                {
+                    if (selectedScreen != k)
+                    {
+                        menuScreens[selectedScreen].Deactivated();
+                        selectedScreen = k;
+                        menuScreens[selectedScreen].Activated();
+                    }
+                })
                 {
                     position = MainGame.WindowCenter - new Vector2(230 - (i * 150), 242)
                 });
+
                 tabStrings.Add(new DrawableString(tabFont, menuScreens[i].title, MainGame.WindowCenter - new Vector2(230 - (i * 150), 242) - tabFont.MeasureString(menuScreens[i].title) / 2, Color.White));
             }
+                
 
             base.LoadContent(content);
         }
@@ -62,19 +73,8 @@ namespace BPA_RPG.Screens
 
             menuScreens[selectedScreen].Update(gameTime);
 
-            for (int i = 0; i < menuTabs.Count; i++)
-            {
-                //Check if tab is clicked
-                if (selectedScreen != i &&
-                    menuTabs[i].boundingRectangle.Contains(InputManager.newMouseState.Position) &&
-                    InputManager.newMouseState.LeftButton == ButtonState.Pressed && 
-                    InputManager.oldMouseState.LeftButton == ButtonState.Pressed)
-                {
-                    menuScreens[selectedScreen].Deactivated();
-                    selectedScreen = i;
-                    menuScreens[selectedScreen].Activated();
-                }
-            }
+            foreach (ClickableObject tab in menuTabs)
+                tab.Update(gameTime);
 
             base.Update(gameTime);
         }
