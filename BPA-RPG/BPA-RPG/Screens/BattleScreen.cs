@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using BPA_RPG.GameItems;
 
 namespace BPA_RPG.Screens
 {
     public class BattleScreen : Screen
     {
-        private PlayerShip player;
-        private EnemyShip enemy;
+        private BattleShip player;
+        private BattleShip enemy;
 
         private Vector2 backgroundScrollPos;
         private Background stars;
@@ -25,17 +26,20 @@ namespace BPA_RPG.Screens
         private Texture2D overlay;
         private Texture2D shipHealthBar;
         private Texture2D health;
+        private Texture2D weaponCooldownBar;
+        private Texture2D weaponCooldown;
+
+        private ClickableObject shieldButton;
 
         private List<ClickableObject> fireButtons;
-        private ClickableObject shieldButton;
 
         private Viewport defaultView, playerView, enemyView;
 
-        public BattleScreen(PlayerShip player, EnemyShip enemy)
+        public BattleScreen(PlayerShip player, int level) // or something
             : base("Battle")
         {
-            this.player = player;
-            this.enemy = enemy;
+            this.player = new BattleShip(player);
+            enemy = BattleShip.CreateEnemyShip(level);
 
             defaultView = MainGame.graphicsDevice.Viewport;
 
@@ -61,19 +65,24 @@ namespace BPA_RPG.Screens
             shipHealthBar = content.Load<Texture2D>("Images/ShipHealthBar");
             health = content.Load<Texture2D>("Images/Health");
 
+            weaponCooldownBar = content.Load<Texture2D>("Images/WeaponCooldownBar");
+            weaponCooldown = content.Load<Texture2D>("Images/WeaponCooldown");
+
             shieldButton = new ClickableObject(content.Load<Texture2D>("Images/ShieldButton"))
             {
                 position = new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 100)
             };
 
             fireButtons = new List<ClickableObject>();
-            for (int i = 0; i < PlayerData.weapons.Length; i++)
+            foreach (Weapon weapon in PlayerData.weapons)
             {
-                if (PlayerData.weapons[i] == null)
+                if (weapon == null)
                     continue;
 
                 fireButtons.Add(new ClickableObject(content.Load<Texture2D>("Images/FireButton")));
             }
+
+
 
             for (int i = 0; i < fireButtons.Count; i++)
             {
@@ -114,6 +123,10 @@ namespace BPA_RPG.Screens
             foreach(ClickableObject fb in fireButtons)
                 fb.Update(gameTime);
 
+            player.Update(gameTime);
+
+            enemy.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -134,9 +147,7 @@ namespace BPA_RPG.Screens
             stars.position -= MainGame.WindowCenter / 2;
             stars2.position -= MainGame.WindowCenter / 2;
 
-            spritebatch.Draw(player.texture, MainGame.WindowCenter / 2, new Rectangle(0, 0, player.Width / 2, player.Height),
-                Color.White, MathHelper.PiOver2, new Vector2(player.Width / 4, player.Height / 2), 4,
-                SpriteEffects.None, 1);
+            player.Draw(gameTime, spritebatch);
             
             //Draw enemy viewport
 
@@ -151,9 +162,7 @@ namespace BPA_RPG.Screens
             stars.position += MainGame.WindowCenter / 2;
             stars2.position += MainGame.WindowCenter / 2;
 
-            spritebatch.Draw(enemy.texture, MainGame.WindowCenter / 2, new Rectangle(0, 0, enemy.Width / 2, enemy.Height),
-                Color.White, -MathHelper.PiOver2, new Vector2(enemy.Width / 4, enemy.Height / 2), 4,
-                SpriteEffects.None, 1);
+            enemy.Draw(gameTime, spritebatch);
 
             //Draw the rest of the screen
 
@@ -187,12 +196,21 @@ namespace BPA_RPG.Screens
             shieldButton.Draw(gameTime, spritebatch);
             spritebatch.DrawString(subFont, "Shield", shieldButton.position - subFont.MeasureString("Shield") / 2, Color.White);
 
-            //Draw fire buttons
+            //Draw player weapons systems
             int j = 0;
             for (int i = 0; i < fireButtons.Count; i++)
             {
-                fireButtons[i].Draw(gameTime, spritebatch);
+                Color color = player.cooldowns[i] >= player.maxCooldowns[i] ? Color.White : Color.Gray;
+                fireButtons[i].Draw(gameTime, spritebatch, color);
+
                 spritebatch.DrawString(subFont, "Fire!", fireButtons[i].position - subFont.MeasureString("Fire!") / 2, Color.Black);
+                
+                spritebatch.Draw(weaponCooldownBar, fireButtons[i].position + new Vector2(-weaponCooldownBar.Width / 2, 22),
+                    Color.White);
+                spritebatch.Draw(weaponCooldown, fireButtons[i].position + new Vector2(-weaponCooldown.Width / 2, 22 + weaponCooldown.Height - weaponCooldown.Height * ((float)player.cooldowns[i] / player.maxCooldowns[i])),
+                    new Rectangle(0, weaponCooldown.Height - (int)(weaponCooldown.Height * ((float)player.cooldowns[i] / player.maxCooldowns[i])), weaponCooldown.Width, weaponCooldown.Height),
+                    Color.White);
+
 
                 while (j < PlayerData.weapons.Length && PlayerData.weapons[j] == null)
                     j++;
@@ -200,8 +218,38 @@ namespace BPA_RPG.Screens
                 string name = PlayerData.weapons[j].name.Replace(' ', '\n');
                 spritebatch.DrawString(subFont, name,
                     (fireButtons[i].position + new Vector2(0, 165)) - subFont.MeasureString(name) / 2, Color.White);
-
+                
                 j++;
+            }
+            
+            //Draw enemy weapon systems
+            for (int i = 0; i < enemy.weapons.Length; i++)
+            {
+                Vector2 pos = new Vector2(0, 100);
+                switch (i)
+                {
+                    case 0:
+                        pos.X = MainGame.WindowWidth * 3 / 4 - 170;
+                        break;
+                    case 1:
+                        pos.X = MainGame.WindowWidth * 3 / 4 + 170;
+                        break;
+                    case 2:
+                        pos.X = MainGame.WindowWidth * 3 / 4 - 100;
+                        break;
+                    case 3:
+                        pos.X = MainGame.WindowWidth * 3 / 4 + 100;
+                        break;
+                }
+
+                string name = enemy.weapons[i].name.Replace(' ', '\n');
+                spritebatch.DrawString(subFont, name, pos - subFont.MeasureString(name) / 2, Color.White);
+
+                spritebatch.Draw(weaponCooldownBar, pos + new Vector2(-weaponCooldownBar.Width / 2, 25),
+                    Color.White);
+                spritebatch.Draw(weaponCooldown, pos + new Vector2(-weaponCooldown.Width / 2, 25 + weaponCooldown.Height - weaponCooldown.Height * ((float)enemy.cooldowns[i] / enemy.maxCooldowns[i])),
+                    new Rectangle(0, weaponCooldown.Height - (int)(weaponCooldown.Height * ((float)enemy.cooldowns[i] / enemy.maxCooldowns[i])), weaponCooldown.Width, weaponCooldown.Height),
+                    Color.White);
             }
 
             //Draw overlay

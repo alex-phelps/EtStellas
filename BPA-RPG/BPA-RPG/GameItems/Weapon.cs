@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BPA_RPG.GameItems
 {
@@ -13,13 +8,15 @@ namespace BPA_RPG.GameItems
         public readonly int damage;
         public readonly int shots;
         public readonly int maxCooldown;
+        public readonly float hitChance;
 
-        protected Weapon(string name, Texture2D texture, int damage, int shots, int maxCooldown)
+        protected Weapon(string name, Texture2D texture, int damage, int shots, int maxCooldown, float hitChance)
             : base(name, texture)
         {
             this.damage = damage;
             this.shots = shots;
             this.maxCooldown = maxCooldown;
+            this.hitChance = hitChance;
         }
 
         public static new void LoadContent(ContentManager content)

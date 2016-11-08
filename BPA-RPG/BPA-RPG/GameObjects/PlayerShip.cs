@@ -79,7 +79,7 @@ namespace BPA_RPG.GameObjects
                 //Find angle to the target planet
                 double angleToPlanet = Math.Atan2(position.Y - lastPlanet.position.Y, position.X - lastPlanet.position.X);
 
-                rotation = (float)(angleToPlanet + Math.PI);
+                rotation = (float)angleToPlanet + MathHelper.Pi;
 
 
                 // Check keyboard input
@@ -168,7 +168,7 @@ namespace BPA_RPG.GameObjects
 
             //Update rotation
             rotation += rotSpeed;
-            rotation %= (float)(Math.PI * 2);
+            rotation %= MathHelper.TwoPi;
 
             if (PlayerData.inventory.Contains(GameItem.Fuel))
             {

@@ -51,13 +51,17 @@ namespace BPA_RPG.Screens
                 (o, s) => firstRender--, 
                 (o, s) => (o as ClickableObject).texture = holdScrollArrowBlue,
                 (o, s) => (o as ClickableObject).texture = holdScrollArrowReg)
-            { position = new Vector2(325, 125) };
+            {
+                position = new Vector2(325, 125)
+            };
 
             holdScrollArrowBot = new ClickableObject(holdScrollArrowReg,
                 (o, s) => firstRender--,
                 (o, s) => (o as ClickableObject).texture = holdScrollArrowBlue,
                 (o, s) => (o as ClickableObject).texture = holdScrollArrowReg)
-            { position = new Vector2(325, 452), rotation = (float)Math.PI };
+            {
+                position = new Vector2(325, 452), rotation = MathHelper.Pi
+            };
 
             Texture2D itemHoverRect = content.Load<Texture2D>("Images/ItemHoverRect");
             for (int i = 0; i < 10; i++)
@@ -92,7 +96,9 @@ namespace BPA_RPG.Screens
                     },
                     (o, s) => (o as ClickableObject).visible = true,
                     (o, s) => (o as ClickableObject).visible = false)
-                { position = new Vector2(337, 155 + (k * 30)), visible = false } );
+                {
+                    position = new Vector2(337, 155 + (k * 30)), visible = false
+                });
             }
 
             base.LoadContent(content);
@@ -204,9 +210,7 @@ namespace BPA_RPG.Screens
             spritebatch.Draw(partInv, new Vector2(517, 107), new Rectangle(0, 0, partInv.Width, partInv.Height), Color.White);
 
             for (int i = 0; i < weaponHold.Count; i++)
-            {
                 spritebatch.Draw(partInv, new Vector2(517, 177 + i * 70), new Rectangle(0, 0, partInv.Width, partInv.Height), Color.White);
-            }
 
             spritebatch.DrawString(font, "[Engine]", new Vector2(700, 125) - font.MeasureString("[Engine]") / 2, Color.White);
             if (PlayerData.engine != null)
@@ -218,7 +222,9 @@ namespace BPA_RPG.Screens
 
             for (int i = 0; i < weaponHold.Count; i++)
             {
+                //Put a space before capital letters (not including first letter)
                 string type = new Regex(@"(?!^)(?=[A-Z])").Replace(weaponHold[i].Name, " ");
+
                 spritebatch.DrawString(font, "[" + type + "]", new Vector2(700, 195 + i * 70) - font.MeasureString("[" + type + "]") / 2, Color.White);
                 if (weapons[i] != null)
                     spritebatch.Draw(weapons[i].texture, new Vector2(550, 210 + i * 70), new Rectangle(0, 0, 20, 20), Color.White,

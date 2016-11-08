@@ -69,8 +69,8 @@
     <Compile Include="GameItems\ShipPart.cs" />
     <Compile Include="GameItems\Weapon.cs" />
     <Compile Include="GameObjects\Background.cs" />
+    <Compile Include="GameObjects\BattleShip.cs" />
     <Compile Include="GameObjects\ClickableObject.cs" />
-    <Compile Include="GameObjects\EnemyShip.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Planet.cs" />
     <Compile Include="GameObjects\PlayerShip.cs" />
@@ -118,6 +118,8 @@
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />
     <Content Include="Content\Images\StarterShip.png" />
+    <Content Include="Content\Images\WeaponCooldown.png" />
+    <Content Include="Content\Images\WeaponCooldownBar.png" />
     <Content Include="Content\Scripts\DebugPlanet.txt" />
     <Content Include="Content\Scripts\DebugPlanetShop.txt" />
     <Content Include="Content\Scripts\Script Syntax.txt" />

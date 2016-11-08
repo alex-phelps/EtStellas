@@ -5,6 +5,7 @@ using BPA_RPG.Screens;
 using BPA_RPG.GameItems;
 using Microsoft.Xna.Framework.Content;
 using BPA_RPG.GameObjects;
+using System.Collections.Generic;
 
 namespace BPA_RPG
 {
@@ -90,7 +91,7 @@ namespace BPA_RPG
             //Create the Main Menu Screen
             screenManager.Push(new MainMenuScreen());
             screenManager.Push(new GameScreen());
-            screenManager.Push(new BattleScreen(PlayerData.ship, new EnemyShip(Ship.StarterShip)));
+            screenManager.Push(new BattleScreen(PlayerData.ship, 0));
 
             //Load ScreenManager
             screenManager.LoadContent();

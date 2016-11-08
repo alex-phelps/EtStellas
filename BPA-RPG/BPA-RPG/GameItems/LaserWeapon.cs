@@ -14,17 +14,16 @@ namespace BPA_RPG.GameItems
 
 
 
-        public LaserWeapon(string name, Texture2D texture, int damage, int shots, int maxCooldown)
-            : base(name, texture, damage, shots, maxCooldown)
+        public LaserWeapon(string name, Texture2D texture, int damage, int shots, int maxCooldown, float hitChance)
+            : base(name, texture, damage, shots, maxCooldown, hitChance)
         {
-
         }
 
         public static new void LoadContent(ContentManager content)
         {
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Begin loading laser weapons");
 
-            BasicLaser = new LaserWeapon("Basic Laser", content.Load<Texture2D>("Images/DebugTexture"), 5, 2, 6);
+            BasicLaser = new LaserWeapon("Basic Laser", content.Load<Texture2D>("Images/DebugTexture"), 5, 2, 6, 0.95f);
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading laser weapons");
         }
