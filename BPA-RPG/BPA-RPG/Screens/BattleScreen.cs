@@ -16,6 +16,8 @@ namespace BPA_RPG.Screens
         private BattleShip player;
         private BattleShip enemy;
 
+        private List<WeaponProjectile> projectiles;
+
         private Vector2 backgroundScrollPos;
         private Background stars;
         private Background stars2;
@@ -33,7 +35,12 @@ namespace BPA_RPG.Screens
 
         private List<ClickableObject> fireButtons;
 
-        private Viewport defaultView, playerView, enemyView;
+        private Viewport defaultView;
+        private Viewport playerView;
+        private Viewport enemyView;
+
+        private Camera playerCamera = new Camera();
+        private Camera enemyCamera = new Camera();
 
         public BattleScreen(PlayerShip player, int level) // or something
             : base("Battle")
@@ -50,6 +57,8 @@ namespace BPA_RPG.Screens
             enemyView = playerView;
             enemyView.X = playerView.Width;
             enemyView.Y = playerView.Height;
+
+            projectiles = new List<WeaponProjectile>();
         }
 
         public override void LoadContent(ContentManager content)
@@ -57,8 +66,14 @@ namespace BPA_RPG.Screens
             nameFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
             subFont = content.Load<SpriteFont>("Fonts/BattleSubTextFont");
 
-            stars = new Background(content.Load<Texture2D>("Images/StarBackground"));
-            stars2 = new Background(content.Load<Texture2D>("Images/StarBackground2"));
+            stars = new Background(content.Load<Texture2D>("Images/StarBackground"))
+            {
+                position = Vector2.Zero
+            };
+            stars2 = new Background(content.Load<Texture2D>("Images/StarBackground2"))
+            {
+                position = Vector2.Zero
+            };
 
             overlay = content.Load<Texture2D>("Images/BattleOverlay");
 
@@ -79,7 +94,10 @@ namespace BPA_RPG.Screens
                 if (weapon == null)
                     continue;
 
-                fireButtons.Add(new ClickableObject(content.Load<Texture2D>("Images/FireButton")));
+                fireButtons.Add(new ClickableObject(content.Load<Texture2D>("Images/FireButton"), (o, s) =>
+                {
+                    PlayerFire(weapon);
+                }));
             }
 
 
@@ -127,6 +145,12 @@ namespace BPA_RPG.Screens
 
             enemy.Update(gameTime);
 
+            playerCamera.Update(player.position, MainGame.WindowCenter / 2);
+            enemyCamera.Update(enemy.position, MainGame.WindowCenter / 2);
+
+            foreach (WeaponProjectile proj in projectiles)
+                proj.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -136,37 +160,42 @@ namespace BPA_RPG.Screens
 
 
             //Draw player viewport
-            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch.
-            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointWrap);
+            spritebatch.End(); // Aparently you can't switch viewports without ending the spritebatch.
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointWrap, null, null, null, playerCamera.transform);
 
             MainGame.graphicsDevice.Viewport = playerView;
-
-            //Draw background then change its location to add variation
+            
+            stars.position = player.position;
+            stars2.position = player.position;
             stars.Draw(gameTime, spritebatch);
             stars2.Draw(gameTime, spritebatch);
-            stars.position -= MainGame.WindowCenter / 2;
-            stars2.position -= MainGame.WindowCenter / 2;
+
+            foreach (WeaponProjectile proj in projectiles)
+                proj.Draw(gameTime, spritebatch);
 
             player.Draw(gameTime, spritebatch);
+
             
             //Draw enemy viewport
 
-            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch.
-            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointWrap);
+            spritebatch.End(); // Aparently you can't switch viewports without ending the spritebatch.
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointWrap, null, null, null, enemyCamera.transform);
 
             MainGame.graphicsDevice.Viewport = enemyView;
-
-            //Draw background then change its location back
+            
+            stars.position = enemy.position;
+            stars2.position = enemy.position;
             stars.Draw(gameTime, spritebatch);
             stars2.Draw(gameTime, spritebatch);
-            stars.position += MainGame.WindowCenter / 2;
-            stars2.position += MainGame.WindowCenter / 2;
+
+            foreach (WeaponProjectile proj in projectiles)
+                proj.Draw(gameTime, spritebatch);
 
             enemy.Draw(gameTime, spritebatch);
 
             //Draw the rest of the screen
 
-            spritebatch.End(); // Aparently you cant switch viewports without ending the spritebatch.
+            spritebatch.End(); // Aparently you can't switch viewports without ending the spritebatch.
             spritebatch.Begin();
 
             MainGame.graphicsDevice.Viewport = defaultView;
@@ -256,6 +285,16 @@ namespace BPA_RPG.Screens
             spritebatch.Draw(overlay, Vector2.Zero, Color.White);
             
             base.Draw(gameTime, spritebatch);
+        }
+
+        private void PlayerFire(Weapon weapon)
+        {
+            projectiles.Add(new WeaponProjectile(weapon, player.position, enemy));
+        }
+
+        private void EnemyFire(Weapon weapon)
+        {
+            projectiles.Add(new WeaponProjectile(weapon, enemy.position, player));
         }
     }
 }

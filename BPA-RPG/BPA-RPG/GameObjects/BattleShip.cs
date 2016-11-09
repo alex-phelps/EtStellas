@@ -47,9 +47,7 @@ namespace BPA_RPG.GameObjects
                 cooldowns.Add(0);
                 maxCooldowns.Add(weapon.maxCooldown);
             }
-
-
-            position = MainGame.WindowCenter / 2;
+            
             rotation = MathHelper.PiOver2;
             scale = 4;
         }
@@ -77,7 +75,7 @@ namespace BPA_RPG.GameObjects
             }
 
 
-            position = MainGame.WindowCenter / 2;
+            position.X = 2000;
             rotation = -MathHelper.PiOver2;
             scale = 4;
         }

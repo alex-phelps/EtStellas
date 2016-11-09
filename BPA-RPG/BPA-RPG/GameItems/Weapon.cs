@@ -5,14 +5,16 @@ namespace BPA_RPG.GameItems
 {
     public abstract class Weapon : ShipPart
     {
+        public readonly Texture2D projectileTexture;
         public readonly int damage;
         public readonly int shots;
         public readonly int maxCooldown;
         public readonly float hitChance;
 
-        protected Weapon(string name, Texture2D texture, int damage, int shots, int maxCooldown, float hitChance)
+        protected Weapon(string name, Texture2D texture, Texture2D projectileTexture, int damage, int shots, int maxCooldown, float hitChance)
             : base(name, texture)
         {
+            this.projectileTexture = projectileTexture;
             this.damage = damage;
             this.shots = shots;
             this.maxCooldown = maxCooldown;

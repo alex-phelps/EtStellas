@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace BPA_RPG.GameObjects
 {
@@ -137,6 +138,48 @@ namespace BPA_RPG.GameObjects
         public void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
             Draw(gameTime, spritebatch, Color.White);
+        }
+
+        /// <summary>
+        /// Checks if this is colliding with the given GameObject
+        /// </summary>
+        public bool IntersectPixels(GameObject obj)
+        {
+            // Calculate a matrix which transforms from A's local space into
+            // world space and then into B's local space
+            Matrix transformAToB = transformMatrix * Matrix.Invert(obj.transformMatrix);
+
+            //For each row of pixel in A
+            for (int yA = 0; yA < Height; yA++)
+            {
+                //For each pixel in that row
+                for (int xA = 0; xA < Width; xA++)
+                {
+                    //Calculate this pixel's location in B
+                    Vector2 positionInB = Vector2.Transform(new Vector2(xA, yA), transformAToB);
+
+                    int xB = (int)Math.Round(positionInB.X);
+                    int yB = (int)Math.Round(positionInB.Y);
+
+                    if (xB >= 0 && xB < obj.Width &&
+                        yB >= 0 && yB < obj.Height)
+                    {
+                        //Get colors of the overlapping pixels
+                        Color colorA = colorData[xA + yA * Width];
+                        Color colorB = obj.colorData[xB + yB * obj.Width];
+
+                        //If both pixels are not completely transparent
+                        if (colorA.A * colorB.A != 0)
+                        {
+                            //Intersection found
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            //No intersection
+            return false;
         }
     }
 }
