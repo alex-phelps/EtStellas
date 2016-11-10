@@ -11,32 +11,38 @@ namespace BPA_RPG.GameObjects
 {
     public class WeaponProjectile : GameObject
     {
+        private List<WeaponProjectile> deleteList;
         private Weapon weapon;
         private BattleShip target;
         private bool hasMissed;
+        private int speed;
 
         private Random rand = new Random();
 
-        public WeaponProjectile(Weapon weapon, Vector2 position, BattleShip target)
+        public WeaponProjectile(Weapon weapon, Vector2 position, BattleShip target, int speed, List<WeaponProjectile> deleteList)
             : base (weapon.projectileTexture)
         {
             this.weapon = weapon;
             this.position = position;
             this.target = target;
+            this.speed = speed;
+            this.deleteList = deleteList;
         }
 
         public override void Update(GameTime gameTime)
         {
-            position.X += (float)Math.Cos(rotation) * 10;
-            position.Y += (float)Math.Sin(rotation) * 10;
+            position.X += (float)Math.Cos(rotation) * speed;
+            position.Y += (float)Math.Sin(rotation) * speed;
 
             //check collide
-            if (IntersectPixels(target))
+            if (!hasMissed && IntersectPixels(target))
             {
                 if (rand.NextDouble() < weapon.hitChance)
                 {
                     target.hullPoints -= weapon.damage;
+                    deleteList.Add(this);
                 }
+                else hasMissed = true;
             }
         }
     }

@@ -17,6 +17,7 @@ namespace BPA_RPG.Screens
         private BattleShip enemy;
 
         private List<WeaponProjectile> projectiles;
+        private List<WeaponProjectile> projDelete;
 
         private Vector2 backgroundScrollPos;
         private Background stars;
@@ -34,6 +35,11 @@ namespace BPA_RPG.Screens
         private ClickableObject shieldButton;
 
         private List<ClickableObject> fireButtons;
+        private List<double> playerShotOldTime;
+        private List<double> playerShotCount;
+        
+        private List<double> enemyShotOldTime;
+        private List<double> enemyShotCount;
 
         private Viewport defaultView;
         private Viewport playerView;
@@ -59,6 +65,7 @@ namespace BPA_RPG.Screens
             enemyView.Y = playerView.Height;
 
             projectiles = new List<WeaponProjectile>();
+            projDelete = new List<WeaponProjectile>();
         }
 
         public override void LoadContent(ContentManager content)
@@ -89,18 +96,24 @@ namespace BPA_RPG.Screens
             };
 
             fireButtons = new List<ClickableObject>();
-            foreach (Weapon weapon in PlayerData.weapons)
+            playerShotCount = new List<double>();
+            for (int i = 0; i < PlayerData.weapons.Length; i++)
             {
-                if (weapon == null)
+                if (PlayerData.weapons[i] == null)
                     continue;
 
+                int k = i; //keep lambda from referencing i
                 fireButtons.Add(new ClickableObject(content.Load<Texture2D>("Images/FireButton"), (o, s) =>
                 {
-                    PlayerFire(weapon);
+                    if (player.cooldowns[k] == player.maxCooldowns[k])
+                    {
+                        PlayerFire(PlayerData.weapons[k]);
+                        playerShotCount[k] = PlayerData.weapons[k].shots - 1;
+                        player.cooldowns[k] = 0;
+                    }
                 }));
+                playerShotCount.Add(0);
             }
-
-
 
             for (int i = 0; i < fireButtons.Count; i++)
             {
@@ -122,12 +135,29 @@ namespace BPA_RPG.Screens
                 }
                 fireButtons[i].position = pos;
             }
+            
+            enemyShotCount = new List<double>();
+            foreach (Weapon weapon in enemy.weapons)
+                enemyShotCount.Add(0);
 
             base.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (playerShotOldTime == null)
+            {
+                playerShotOldTime = new List<double>();
+                foreach (double c in playerShotCount)
+                    playerShotOldTime.Add(gameTime.TotalGameTime.TotalMilliseconds);
+            }
+            if (enemyShotOldTime == null)
+            {
+                enemyShotOldTime = new List<double>();
+                foreach (double c in enemyShotCount)
+                    enemyShotOldTime.Add(gameTime.TotalGameTime.TotalMilliseconds);
+            }
+
             if (InputManager.newKeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter))
                 manager.Pop();
 
@@ -145,11 +175,59 @@ namespace BPA_RPG.Screens
 
             enemy.Update(gameTime);
 
+            for (int i = 0; i < enemy.cooldowns.Count; i++)
+            {
+                if (enemy.cooldowns[i] >= enemy.maxCooldowns[i])
+                {
+                    EnemyFire(enemy.weapons[i]);
+                    enemyShotCount[i] = enemy.weapons[i].shots - 1;
+                    enemy.cooldowns[i] = 0;
+                }
+            }
+
             playerCamera.Update(player.position, MainGame.WindowCenter / 2);
             enemyCamera.Update(enemy.position, MainGame.WindowCenter / 2);
 
+            projDelete.Clear();
             foreach (WeaponProjectile proj in projectiles)
                 proj.Update(gameTime);
+            foreach (WeaponProjectile proj in projDelete)
+                projectiles.Remove(proj);
+
+            // Handle shot timing
+            int j = 0; // count PlayerData.weapons where items can be null
+            for (int i = 0; i < playerShotCount.Count; i++)
+            {
+                while (PlayerData.weapons[j] == null)
+                    j++;
+
+                if (playerShotCount[i] > 0)
+                {
+                    if (gameTime.TotalGameTime.TotalMilliseconds > playerShotOldTime[i] + 200)
+                    {
+                        PlayerFire(PlayerData.weapons[j]);
+                        playerShotCount[i]--;
+                        playerShotOldTime[i] = gameTime.TotalGameTime.TotalMilliseconds;
+                    }
+                }
+                else playerShotOldTime[i] = gameTime.TotalGameTime.TotalMilliseconds;
+
+                j++;
+            }
+
+            for (int i = 0; i < enemyShotCount.Count; i++)
+            {
+                if (enemyShotCount[i] > 0)
+                {
+                    if (gameTime.TotalGameTime.TotalMilliseconds > enemyShotOldTime[i] + 200)
+                    {
+                        EnemyFire(enemy.weapons[i]);
+                        enemyShotCount[i]--;
+                        enemyShotOldTime[i] = gameTime.TotalGameTime.TotalMilliseconds;
+                    }
+                }
+                else enemyShotOldTime[i] = gameTime.TotalGameTime.TotalMilliseconds;
+            }
 
             base.Update(gameTime);
         }
@@ -203,7 +281,7 @@ namespace BPA_RPG.Screens
 
             //Draw Player health
             spritebatch.Draw(health, new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 60),
-                new Rectangle(0, 0, health.Width, health.Height), Color.White, 0,
+                new Rectangle(0, 0, (int)(health.Width * (player.hullPoints / (float)player.maxHullPoints)), health.Height), Color.White, 0,
                 new Vector2(health.Width / 2, health.Height / 2), 1, SpriteEffects.None, 1);
             spritebatch.Draw(shipHealthBar, new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 60),
                 new Rectangle(0, 0, shipHealthBar.Width, shipHealthBar.Height), Color.White, 0,
@@ -211,7 +289,7 @@ namespace BPA_RPG.Screens
 
             //Draw enemy health
             spritebatch.Draw(health, new Vector2(MainGame.WindowWidth * 3 / 4, 60),
-                new Rectangle(0, 0, health.Width, health.Height), Color.White, 0,
+                new Rectangle(0, 0, (int)(health.Width * (enemy.hullPoints / (float)enemy.maxHullPoints)), health.Height), Color.White, 0,
                 new Vector2(health.Width / 2, health.Height / 2), 1, SpriteEffects.None, 1);
             spritebatch.Draw(shipHealthBar, new Vector2(MainGame.WindowWidth * 3 / 4, 60),
                 new Rectangle(0, 0, shipHealthBar.Width, shipHealthBar.Height), Color.White, 0,
@@ -289,12 +367,12 @@ namespace BPA_RPG.Screens
 
         private void PlayerFire(Weapon weapon)
         {
-            projectiles.Add(new WeaponProjectile(weapon, player.position, enemy));
+            projectiles.Add(new WeaponProjectile(weapon, player.position, enemy, 10, projDelete));
         }
 
         private void EnemyFire(Weapon weapon)
         {
-            projectiles.Add(new WeaponProjectile(weapon, enemy.position, player));
+            projectiles.Add(new WeaponProjectile(weapon, enemy.position, player, -10, projDelete));
         }
     }
 }

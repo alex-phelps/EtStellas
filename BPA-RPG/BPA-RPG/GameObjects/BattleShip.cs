@@ -71,11 +71,11 @@ namespace BPA_RPG.GameObjects
             foreach (Weapon weapon in weapons)
             {
                 cooldowns.Add(0);
-                maxCooldowns.Add(weapon.maxCooldown);
+                maxCooldowns.Add((int)(weapon.maxCooldown * 1.2));
             }
 
 
-            position.X = 2000;
+            position.X = 800;
             rotation = -MathHelper.PiOver2;
             scale = 4;
         }
