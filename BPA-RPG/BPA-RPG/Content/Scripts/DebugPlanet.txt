@@ -13,3 +13,13 @@ return
 }
 > Text 2
 credits -500
+> Fight!
+enemy 1
+choice 
+{
+stuff
+> Exit
+exit
+}
+> Exit
+exit

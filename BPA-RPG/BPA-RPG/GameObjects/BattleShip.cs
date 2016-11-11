@@ -14,6 +14,8 @@ namespace BPA_RPG.GameObjects
     /// </summary>
     public class BattleShip : GameObject
     {
+        public Shield shield;
+
         public readonly Weapon[] weapons;
         public readonly string name;
         public int hullPoints;
@@ -103,6 +105,8 @@ namespace BPA_RPG.GameObjects
                     cooldowns[i] = maxCooldowns[i];
             }
 
+            shield.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -111,6 +115,8 @@ namespace BPA_RPG.GameObjects
             spritebatch.Draw(texture, position, new Rectangle(0, 0, Width / 2, Height),
                 color, rotation, new Vector2(Width / 4, Height / 2), scale,
                 SpriteEffects.None, 1);
+
+            shield?.Draw(gameTime, spritebatch);
         }
 
         /// <summary>

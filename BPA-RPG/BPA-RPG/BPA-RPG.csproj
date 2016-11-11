@@ -74,6 +74,7 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Planet.cs" />
     <Compile Include="GameObjects\PlayerShip.cs" />
+    <Compile Include="GameObjects\Shield.cs" />
     <Compile Include="GameObjects\WeaponProjectile.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="MainGame.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Screens\BattleScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
+    <Compile Include="Screens\InfoBoxScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\MenuChoiceScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
@@ -106,6 +108,7 @@
     <Content Include="Content\Images\Health.png" />
     <Content Include="Content\Images\HoldScrollArrow.png" />
     <Content Include="Content\Images\HoldScrollArrowBlue.png" />
+    <Content Include="Content\Images\InfoBox.png" />
     <Content Include="Content\Images\ItemHoverRect.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\MenuTab.png" />
@@ -113,7 +116,9 @@
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
     <Content Include="Content\Images\ChoiceMenu.png" />
+    <Content Include="Content\Images\Shield.png" />
     <Content Include="Content\Images\ShieldButton.png" />
+    <Content Include="Content\Images\ShieldButtonCooldown.png" />
     <Content Include="Content\Images\ShipHealthBar.png" />
     <Content Include="Content\Images\ShipHoldMenu.png" />
     <Content Include="Content\Images\StarBackground.png" />

@@ -14,6 +14,7 @@ namespace BPA_RPG.Choice
     public class ChoiceOption
     {
         public string synopsis { get; private set; }
+
         private List<Action> actions;
 
         /// <summary>
@@ -21,7 +22,7 @@ namespace BPA_RPG.Choice
         /// </summary>
         /// <param name="synopsis">Option synopsis</param>
         /// <param name="actions">Actions that execution on selection of this option</param>
-        public ChoiceOption(string synopsis, List<Action> actions)
+        public ChoiceOption(string synopsis, List<Action> actions, ScreenManager manager)
         {
             this.synopsis = synopsis;
             this.actions = actions;
@@ -43,7 +44,7 @@ namespace BPA_RPG.Choice
         /// <param name="screen">Screen that holds this option</param>
         /// <param name="lines">Lines of text that represent an option</param>
         /// <returns></returns>
-        public static ChoiceOption OptionFromText(MenuChoiceScreen screen, List<string> lines)
+        public static ChoiceOption OptionFromText(MenuChoiceScreen screen, List<string> lines, ScreenManager manager)
         {
             int lineNum = 0;
             bool endOfLine = false;
@@ -90,6 +91,13 @@ namespace BPA_RPG.Choice
                     case "remove":
                         actions.Add(() => RemoveItem(lineParts[1]));
                         break;
+                    case "enemy":
+                        int level;
+                        if (!int.TryParse(lineParts[1], out level))
+                            break;
+
+                        actions.Add(() => manager.Push(new BattleScreen(PlayerData.ship, level)));
+                        break;
                     case "return":
                         actions.Add(() => screen.currentChoice = screen.currentChoice.baseChoice);
                         break;
@@ -111,8 +119,11 @@ namespace BPA_RPG.Choice
                         }
                         lineNum++;
 
-                        actions.Add(() => screen.currentChoice = MenuChoice.ChoiceFromText(screen, choiceLines, screen.currentChoice.baseChoice));
+                        actions.Add(() => screen.currentChoice = MenuChoice.ChoiceFromText(screen, choiceLines, manager, screen.currentChoice.baseChoice));
 
+                        break;
+                    case "exit":
+                        actions.Add(() => manager.Pop());
                         break;
                 }
 
@@ -121,7 +132,7 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new ChoiceOption(synopsis, actions);
+            return new ChoiceOption(synopsis, actions, manager);
         }
 
         /// <summary>

@@ -50,7 +50,7 @@ namespace BPA_RPG.Choice
         /// <param name="screen">Screen that holds this choice</param>
         /// <param name="lines">Lines of text that represent a choice</param>
         /// <returns></returns>
-        public static MenuChoice ChoiceFromText(MenuChoiceScreen screen, List<string> lines)
+        public static MenuChoice ChoiceFromText(MenuChoiceScreen screen, List<string> lines, ScreenManager manager)
         {
             int lineNum = 0;
             bool endOfLine = false;
@@ -90,7 +90,7 @@ namespace BPA_RPG.Choice
                         endOfLine = true;
                 }
                 
-                options.Add(ChoiceOption.OptionFromText(screen, optionLines));
+                options.Add(ChoiceOption.OptionFromText(screen, optionLines, manager));
 
                 if (lineNum >= lines.Count)
                     endOfLine = true;
@@ -106,9 +106,9 @@ namespace BPA_RPG.Choice
         /// <param name="lines">Lines of text that represent a choice</param>
         /// <param name="baseChoice">The original choice in a choice tree</param>
         /// <returns></returns>
-        public static MenuChoice ChoiceFromText(MenuChoiceScreen screen, List<string> lines, MenuChoice baseChoice)
+        public static MenuChoice ChoiceFromText(MenuChoiceScreen screen, List<string> lines, ScreenManager manager, MenuChoice baseChoice)
         {
-            MenuChoice choice = ChoiceFromText(screen, lines);
+            MenuChoice choice = ChoiceFromText(screen, lines, manager);
             choice.baseChoice = baseChoice;
             return choice;
         }

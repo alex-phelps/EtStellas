@@ -87,11 +87,11 @@ namespace BPA_RPG
             });
             PlayerData.engine = Engine.BasicEngine;
             PlayerData.weapons[0] = LaserWeapon.BasicLaser;
+            PlayerData.weapons[1] = LaserWeapon.BasicLaser;
 
             //Create the Main Menu Screen
             screenManager.Push(new MainMenuScreen());
             screenManager.Push(new GameScreen());
-            screenManager.Push(new BattleScreen(PlayerData.ship, 0));
 
             //Load ScreenManager
             screenManager.LoadContent();

@@ -32,7 +32,9 @@ namespace BPA_RPG.Screens
         private Texture2D weaponCooldownBar;
         private Texture2D weaponCooldown;
 
-        private ClickableObject shieldButton;
+        private ClickableObject playerShieldButton;
+        private GameObject enemyShieldButton;
+        private Texture2D shieldButtonCooldown;
 
         private List<ClickableObject> fireButtons;
         private List<double> playerShotOldTime;
@@ -70,6 +72,9 @@ namespace BPA_RPG.Screens
 
         public override void LoadContent(ContentManager content)
         {
+            player.shield = new Shield(content.Load<Texture2D>("Images/Shield"), player);
+            enemy.shield = new Shield(content.Load<Texture2D>("Images/Shield"), enemy);
+
             nameFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
             subFont = content.Load<SpriteFont>("Fonts/BattleSubTextFont");
 
@@ -90,9 +95,16 @@ namespace BPA_RPG.Screens
             weaponCooldownBar = content.Load<Texture2D>("Images/WeaponCooldownBar");
             weaponCooldown = content.Load<Texture2D>("Images/WeaponCooldown");
 
-            shieldButton = new ClickableObject(content.Load<Texture2D>("Images/ShieldButton"))
+            playerShieldButton = new ClickableObject(content.Load<Texture2D>("Images/ShieldButton"),
+                (o, s) => player.shield.Activate())
             {
-                position = new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 100)
+                position = new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 115)
+            };
+            shieldButtonCooldown = content.Load<Texture2D>("Images/ShieldButtonCooldown");
+
+            enemyShieldButton = new GameObject(playerShieldButton.texture)
+            {
+                position = new Vector2(MainGame.WindowWidth * 3 / 4, 115)
             };
 
             fireButtons = new List<ClickableObject>();
@@ -158,15 +170,12 @@ namespace BPA_RPG.Screens
                     enemyShotOldTime.Add(gameTime.TotalGameTime.TotalMilliseconds);
             }
 
-            if (InputManager.newKeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter))
-                manager.Pop();
-
             backgroundScrollPos += new Vector2(.2f, 0.01f);
 
             stars.Scroll(backgroundScrollPos, .7f);
             stars2.Scroll(backgroundScrollPos);
 
-            shieldButton.Update(gameTime);
+            playerShieldButton.Update(gameTime);
 
             foreach(ClickableObject fb in fireButtons)
                 fb.Update(gameTime);
@@ -184,6 +193,9 @@ namespace BPA_RPG.Screens
                     enemy.cooldowns[i] = 0;
                 }
             }
+
+            if (projectiles.Count(p => p.speed > 0) > 0)
+                enemy.shield.Activate();
 
             playerCamera.Update(player.position, MainGame.WindowCenter / 2);
             enemyCamera.Update(enemy.position, MainGame.WindowCenter / 2);
@@ -228,6 +240,10 @@ namespace BPA_RPG.Screens
                 }
                 else enemyShotOldTime[i] = gameTime.TotalGameTime.TotalMilliseconds;
             }
+
+            //Close if battle is over; we get the results later by checking player health
+            if (enemy.hullPoints <= 0 || player.hullPoints <= 0)
+                manager.Pop();
 
             base.Update(gameTime);
         }
@@ -299,15 +315,54 @@ namespace BPA_RPG.Screens
             spritebatch.DrawString(nameFont, player.name, new Vector2(MainGame.WindowWidth / 4 - shipHealthBar.Width / 2, MainGame.WindowHeight / 2 + 30), Color.White);
             spritebatch.DrawString(nameFont, enemy.name, new Vector2(MainGame.WindowWidth * 3 / 4 - shipHealthBar.Width / 2, 30), Color.White);
 
-            //Draw shield button
-            shieldButton.Draw(gameTime, spritebatch);
-            spritebatch.DrawString(subFont, "Shield", shieldButton.position - subFont.MeasureString("Shield") / 2, Color.White);
+            //Draw player shield button
+            playerShieldButton.Draw(gameTime, spritebatch);
+            double time;
+            double max;
+            Color color;
+            if (player.shield.visible)
+            {
+                time = player.shield.shieldTimeTime;
+                max = player.shield.shieldTimeMax;
+                color = Color.Gray;
+            }
+            else
+            {
+                time = player.shield.cooldownTime;
+                max = player.shield.cooldownMax;
+                color = Color.White;
+            }
+
+            spritebatch.Draw(shieldButtonCooldown, playerShieldButton.position + new Vector2(0, shieldButtonCooldown.Height - shieldButtonCooldown.Height * (float)(time / max)),
+                new Rectangle(0, shieldButtonCooldown.Height - (int)(shieldButtonCooldown.Height * (time / max)), shieldButtonCooldown.Width, shieldButtonCooldown.Height), color, 0, 
+                new Vector2(shieldButtonCooldown.Width / 2, shieldButtonCooldown.Height / 2), 1, SpriteEffects.None, 1);
+            spritebatch.DrawString(subFont, "Shield", playerShieldButton.position - subFont.MeasureString("Shield") / 2, color);
+
+            //Draw player shield button
+            enemyShieldButton.Draw(gameTime, spritebatch);
+            if (enemy.shield.visible)
+            {
+                time = enemy.shield.shieldTimeTime;
+                max = enemy.shield.shieldTimeMax;
+                color = Color.Gray;
+            }
+            else
+            {
+                time = enemy.shield.cooldownTime;
+                max = enemy.shield.cooldownMax;
+                color = Color.White;
+            }
+
+            spritebatch.Draw(shieldButtonCooldown, enemyShieldButton.position + new Vector2(0, shieldButtonCooldown.Height - shieldButtonCooldown.Height * (float)(time / max)),
+                new Rectangle(0, shieldButtonCooldown.Height - (int)(shieldButtonCooldown.Height * (time / max)), shieldButtonCooldown.Width, shieldButtonCooldown.Height), color, 0,
+                new Vector2(shieldButtonCooldown.Width / 2, shieldButtonCooldown.Height / 2), 1, SpriteEffects.None, 1);
+            spritebatch.DrawString(subFont, "Shield", enemyShieldButton.position - subFont.MeasureString("Shield") / 2, color);
 
             //Draw player weapons systems
             int j = 0;
             for (int i = 0; i < fireButtons.Count; i++)
             {
-                Color color = player.cooldowns[i] >= player.maxCooldowns[i] ? Color.White : Color.Gray;
+                color = player.cooldowns[i] >= player.maxCooldowns[i] ? Color.White : Color.Gray;
                 fireButtons[i].Draw(gameTime, spritebatch, color);
 
                 spritebatch.DrawString(subFont, "Fire!", fireButtons[i].position - subFont.MeasureString("Fire!") / 2, Color.Black);

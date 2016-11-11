@@ -11,11 +11,11 @@ namespace BPA_RPG.GameObjects
 {
     public class WeaponProjectile : GameObject
     {
+        public int speed { get; private set; }
         private List<WeaponProjectile> deleteList;
         private Weapon weapon;
         private BattleShip target;
         private bool hasMissed;
-        private int speed;
 
         private Random rand = new Random();
 
@@ -35,7 +35,11 @@ namespace BPA_RPG.GameObjects
             position.Y += (float)Math.Sin(rotation) * speed;
 
             //check collide
-            if (!hasMissed && IntersectPixels(target))
+            if (!hasMissed && target.shield.visible && IntersectPixels(target.shield))
+            {
+                deleteList.Add(this);
+            }
+            else if (!hasMissed && IntersectPixels(target))
             {
                 if (rand.NextDouble() < weapon.hitChance)
                 {
@@ -44,6 +48,9 @@ namespace BPA_RPG.GameObjects
                 }
                 else hasMissed = true;
             }
+
+            if (position.X > 1200 || position.X < -500)
+                deleteList.Add(this);
         }
     }
 }

@@ -109,7 +109,7 @@ namespace BPA_RPG.Screens
                     lines.Add(file.ReadLine());
                 }
 
-                currentChoice = MenuChoice.ChoiceFromText(this, lines);
+                currentChoice = MenuChoice.ChoiceFromText(this, lines, manager);
 
                 MainGame.eventLogger.Log(this, "Loaded script \"" + scriptName + "\"");
             }
