@@ -48,17 +48,17 @@ namespace BPA_RPG.Screens
             partInv = content.Load<Texture2D>("Images/PartInv");
 
             holdScrollArrowTop = new ClickableObject(holdScrollArrowReg, 
-                (o, s) => firstRender--, 
-                (o, s) => (o as ClickableObject).texture = holdScrollArrowBlue,
-                (o, s) => (o as ClickableObject).texture = holdScrollArrowReg)
+                () => firstRender--, 
+                () => holdScrollArrowTop.texture = holdScrollArrowBlue,
+                () => holdScrollArrowTop.texture = holdScrollArrowReg)
             {
                 position = new Vector2(325, 125)
             };
 
             holdScrollArrowBot = new ClickableObject(holdScrollArrowReg,
-                (o, s) => firstRender--,
-                (o, s) => (o as ClickableObject).texture = holdScrollArrowBlue,
-                (o, s) => (o as ClickableObject).texture = holdScrollArrowReg)
+                () => firstRender--,
+                () => holdScrollArrowBot.texture = holdScrollArrowBlue,
+                () => holdScrollArrowBot.texture = holdScrollArrowReg)
             {
                 position = new Vector2(325, 452), rotation = MathHelper.Pi
             };
@@ -68,7 +68,7 @@ namespace BPA_RPG.Screens
             {
                 int k = i; // keep lambda from referencing i
                 itemRects.Add(new ClickableObject(itemHoverRect,
-                    (o, s) => 
+                    () => 
                     {
                         if (k < inventory.Count - firstRender)
                         {
@@ -94,8 +94,8 @@ namespace BPA_RPG.Screens
                             mouseItem = null;
                         }
                     },
-                    (o, s) => (o as ClickableObject).visible = true,
-                    (o, s) => (o as ClickableObject).visible = false)
+                    () => itemRects[k].visible = true,
+                    () => itemRects[k].visible = false)
                 {
                     position = new Vector2(337, 155 + (k * 30)), visible = false
                 });

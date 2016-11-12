@@ -96,7 +96,7 @@ namespace BPA_RPG.Screens
             weaponCooldown = content.Load<Texture2D>("Images/WeaponCooldown");
 
             playerShieldButton = new ClickableObject(content.Load<Texture2D>("Images/ShieldButton"),
-                (o, s) => player.shield.Activate())
+                () => player.shield.Activate())
             {
                 position = new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 115)
             };
@@ -115,7 +115,7 @@ namespace BPA_RPG.Screens
                     continue;
 
                 int k = i; //keep lambda from referencing i
-                fireButtons.Add(new ClickableObject(content.Load<Texture2D>("Images/FireButton"), (o, s) =>
+                fireButtons.Add(new ClickableObject(content.Load<Texture2D>("Images/FireButton"), () =>
                 {
                     if (player.cooldowns[k] == player.maxCooldowns[k])
                     {
@@ -242,8 +242,11 @@ namespace BPA_RPG.Screens
             }
 
             //Close if battle is over; we get the results later by checking player health
-            if (enemy.hullPoints <= 0 || player.hullPoints <= 0)
-                manager.Pop();
+            if (enemy.hullPoints >= 0 || player.hullPoints <= 0)
+                manager.Push(new InfoBoxScreen("Battle Result", player.hullPoints <= 0 ? "You Lost!" : "You won!", () =>
+                {
+                    manager.Pop();
+                }));
 
             base.Update(gameTime);
         }

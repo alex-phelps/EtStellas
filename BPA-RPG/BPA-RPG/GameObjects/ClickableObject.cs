@@ -7,25 +7,14 @@ namespace BPA_RPG.GameObjects
 {
     public class ClickableObject : GameObject
     {
-        private EventHandler onClick;
-        private EventHandler onHover;
-        private EventHandler onUnHover;
+        private Action onClick;
+        private Action onHover;
+        private Action onUnHover;
 
-        public ClickableObject(Texture2D texture)
-            : this(texture, (o, s) => { }, (o, s) => { }, (o, s) => { })
-        {
-        }
-
-        public ClickableObject(Texture2D texture, EventHandler onClick = null, 
-            EventHandler onHover = null, EventHandler onUnHover = null)
+        public ClickableObject(Texture2D texture, Action onClick = null,
+            Action onHover = null, Action onUnHover = null)
             : base(texture)
         {
-            if (onClick == null)
-                onClick = (o, s) => { };
-            if (onHover == null)
-                onHover = (o, s) => { };
-            if (onUnHover == null)
-                onUnHover = (o, s) => { };
 
             this.onClick = onClick;
             this.onHover = onHover;
@@ -36,13 +25,13 @@ namespace BPA_RPG.GameObjects
         {
             if (boundingRectangle.Contains(InputManager.newMouseState.Position))
             {
-                onHover.Invoke(this, new EventArgs());
+                onHover?.Invoke();
 
                 if (InputManager.newMouseState.LeftButton == ButtonState.Pressed &&
                     InputManager.oldMouseState.LeftButton == ButtonState.Released)
-                    onClick.Invoke(this, new EventArgs());
+                    onClick?.Invoke();
             }
-            else onUnHover.Invoke(this, new EventArgs());
+            else onUnHover?.Invoke();
 
             base.Update(gameTime);
         }

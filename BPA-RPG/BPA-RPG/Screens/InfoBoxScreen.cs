@@ -13,22 +13,33 @@ namespace BPA_RPG.Screens
     public class InfoBoxScreen : Screen
     {
         private string text;
-        private EventHandler onExit;
+        private Action onExit;
         private Texture2D infoBox;
+        private SpriteFont font;
 
         private ClickableObject button;
 
-        public InfoBoxScreen(string title, string text, EventHandler onExit)
+        public InfoBoxScreen(string title, string text, Action onExit)
             : base(title)
         {
             this.text = text;
             this.onExit = onExit;
+
+            translucent = true;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            button = new ClickableObject(content.Load<Texture2D>("Images/DebugTexture"),
-                (o, s) => { onExit?.Invoke(this, new EventArgs()); manager.Pop(); });
+            font = content.Load<SpriteFont>("Fonts/ChoiceFont");
+
+            button = new ClickableObject(content.Load<Texture2D>("Images/DebugTexture"), () =>
+            {
+                manager.Pop();
+                onExit?.Invoke();
+            })
+            {
+                position = MainGame.WindowCenter + new Vector2(0, 50)
+            };
             infoBox = content.Load<Texture2D>("Images/InfoBox");
 
             base.LoadContent(content);
@@ -43,6 +54,8 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
+            spritebatch.Draw(infoBox, MainGame.WindowCenter - new Vector2(infoBox.Width / 2, infoBox.Height / 2), Color.White);
+            spritebatch.DrawString(font, text, MainGame.WindowCenter - new Vector2(0, 50) - font.MeasureString(text) / 2, Color.White);
             button.Draw(gameTime, spritebatch);
 
             base.Draw(gameTime, spritebatch);

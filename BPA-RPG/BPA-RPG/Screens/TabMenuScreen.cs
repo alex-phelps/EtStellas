@@ -44,7 +44,7 @@ namespace BPA_RPG.Screens
                     menuScreens.Insert(i + 1, ((MenuChoiceScreen)menuScreens[i]).shop);
 
                 int k = i; // keeps lambda from referencing i
-                menuTabs.Add(new ClickableObject(menuTab, (o, e) =>
+                menuTabs.Add(new ClickableObject(menuTab, () =>
                 {
                     if (selectedScreen != k)
                     {

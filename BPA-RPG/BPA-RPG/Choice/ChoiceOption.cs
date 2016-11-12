@@ -15,17 +15,17 @@ namespace BPA_RPG.Choice
     {
         public string synopsis { get; private set; }
 
-        private List<Action> actions;
+        private Action action;
 
         /// <summary>
         /// Creates a new ChoiceOption ojbect
         /// </summary>
         /// <param name="synopsis">Option synopsis</param>
         /// <param name="actions">Actions that execution on selection of this option</param>
-        public ChoiceOption(string synopsis, List<Action> actions, ScreenManager manager)
+        public ChoiceOption(string synopsis, Action action, ScreenManager manager)
         {
             this.synopsis = synopsis;
-            this.actions = actions;
+            this.action = action;
         }
 
         /// <summary>
@@ -33,8 +33,7 @@ namespace BPA_RPG.Choice
         /// </summary>
         public void Activate()
         {
-            foreach (Action action in actions)
-                action();
+            action?.Invoke();
         }
 
 
@@ -49,7 +48,7 @@ namespace BPA_RPG.Choice
             int lineNum = 0;
             bool endOfLine = false;
             string synopsis;
-            List<Action> actions = new List<Action>();
+            Action action = null;
 
             synopsis = lines[lineNum];
             lineNum++;
@@ -70,7 +69,7 @@ namespace BPA_RPG.Choice
                             if (!int.TryParse(lineParts[1], out amount))
                                 break;
 
-                            actions.Add(() => PlayerData.AddMoney(Currency.credits, amount));
+                            action += () => PlayerData.AddMoney(Currency.credits, amount);
                         }
                         break;
 
@@ -80,26 +79,26 @@ namespace BPA_RPG.Choice
                             if (!int.TryParse(lineParts[1], out amount))
                                 break;
 
-                            actions.Add(() => PlayerData.AddMoney(Currency.jex, amount));
+                            action += () => PlayerData.AddMoney(Currency.jex, amount);
                         }
                         break;
 
                     case "get":
-                        actions.Add(() => GetItem(lineParts[1]));
+                        action += () => GetItem(lineParts[1]);
                         break;
 
                     case "remove":
-                        actions.Add(() => RemoveItem(lineParts[1]));
+                        action += () => RemoveItem(lineParts[1]);
                         break;
                     case "enemy":
                         int level;
                         if (!int.TryParse(lineParts[1], out level))
                             break;
 
-                        actions.Add(() => manager.Push(new BattleScreen(PlayerData.ship, level)));
+                        action += () => manager.Push(new BattleScreen(PlayerData.ship, level));
                         break;
                     case "return":
-                        actions.Add(() => screen.currentChoice = screen.currentChoice.baseChoice);
+                        action += () => screen.currentChoice = screen.currentChoice.baseChoice;
                         break;
                     case "choice":
                         lineNum += 2;
@@ -119,11 +118,11 @@ namespace BPA_RPG.Choice
                         }
                         lineNum++;
 
-                        actions.Add(() => screen.currentChoice = MenuChoice.ChoiceFromText(screen, choiceLines, manager, screen.currentChoice.baseChoice));
+                        action += () => screen.currentChoice = MenuChoice.ChoiceFromText(screen, choiceLines, manager, screen.currentChoice.baseChoice);
 
                         break;
                     case "exit":
-                        actions.Add(() => manager.Pop());
+                        action += () => manager.Pop();
                         break;
                 }
 
@@ -132,7 +131,7 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new ChoiceOption(synopsis, actions, manager);
+            return new ChoiceOption(synopsis, action, manager);
         }
 
         /// <summary>
