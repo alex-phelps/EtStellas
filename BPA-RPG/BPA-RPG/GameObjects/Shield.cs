@@ -24,9 +24,7 @@ namespace BPA_RPG.GameObjects
             : base(texture)
         {
             position = ship.position;
-            scale = ship.texture.Width >= ship.texture.Height
-                ? (ship.texture.Width * ship.scale) / Width
-                : (ship.texture.Height * ship.scale) / Height;
+            ScaleTo(ship.Width, ship.Height, ship.scale);
 
             shieldTimeMax = 4000;
             cooldownMax = 12000;

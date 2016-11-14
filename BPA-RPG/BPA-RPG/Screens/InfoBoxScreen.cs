@@ -15,11 +15,12 @@ namespace BPA_RPG.Screens
         private string text;
         private Action onExit;
         private Texture2D infoBox;
-        private SpriteFont font;
+        private SpriteFont infoFont;
+        private SpriteFont okayFont;
 
         private ClickableObject button;
 
-        public InfoBoxScreen(string title, string text, Action onExit)
+        public InfoBoxScreen(string title, string text, Action onExit = null)
             : base(title)
         {
             this.text = text;
@@ -30,9 +31,10 @@ namespace BPA_RPG.Screens
 
         public override void LoadContent(ContentManager content)
         {
-            font = content.Load<SpriteFont>("Fonts/ChoiceFont");
+            infoFont = content.Load<SpriteFont>("Fonts/InfoFont");
+            okayFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
 
-            button = new ClickableObject(content.Load<Texture2D>("Images/DebugTexture"), () =>
+            button = new ClickableObject(content.Load<Texture2D>("Images/InfoBoxButton"), () =>
             {
                 manager.Pop();
                 onExit?.Invoke();
@@ -55,8 +57,9 @@ namespace BPA_RPG.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
             spritebatch.Draw(infoBox, MainGame.WindowCenter - new Vector2(infoBox.Width / 2, infoBox.Height / 2), Color.White);
-            spritebatch.DrawString(font, text, MainGame.WindowCenter - new Vector2(0, 50) - font.MeasureString(text) / 2, Color.White);
+            spritebatch.DrawString(infoFont, text, MainGame.WindowCenter - new Vector2(0, 45) - infoFont.MeasureString(text) / 2, Color.White);
             button.Draw(gameTime, spritebatch);
+            spritebatch.DrawString(okayFont, "Okay",button.position - okayFont.MeasureString("Okay") / 2, Color.White);
 
             base.Draw(gameTime, spritebatch);
         }

@@ -28,7 +28,7 @@ namespace BPA_RPG.GameItems
         {
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
 
-            BasicEngine = new Engine("Basic Engine", content.Load<Texture2D>("Images/DebugTexture"), 20, 0.4f);
+            BasicEngine = new Engine("Basic Engine", content.Load<Texture2D>("Images/DebugTexture"), 20, 1.2f);
 
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
         }

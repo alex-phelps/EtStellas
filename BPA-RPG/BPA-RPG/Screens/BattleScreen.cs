@@ -76,7 +76,7 @@ namespace BPA_RPG.Screens
             enemy.shield = new Shield(content.Load<Texture2D>("Images/Shield"), enemy);
 
             nameFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
-            subFont = content.Load<SpriteFont>("Fonts/BattleSubTextFont");
+            subFont = content.Load<SpriteFont>("Fonts/ChoiceTabFont");
 
             stars = new Background(content.Load<Texture2D>("Images/StarBackground"))
             {
@@ -242,7 +242,7 @@ namespace BPA_RPG.Screens
             }
 
             //Close if battle is over; we get the results later by checking player health
-            if (enemy.hullPoints >= 0 || player.hullPoints <= 0)
+            if (enemy.hullPoints <= 0 || player.hullPoints <= 0)
                 manager.Push(new InfoBoxScreen("Battle Result", player.hullPoints <= 0 ? "You Lost!" : "You won!", () =>
                 {
                     manager.Pop();

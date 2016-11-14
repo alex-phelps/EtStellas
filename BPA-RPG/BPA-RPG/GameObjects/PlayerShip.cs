@@ -32,6 +32,10 @@ namespace BPA_RPG.GameObjects
 
         private Ship baseShip;
 
+
+        public float travelDistance { get; private set; }
+        public float fuelUsed { get; private set; }
+
         public bool inOrbit;
         public bool autoPilotActive;
         public bool accelerating;
@@ -50,8 +54,6 @@ namespace BPA_RPG.GameObjects
         public float rotAccel;
         public List<Type> weaponHold => baseShip.weaponHold;
 
-        private float travelDistance;
-        private float fuelUsed;
 
         public PlayerShip(Ship ship) 
             : base(ship.texture)
@@ -174,9 +176,9 @@ namespace BPA_RPG.GameObjects
             {
                 travelDistance += Math.Abs(prevPos.X - position.X) + Math.Abs(prevPos.Y - position.Y);
 
-                if (travelDistance >= 10000)
+                if (travelDistance >= 10)
                 {
-                    fuelUsed += PlayerData.engine.fuelRate;
+                    fuelUsed += PlayerData.engine.fuelRate / 1000;
                     travelDistance = 0;
                 }
 

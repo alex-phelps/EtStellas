@@ -31,7 +31,7 @@ namespace BPA_RPG.GameItems
         {
             MainGame.eventLogger.Log(typeof(GameItem), "Begin loading game items.");
 
-            Fuel = new GameItem("Fuel", content.Load<Texture2D>("Images/DebugTexture"));
+            Fuel = new GameItem("Fuel", content.Load<Texture2D>("Images/Items/Fuel"));
 
             MainGame.eventLogger.Log(typeof(GameItem), "Finished loading game items.");
         }

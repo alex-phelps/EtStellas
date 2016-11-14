@@ -181,5 +181,17 @@ namespace BPA_RPG.GameObjects
             //No intersection
             return false;
         }
+
+        public void ScaleTo(int width, int height, float scale = 1)
+        {
+            this.scale = width >= height
+                ? (width * scale) / Width
+                : (height * scale) / Height;
+        }
+
+        public void ScaleTo(Rectangle rect, float scale = 1)
+        {
+            ScaleTo(rect.Width, rect.Height, scale);
+        }
     }
 }
