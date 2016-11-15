@@ -29,12 +29,6 @@ namespace BPA_RPG
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            IsMouseVisible = true;
-
-            graphics.PreferredBackBufferWidth = WindowWidth;
-            graphics.PreferredBackBufferHeight = WindowHeight;
-            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -46,6 +40,12 @@ namespace BPA_RPG
         protected override void Initialize()
         {
             graphicsDevice = GraphicsDevice;
+
+            IsMouseVisible = true;
+
+            graphics.PreferredBackBufferWidth = WindowWidth;
+            graphics.PreferredBackBufferHeight = WindowHeight;
+            graphics.ApplyChanges();
 
             //Create new EventLogger to log important events
             eventLogger = new EventLogger();

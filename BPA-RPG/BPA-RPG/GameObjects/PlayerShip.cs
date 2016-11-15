@@ -172,7 +172,7 @@ namespace BPA_RPG.GameObjects
             rotation += rotSpeed;
             rotation %= MathHelper.TwoPi;
 
-            if (PlayerData.inventory.Contains(GameItem.Fuel))
+            if (!inOrbit && PlayerData.inventory.Contains(GameItem.Fuel))
             {
                 travelDistance += Math.Abs(prevPos.X - position.X) + Math.Abs(prevPos.Y - position.Y);
 
