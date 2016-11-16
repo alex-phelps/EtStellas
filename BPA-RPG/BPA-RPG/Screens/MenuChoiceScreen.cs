@@ -100,7 +100,9 @@ namespace BPA_RPG.Screens
             {
                 StreamReader file;
 
-                file = File.OpenText("Content/Scripts/" + scriptName + ".txt");
+                if (File.Exists("Content/Scripts/" + scriptName + ".txt"))
+                    file = File.OpenText("Content/Scripts/" + scriptName + ".txt");
+                else file = File.OpenText("Content/Scripts/DefaultPlanetScript.txt");
 
                 //Loop through line for the choice
                 List<string> lines = new List<string>();

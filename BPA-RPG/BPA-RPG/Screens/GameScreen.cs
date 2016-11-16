@@ -14,7 +14,7 @@ namespace BPA_RPG.Screens
     public class GameScreen : Screen
     {
         private PlayerShip ship => PlayerData.ship;
-        private List<Planet> planets;
+        private List<Planet> planets => Planet.planets;
         private Background starBackground;
         private Background starBackground2;
 
@@ -47,10 +47,6 @@ namespace BPA_RPG.Screens
             planetInfoFont = content.Load<SpriteFont>("Fonts/ChoiceTabFont");
 
             camera = new Camera();
-
-            planets = new List<Planet>();
-            planets.Add(Planet.DebugPlanet);
-            planets.Add(Planet.DebugPlanet2);
 
             ship.position = planets[0].position - new Vector2(planets[0].orbitDistance - 1, 0);
 

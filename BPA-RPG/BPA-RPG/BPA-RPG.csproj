@@ -140,6 +140,8 @@
     <Content Include="Content\Images\WKey.png" />
     <Content Include="Content\Scripts\DebugPlanet.txt" />
     <Content Include="Content\Scripts\DebugPlanetShop.txt" />
+    <Content Include="Content\Scripts\DefaultPlanetScript.txt" />
+    <Content Include="Content\Scripts\Planets.txt" />
     <Content Include="Content\Scripts\Script Syntax.txt" />
     <Content Include="Content\Scripts\Shop Script Syntax.txt" />
     <Content Include="Icon.ico" />

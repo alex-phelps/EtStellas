@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace BPA_RPG.GameObjects
     public class Planet : GameObject
     {
         //Static planets
+        public static List<Planet> planets;
+
         public static Planet DebugPlanet { get; private set; }
         public static Planet DebugPlanet2 { get; private set; }
 
@@ -33,13 +36,62 @@ namespace BPA_RPG.GameObjects
 
         public static void LoadContent(ContentManager content)
         {
-            MainGame.eventLogger.Log(typeof(Planet), "Begin loading static ships");
-            
-            //Define static planets
-            DebugPlanet = new Planet("Debug Planet", content.Load<Texture2D>("Images/DebugPlanet"));
-            DebugPlanet2 = new Planet("Debug Planet 2", content.Load<Texture2D>("Images/PlanetA"), new Vector2(3000, 2000));
+            MainGame.eventLogger.Log(typeof(Planet), "Begin loading planets");
 
-            MainGame.eventLogger.Log(typeof(Planet), "Finished loading static planets");
+            planets = new List<Planet>();
+            List<List<Vector2>> ranges = new List<List<Vector2>>()
+            {
+                new List<Vector2>()
+                {
+                    Vector2.Zero
+                },
+                new List<Vector2>()
+                {
+                    new Vector2(-800, -500)
+                }
+            };
+
+            try
+            {
+                Texture2D debugImage = content.Load<Texture2D>("Images/DebugPlanet");
+                StreamReader file = File.OpenText("Content/Scripts/Planets.txt");
+                List<string> lines = new List<string>();
+                Random rand = new Random();
+
+                while (!file.EndOfStream)
+                    lines.Add(file.ReadLine());
+
+                //Loop through lines randomly
+                foreach (string s in lines.OrderBy(x => rand.Next()))
+                {
+                    //Ignore comments
+                    if (s.StartsWith("//"))
+                        continue;
+
+                    //Get name and range of planet location
+                    int range = int.Parse(s.Substring(s.LastIndexOf(" ")));
+                    string name = s.Remove(s.LastIndexOf(" "));
+
+                    if (ranges[range].Count == 0)
+                        continue;
+
+                    //Get random pos in range
+                    int posIndex = rand.Next(ranges[range].Count);
+                    Vector2 pos = ranges[range][posIndex];
+                    ranges[range].RemoveAt(posIndex);
+
+                    //Create planet
+                    planets.Add(new Planet(name, File.Exists("Content/Images/" + name.Replace(" ", "") + ".xnb") 
+                        ? content.Load<Texture2D>("Images/" + name.Replace(" ", "")) : debugImage, pos));
+                }
+            }
+            catch (Exception e)
+            {
+                MainGame.eventLogger.Log(typeof(Planet), "ERROR LOADING PLANETS: " + e.Message);
+                throw e;
+            }
+            
+            MainGame.eventLogger.Log(typeof(Planet), "Finished loading planets");
         }
     }
 }

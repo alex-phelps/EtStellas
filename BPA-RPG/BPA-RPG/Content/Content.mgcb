@@ -496,3 +496,9 @@
 /processorParam:TextureFormat=Color
 /build:Images/SpaceKey.png
 
+#begin Scripts/Planets.txt
+/copy:Scripts/Planets.txt
+
+#begin Scripts/DefaultPlanetScript.txt
+/copy:Scripts/DefaultPlanetScript.txt
+
