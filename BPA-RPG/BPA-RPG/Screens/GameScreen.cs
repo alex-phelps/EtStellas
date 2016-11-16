@@ -13,6 +13,9 @@ namespace BPA_RPG.Screens
 {
     public class GameScreen : Screen
     {
+        private Viewport defaultView;
+        private Viewport miniMapView;
+
         private PlayerShip ship => PlayerData.ship;
         private List<Planet> planets => Planet.planets;
         private Background starBackground;
@@ -32,21 +35,37 @@ namespace BPA_RPG.Screens
         private Texture2D planetInfoBox;
         private ClickableObject planetInfoLandButton;
 
-        private Camera camera;
+        private int miniMapScale = 50;
+        private SpriteFont miniMapFont;
+        private Texture2D miniMapOverlay;
+        private MiniMapDot playerDot;
+        private List<MiniMapDot> planetDots;
+
+        private Camera playerCamera;
+        private Camera miniMapCamera;
 
         private bool drawHUD;
         
         public GameScreen()
             : base("Game")
         {
+            defaultView = MainGame.graphicsDevice.Viewport;
+
+            miniMapView = defaultView;
+            miniMapView.X = MainGame.WindowWidth - 250;
+            miniMapView.Y = MainGame.WindowHeight - 150;
+            miniMapView.Width = 250;
+            miniMapView.Height = 150;
+
+            playerCamera = new Camera();
+            miniMapCamera = new Camera();
         }
 
         public override void LoadContent(ContentManager content)
         {
             keyFont = content.Load<SpriteFont>("Fonts/KeyFont");
             planetInfoFont = content.Load<SpriteFont>("Fonts/ChoiceTabFont");
-
-            camera = new Camera();
+            miniMapFont = content.Load<SpriteFont>("Fonts/MiniMapFont");
 
             ship.position = planets[0].position - new Vector2(planets[0].orbitDistance - 1, 0);
 
@@ -68,6 +87,15 @@ namespace BPA_RPG.Screens
             {
                 position = new Vector2(70, MainGame.WindowHeight - 30)
             };
+
+            miniMapOverlay = content.Load<Texture2D>("Images/MiniMapOverlay");
+            playerDot = new MiniMapDot(content, ship, Color.LimeGreen) { position = ship.position / miniMapScale };
+
+            planetDots = new List<MiniMapDot>();
+            foreach (Planet p in Planet.planets)
+            {
+                planetDots.Add(new MiniMapDot(content, p, Color.Purple) { position = p.position / miniMapScale });
+            }
 
             base.LoadContent(content);
         }
@@ -103,7 +131,7 @@ namespace BPA_RPG.Screens
             if (ship.inOrbit)
                planetInfoLandButton.Update(gameTime);
             
-            camera.Update(ship.position);
+            playerCamera.Update(ship.position);
             
             ship.Update(gameTime);
 
@@ -122,6 +150,12 @@ namespace BPA_RPG.Screens
 
             starBackground.Scroll(ship.position, .25f);
             starBackground2.Scroll(ship.position, .28f);
+
+            //Update minimap
+            miniMapCamera.Update(playerDot.position, new Vector2(125, 75));
+            playerDot.Update(gameTime, miniMapScale);
+            foreach (MiniMapDot d in planetDots)
+                d.Update(gameTime, miniMapScale);
             
             base.Update(gameTime);
         }
@@ -129,7 +163,7 @@ namespace BPA_RPG.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
             DrawBackground(gameTime, spritebatch);
-            DrawSprites(gameTime, spritebatch, camera);
+            DrawSprites(gameTime, spritebatch, playerCamera);
 
             //Draw HUD
             if (drawHUD)
@@ -164,6 +198,31 @@ namespace BPA_RPG.Screens
                     planetInfoLandButton.Draw(gameTime, spritebatch);
                     spritebatch.DrawString(planetInfoFont, "Land", planetInfoLandButton.position - planetInfoFont.MeasureString("Land") / 2, Color.White);
                 }
+
+
+                //Draw minimap
+
+                spritebatch.Draw(miniMapOverlay, new Vector2(MainGame.WindowWidth - miniMapOverlay.Width,
+                    MainGame.WindowHeight - miniMapOverlay.Height), Color.White);
+
+                spritebatch.End();
+                spritebatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, miniMapCamera.transform);
+
+                MainGame.graphicsDevice.Viewport = miniMapView;
+
+                foreach (MiniMapDot d in planetDots)
+                {
+                    string name = (d.repOf as Planet).name;
+                    d.Draw(gameTime, spritebatch);
+                    spritebatch.DrawString(miniMapFont, name, d.position - new Vector2(0, 10) - miniMapFont.MeasureString(name) / 2, Color.White);
+                }
+
+
+
+                spritebatch.End();
+                spritebatch.Begin();
+
+                MainGame.graphicsDevice.Viewport = defaultView;
             }
 
             base.Draw(gameTime, spritebatch);

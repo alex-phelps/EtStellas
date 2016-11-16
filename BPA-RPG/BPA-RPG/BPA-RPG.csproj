@@ -72,6 +72,7 @@
     <Compile Include="GameObjects\BattleShip.cs" />
     <Compile Include="GameObjects\ClickableObject.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\MiniMapDot.cs" />
     <Compile Include="GameObjects\Planet.cs" />
     <Compile Include="GameObjects\PlayerShip.cs" />
     <Compile Include="GameObjects\Shield.cs" />
@@ -118,6 +119,8 @@
     <Content Include="Content\Images\Items\Fuel.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\MenuTab.png" />
+    <Content Include="Content\Images\MiniMapDot.png" />
+    <Content Include="Content\Images\MiniMapOverlay.png" />
     <Content Include="Content\Images\PartInv.png" />
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
@@ -151,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Content\Fonts\MiniMapFont.spritefont" />
     <None Include="Content\Fonts\KeyFont.spritefont" />
     <None Include="Content\Fonts\InfoFont.spritefont" />
     <None Include="Content\Fonts\ChoiceTabFont.spritefont" />
