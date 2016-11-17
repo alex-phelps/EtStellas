@@ -47,7 +47,7 @@ namespace BPA_RPG.GameObjects
                 },
                 new List<Vector2>()
                 {
-                    new Vector2(-800, -500)
+                    new Vector2(-4500, -3000)
                 }
             };
 

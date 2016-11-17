@@ -121,6 +121,8 @@
     <Content Include="Content\Images\MenuTab.png" />
     <Content Include="Content\Images\MiniMapDot.png" />
     <Content Include="Content\Images\MiniMapOverlay.png" />
+    <Content Include="Content\Images\MMScrollBar.png" />
+    <Content Include="Content\Images\MMScrollIcon.png" />
     <Content Include="Content\Images\PartInv.png" />
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
