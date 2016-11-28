@@ -35,7 +35,7 @@ namespace BPA_RPG.Screens
         private Texture2D planetInfoBox;
         private ClickableObject planetInfoLandButton;
 
-        private int miniMapScale = 80;
+        private int miniMapScale = 50;
         private SpriteFont miniMapFont;
         private Texture2D miniMapOverlay;
         private MiniMapDot playerDot;
@@ -107,13 +107,17 @@ namespace BPA_RPG.Screens
             mmScrollBar = content.Load<Texture2D>("Images/MMScrollBar");
             mmScrollIcon = new ClickableObject(content.Load<Texture2D>("Images/MMScrollIcon"), null, null, null, () =>
             {
-                if (InputManager.newMouseState.Position.Y > mmScrollIcon.position.Y + 10)
-                    mmScrollIcon.position.Y += 10;
-                else if (InputManager.newMouseState.Position.Y < mmScrollIcon.position.Y - 10)
-                    mmScrollIcon.position.Y -= 10;
+                if (InputManager.newMouseState.Position.Y > mmScrollIcon.position.Y + 8)
+                    mmScrollIcon.position.Y += 11;
+                else if (InputManager.newMouseState.Position.Y < mmScrollIcon.position.Y - 8)
+                    mmScrollIcon.position.Y -= 11;
+
+                mmScrollIcon.position.Y = MathHelper.Clamp(mmScrollIcon.position.Y, MainGame.WindowHeight - 137, MainGame.WindowHeight - 16);
+
+                miniMapScale = (int)(mmScrollIcon.position.Y - (MainGame.WindowHeight - 137)) + 50;
             })
             {
-                position = new Vector2(MainGame.WindowWidth - 10, MainGame.WindowHeight - 144)
+                position = new Vector2(MainGame.WindowWidth - 10, MainGame.WindowHeight - 137)
             };
 
             base.LoadContent(content);
@@ -171,14 +175,30 @@ namespace BPA_RPG.Screens
             starBackground2.Scroll(ship.position, .28f);
 
             //Update minimap
+            if (drawHUD)
+            {
+                mmScrollIcon.Update(gameTime);
+
+                if (miniMapView.Bounds.Contains(InputManager.newMouseState.Position))
+                {
+                   if (InputManager.newMouseState.ScrollWheelValue > InputManager.oldMouseState.ScrollWheelValue && miniMapScale > 50)
+                    {
+                        miniMapScale -= 11;
+                        mmScrollIcon.position.Y -= 11;
+                    }
+                    else if (InputManager.newMouseState.ScrollWheelValue < InputManager.oldMouseState.ScrollWheelValue && miniMapScale < 171)
+                    {
+                        miniMapScale += 11;
+                        mmScrollIcon.position.Y += 11;
+                    }
+                }
+            }
+
             miniMapCamera.Update(playerDot.position, new Vector2(125, 75));
             playerDot.Update(gameTime, miniMapScale);
             foreach (MiniMapDot d in planetDots)
                 d.Update(gameTime, miniMapScale);
-
-            if (drawHUD)
-                mmScrollIcon.Update(gameTime);
-            
+                        
             base.Update(gameTime);
         }
 
@@ -247,7 +267,7 @@ namespace BPA_RPG.Screens
                 MainGame.graphicsDevice.Viewport = defaultView;
 
                 spritebatch.DrawString(planetInfoFont, "GPS", new Vector2(MainGame.WindowWidth - 245, MainGame.WindowHeight - 146), Color.White);
-                spritebatch.Draw(mmScrollBar, new Vector2(MainGame.WindowWidth - 12, MainGame.WindowHeight - 144), Color.White);
+                spritebatch.Draw(mmScrollBar, new Vector2(MainGame.WindowWidth - 12, MainGame.WindowHeight - 140), Color.White);
                 mmScrollIcon.Draw(gameTime, spritebatch);
             }
 

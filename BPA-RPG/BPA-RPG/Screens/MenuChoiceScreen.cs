@@ -41,6 +41,7 @@ namespace BPA_RPG.Screens
         private readonly string scriptName;
 
         public ShopScreen shop { get; private set; }
+        public ShipYardScreen shipyard { get; private set; }
 
         private DrawableString synopsis;
         private List<DrawableString> options;
@@ -141,6 +142,33 @@ namespace BPA_RPG.Screens
             catch (FileNotFoundException)
             {
                 MainGame.eventLogger.Log(this, "No shop file found, proceeding without shop.");
+            }
+            catch (Exception e)
+            {
+                MainGame.eventLogger.Log(this, "ERROR: " + e.Message);
+                throw e;
+            }
+
+            try
+            {
+                StreamReader file;
+
+                file = File.OpenText("Content/Scripts/" + scriptName + "Shipyard.txt");
+
+                //Loop through line for the choice
+                List<string> lines = new List<string>();
+                while (!file.EndOfStream)
+                {
+                    lines.Add(file.ReadLine());
+                }
+
+                shipyard = ShipYardScreen.ShipYardFromText(lines);
+
+                MainGame.eventLogger.Log(this, "Loaded script \"" + scriptName + "Shipyard\"");
+            }
+            catch (FileNotFoundException)
+            {
+                MainGame.eventLogger.Log(this, "No shipyard file found, proceeding without shipyard.");
             }
             catch (Exception e)
             {

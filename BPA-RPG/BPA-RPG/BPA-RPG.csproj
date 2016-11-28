@@ -91,10 +91,12 @@
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Screens\ShipHoldScreen.cs" />
+    <Compile Include="Screens\ShipYardScreen.cs" />
     <Compile Include="Screens\ShopScreen.cs" />
     <Compile Include="Screens\TabMenuScreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -123,6 +125,7 @@
     <Content Include="Content\Images\MiniMapOverlay.png" />
     <Content Include="Content\Images\MMScrollBar.png" />
     <Content Include="Content\Images\MMScrollIcon.png" />
+    <Content Include="Content\Images\NeonCruiser.png" />
     <Content Include="Content\Images\PartInv.png" />
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
@@ -144,6 +147,7 @@
     <Content Include="Content\Images\Laser.png" />
     <Content Include="Content\Images\WKey.png" />
     <Content Include="Content\Scripts\DebugPlanet.txt" />
+    <Content Include="Content\Scripts\DebugPlanetShipyard.txt" />
     <Content Include="Content\Scripts\DebugPlanetShop.txt" />
     <Content Include="Content\Scripts\DefaultPlanetScript.txt" />
     <Content Include="Content\Scripts\Planets.txt" />

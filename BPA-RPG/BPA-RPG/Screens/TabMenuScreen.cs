@@ -43,6 +43,10 @@ namespace BPA_RPG.Screens
                     // Adds a shop if the screen has one
                     menuScreens.Insert(i + 1, ((MenuChoiceScreen)menuScreens[i]).shop);
 
+                // Same with shipyard
+                if ((menuScreens[i] as MenuChoiceScreen)?.shipyard != null)
+                    menuScreens.Insert(i + 1, ((MenuChoiceScreen)menuScreens[i]).shipyard);
+
                 int k = i; // keeps lambda from referencing i
                 menuTabs.Add(new ClickableObject(menuTab, () =>
                 {
@@ -66,7 +70,8 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (InputManager.newKeyState.IsKeyDown(Keys.Enter) && InputManager.oldKeyState.IsKeyUp(Keys.Enter))
+            if (InputManager.newKeyState.IsKeyDown(Keys.Enter) && InputManager.oldKeyState.IsKeyUp(Keys.Enter) ||
+                InputManager.newMouseState.RightButton == ButtonState.Pressed && InputManager.oldMouseState.RightButton == ButtonState.Released)
             {
                 manager.Pop();
             }

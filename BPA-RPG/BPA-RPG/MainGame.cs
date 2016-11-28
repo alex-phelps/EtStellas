@@ -29,6 +29,10 @@ namespace BPA_RPG
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = WindowWidth;
+            graphics.PreferredBackBufferHeight = WindowHeight;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -42,10 +46,6 @@ namespace BPA_RPG
             graphicsDevice = GraphicsDevice;
 
             IsMouseVisible = true;
-
-            graphics.PreferredBackBufferWidth = WindowWidth;
-            graphics.PreferredBackBufferHeight = WindowHeight;
-            graphics.ApplyChanges();
 
             //Create new EventLogger to log important events
             eventLogger = new EventLogger();
@@ -73,7 +73,7 @@ namespace BPA_RPG
             screenManager = new ScreenManager(Content);
 
             //Set default player ship
-            PlayerData.ship = new PlayerShip(Ship.StarterShip);
+            PlayerData.ship = new PlayerShip(Ship.NeonCruiser);
 
             //Give player starter items
             PlayerData.inventory.AddRange(new GameItem[] 

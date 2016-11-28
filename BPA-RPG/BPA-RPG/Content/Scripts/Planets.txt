@@ -2,3 +2,5 @@
 Debug Planet 0
 Planet A 1
 Planet B 1
+InfoBox 2
+ChoiceMenu 2

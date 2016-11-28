@@ -12,6 +12,7 @@ namespace BPA_RPG.GameItems
     {
         //Static ships
         public static Ship StarterShip { get; private set; }
+        public static Ship NeonCruiser { get; private set; }
 
 
 
@@ -52,7 +53,9 @@ namespace BPA_RPG.GameItems
 
             //Define static ships
             StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/StarterShip"),
-                100, 20, 7f, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon) });
+                100, 20, 7, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon) });
+            NeonCruiser = new Ship("Neon Cruiser", content.Load<Texture2D>("Images/NeonCruiser"),
+                120, 30, 15, 0.1f, 0.03f, 0.0004f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon), typeof(LaserWeapon), typeof(LaserWeapon) });
 
             MainGame.eventLogger.Log(typeof(Ship), "Finished loading ships");
         }

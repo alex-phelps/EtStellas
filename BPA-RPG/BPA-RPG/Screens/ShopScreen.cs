@@ -81,10 +81,12 @@ namespace BPA_RPG.Screens
                         {
                             PlayerData.inventory.Add(deals[i].item);
                             PlayerData.AddMoney(deals[i].currency, -deals[i].buyPrice);
+
+                            // sounds
                         }
                         else
                         {
-
+                            manager.Push(new InfoBoxScreen("No Money", "Not enough " + deals[i].currency));
                         }
                     }
                 }
@@ -109,7 +111,7 @@ namespace BPA_RPG.Screens
                         }
                         else
                         {
-
+                            manager.Push(new InfoBoxScreen("No Item", "Not enough " + deals[i].item.name));
                         }
                     }
                 }

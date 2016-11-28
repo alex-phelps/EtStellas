@@ -15,9 +15,6 @@ namespace BPA_RPG.GameObjects
         //Static planets
         public static List<Planet> planets;
 
-        public static Planet DebugPlanet { get; private set; }
-        public static Planet DebugPlanet2 { get; private set; }
-
 
         public readonly string name;
         public float orbitDistance => texture.Width * 2f / 3f;
@@ -45,9 +42,19 @@ namespace BPA_RPG.GameObjects
                 {
                     Vector2.Zero
                 },
-                new List<Vector2>()
+                new List<Vector2>() // lvl 1, under 10k
                 {
-                    new Vector2(-4500, -3000)
+                    new Vector2(-4500, -3000),
+                    new Vector2(1200, -7000),
+                    new Vector2(-2500, 5000),
+                    new Vector2(4000, 3500),
+                    new Vector2(7500, -2000)
+                },
+                new List<Vector2>() // lvl 2, under 30k
+                {
+                    new Vector2(-11000, -11500),
+                    new Vector2(-13000, -12000),
+                    new Vector2(-19000, -6000),
                 }
             };
 
