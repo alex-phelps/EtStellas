@@ -124,9 +124,7 @@ namespace BPA_RPG.Screens
 
             try
             {
-                StreamReader file;
-
-                file = File.OpenText("Content/Scripts/" + scriptName + "Shop.txt");
+                StreamReader file = File.OpenText("Content/Scripts/" + scriptName + "Shop.txt");
 
                 //Loop through line for the choice
                 List<string> lines = new List<string>();
@@ -151,9 +149,7 @@ namespace BPA_RPG.Screens
 
             try
             {
-                StreamReader file;
-
-                file = File.OpenText("Content/Scripts/" + scriptName + "Shipyard.txt");
+                StreamReader file = File.OpenText("Content/Scripts/" + scriptName + "Shipyard.txt");
 
                 //Loop through line for the choice
                 List<string> lines = new List<string>();

@@ -73,7 +73,7 @@ namespace BPA_RPG
             screenManager = new ScreenManager(Content);
 
             //Set default player ship
-            PlayerData.ship = new PlayerShip(Ship.NeonCruiser);
+            PlayerData.ship = new PlayerShip(Ship.StarterShip);
 
             //Give player starter items
             PlayerData.inventory.AddRange(new GameItem[] 

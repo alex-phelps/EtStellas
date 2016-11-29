@@ -26,6 +26,7 @@ namespace BPA_RPG.GameObjects
                 Texture = value;
                 Width = value.Width;
                 Height = value.Height;
+                source = new Rectangle(0, 0, Width, Height);
 
                 colorData = new Color[Width * Height];
                 value.GetData(colorData);
@@ -34,6 +35,7 @@ namespace BPA_RPG.GameObjects
         }
 
         public Vector2 position;
+        public Rectangle source;
         public float rotation = 0;
         public float scale = 1;
         public bool visible = true;
@@ -124,9 +126,8 @@ namespace BPA_RPG.GameObjects
         {
             if (visible)
             {
-                Rectangle source = new Rectangle(0, 0, Width, Height);
                 spritebatch.Draw(texture, position, source, color, rotation,
-                    new Vector2(Width / 2, Height / 2), scale, SpriteEffects.None, 1);
+                    new Vector2(source.Width / 2, source.Height / 2), scale, SpriteEffects.None, 1);
             }
         }
 

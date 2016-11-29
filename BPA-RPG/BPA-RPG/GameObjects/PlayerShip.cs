@@ -30,7 +30,30 @@ namespace BPA_RPG.GameObjects
         }
         private Planet LastPlanet;
 
-        private Ship baseShip;
+        public Ship baseShip
+        {
+            get
+            {
+                return BaseShip;
+            }
+            set
+            {
+                if (baseShip != null)
+                    // Set new hull points as % max of new hull
+                    hullPoints = (int)(((float)hullPoints / maxHullPoints) * value.maxHullPoints);
+
+                BaseShip = value;
+                texture = value.texture;
+
+                if (PlayerData.weapons != null)
+                    PlayerData.inventory.AddRange(PlayerData.weapons);
+
+                PlayerData.weapons = new Weapon[weaponHold.Count];
+
+                MainGame.eventLogger.Log(this, "Base Ship set to " + value.name);
+            }
+        }
+        private Ship BaseShip;
 
 
         public float travelDistance { get; private set; }
@@ -94,13 +117,13 @@ namespace BPA_RPG.GameObjects
             }
             else if (autoPilotActive)
             {
-                // Wait 4.5 seconds until player is given control
+                // Wait 2.5 seconds until player is given control
 
                 autoPilotTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                if (autoPilotTimer >= 4500)
+                if (autoPilotTimer >= 2500)
                 {
-                    autoPilotTimer -= 4500;
+                    autoPilotTimer -= 2500;
                     autoPilotActive = false;
                 }
             }

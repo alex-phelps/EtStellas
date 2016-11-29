@@ -1,1 +1,3 @@
 ﻿Script not found!
+> Exit
+exit

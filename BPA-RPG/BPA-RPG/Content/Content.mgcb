@@ -568,3 +568,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/NeonCruiser.png
 
+#begin Scripts/DebugPlanetShipyard.txt
+/copy:Scripts/DebugPlanetShipyard.txt
+

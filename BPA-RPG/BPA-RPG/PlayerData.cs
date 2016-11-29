@@ -13,26 +13,7 @@ namespace BPA_RPG
 
     public static class PlayerData
     {
-        private static PlayerShip Ship;
-        public static PlayerShip ship
-        {
-            get
-            {
-                return Ship;
-            }
-            set
-            {
-                Ship = value;
-
-                if (weapons != null)
-                    inventory.AddRange(weapons);
-
-                weapons = new Weapon[Ship.weaponHold.Count];
-
-                MainGame.eventLogger.Log(typeof(PlayerData), "Player ship = " + Ship.name);
-            }
-        }
-
+        public static PlayerShip ship;
         public static string name = "TestName";
         public static List<GameItem> inventory = new List<GameItem>();
         public static Weapon[] weapons;

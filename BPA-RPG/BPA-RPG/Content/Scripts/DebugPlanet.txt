@@ -1,4 +1,7 @@
 ﻿blah
+> Give me money
+credits 99999999
+jex 99999999
 > Text 1
 jex 500
 choice

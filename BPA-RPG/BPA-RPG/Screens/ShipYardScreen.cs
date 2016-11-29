@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace BPA_RPG.Screens
 {
@@ -46,13 +47,23 @@ namespace BPA_RPG.Screens
 
             for (int i = 0; i < deals.Count; i++)
             {
-                Vector2 pos = new Vector2(250 + i * 50, 130);
+                Vector2 pos = new Vector2(312 + (i % 3) * 200, 150 + (i / 3) * 210);
+                
                 textures.Add(new GameObject(deals[i].item.texture)
                 {
-                    position = pos
+                    position = pos,
+                    scale = 4,
+                    source = new Rectangle(0, 0, deals[i].item.texture.Width / 2, deals[i].item.texture.Height)
                 });
 
-                pos += new Vector2(0, 30);
+                pos += new Vector2(0, 70);
+                
+                itemNames.Add(new DrawableString(font, deals[i].item.name, pos - font.MeasureString(deals[i].item.name) / 2, Color.White));
+
+                pos += new Vector2(0, 20);
+
+                string text = "Buy: " + (deals[i].canBuy ? deals[i].buyPrice + " " + deals[i].currency : "N/A");
+                buyPrices.Add(new DrawableString(font, text, pos - font.MeasureString(text) / 2, Color.White));
             }
 
             base.LoadContent(content);
@@ -60,17 +71,49 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
+            foreach (DrawableString buyPrice in buyPrices)
+            {
+                int i = buyPrices.IndexOf(buyPrice);
+
+                if (deals[i].canBuy && buyPrice.boundingRectangle.Contains(InputManager.newMouseState.Position))
+                {
+                    buyPrice.color = new Color(0, 60, 255);
+
+                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
+                    {
+                        if (PlayerData.GetMoney(deals[i].currency) >= deals[i].buyPrice && deals[i].item as Ship != null &&
+                            !PlayerData.ship.Equals(deals[i].item))
+                        {
+                            PlayerData.ship.baseShip = (Ship)deals[i].item;
+                            PlayerData.AddMoney(deals[i].currency, -deals[i].buyPrice);
+
+                            // sounds
+                        }
+                        else
+                        {
+                            manager.Push(new InfoBoxScreen("No Money", "Not enough " + deals[i].currency));
+                        }
+                    }
+                }
+                else buyPrice.color = Color.White;
+            }
+
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
-            spritebatch.Draw(menu, MainGame.WindowCenter, Color.White);
+            spritebatch.Draw(menu, MainGame.WindowCenter, new Rectangle(0, 0, menu.Width, menu.Height), Color.White, 0, new Vector2(menu.Width / 2, menu.Height / 2), 1, SpriteEffects.None, 1);
 
+            //Draw w/o linear interpol
+            spritebatch.End();
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             foreach (GameObject texture in textures)
             {
                 texture.Draw(gameTime, spritebatch);
             }
+            spritebatch.End();
+            spritebatch.Begin();
 
             foreach (DrawableString name in itemNames)
             {

@@ -38,14 +38,16 @@ namespace BPA_RPG.Screens
                 menuScreens[i].manager = manager;
                 menuScreens[i].LoadContent(content);
 
-                // Expression returns null if there is no shop or if screen is not a MenuChoiceScreen
-                if ((menuScreens[i] as MenuChoiceScreen)?.shop != null)
-                    // Adds a shop if the screen has one
-                    menuScreens.Insert(i + 1, ((MenuChoiceScreen)menuScreens[i]).shop);
-
-                // Same with shipyard
+                // Expression returns null if there is no shipyard or if screen is not a MenuChoiceScreen
                 if ((menuScreens[i] as MenuChoiceScreen)?.shipyard != null)
+                    // Adds a shipyard if the screen has one
                     menuScreens.Insert(i + 1, ((MenuChoiceScreen)menuScreens[i]).shipyard);
+
+
+                // Same with shop
+                if ((menuScreens[i] as MenuChoiceScreen)?.shop != null)
+                    menuScreens.Insert(i + 1, ((MenuChoiceScreen)menuScreens[i]).shop);
+                
 
                 int k = i; // keeps lambda from referencing i
                 menuTabs.Add(new ClickableObject(menuTab, () =>

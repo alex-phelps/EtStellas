@@ -42,6 +42,8 @@ namespace BPA_RPG.GameItems
             {
                 case "fuel":
                     return Fuel;
+                case "neoncruiser":
+                    return Ship.NeonCruiser;
                 default:
                     return Fuel;
             }
