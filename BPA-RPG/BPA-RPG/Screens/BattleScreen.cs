@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using BPA_RPG.GameItems;
+using BPA_RPG.GameItems.Weapons;
 
 namespace BPA_RPG.Screens
 {

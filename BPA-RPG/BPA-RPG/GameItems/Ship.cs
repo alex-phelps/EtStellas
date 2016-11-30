@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using BPA_RPG.GameItems.Weapons;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace BPA_RPG.GameItems
 
             //Define static ships
             StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/StarterShip"),
-                100, 20, 7, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon) });
+                100, 20, 7, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(MissileWeapon) });
             NeonCruiser = new Ship("Neon Cruiser", content.Load<Texture2D>("Images/NeonCruiser"),
                 120, 30, 15, 0.1f, 0.03f, 0.0004f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon), typeof(LaserWeapon), typeof(LaserWeapon) });
 

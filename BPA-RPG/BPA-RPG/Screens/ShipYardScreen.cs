@@ -58,7 +58,7 @@ namespace BPA_RPG.Screens
 
                 pos += new Vector2(0, 70);
                 
-                itemNames.Add(new DrawableString(font, deals[i].item.name, pos - font.MeasureString(deals[i].item.name) / 2, Color.White));
+                itemNames.Add(new DrawableString(font, deals[i].item.name, pos - font.MeasureString(deals[i].item.name) / 2, Color.Gold));
 
                 pos += new Vector2(0, 20);
 

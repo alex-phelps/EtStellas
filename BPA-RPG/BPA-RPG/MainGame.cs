@@ -6,6 +6,7 @@ using BPA_RPG.GameItems;
 using Microsoft.Xna.Framework.Content;
 using BPA_RPG.GameObjects;
 using System.Collections.Generic;
+using BPA_RPG.GameItems.Weapons;
 
 namespace BPA_RPG
 {
@@ -76,7 +77,7 @@ namespace BPA_RPG
             PlayerData.ship = new PlayerShip(Ship.StarterShip);
 
             //Give player starter items
-            PlayerData.inventory.AddRange(new GameItem[] 
+            PlayerData.Inventory.AddRange(new GameItem[] 
             {
                 GameItem.Fuel,
                 GameItem.Fuel,
@@ -87,7 +88,7 @@ namespace BPA_RPG
             });
             PlayerData.engine = Engine.BasicEngine;
             PlayerData.weapons[0] = LaserWeapon.BasicLaser;
-            PlayerData.weapons[1] = LaserWeapon.BasicLaser;
+            PlayerData.weapons[1] = MissileWeapon.BasicMissile;
 
             //Create the Main Menu Screen
             screenManager.Push(new MainMenuScreen());

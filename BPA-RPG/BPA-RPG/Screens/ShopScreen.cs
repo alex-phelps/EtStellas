@@ -20,6 +20,7 @@ namespace BPA_RPG.Screens
         private readonly List<DrawableString> sellPrices;
 
         private SpriteFont font;
+        private SpriteFont infoFont;
         private Texture2D menu;
 
         public ShopScreen(List<Deal> deals) 
@@ -35,11 +36,12 @@ namespace BPA_RPG.Screens
         public override void LoadContent(ContentManager content)
         {
             font = content.Load<SpriteFont>("Fonts/ChoiceFont");
+            infoFont = content.Load<SpriteFont>("Fonts/InfoFont");
             menu = content.Load<Texture2D>("Images/ChoiceMenu");
             
             for (int i = 0; i < deals.Count; i++)
             {
-                Vector2 pos = new Vector2(240, 115 + i * 35);
+                Vector2 pos = new Vector2(240, 155 + i * 35);
 
                 textures.Add(new GameObject(deals[i].item.texture)
                 {
@@ -79,7 +81,7 @@ namespace BPA_RPG.Screens
                     {
                         if (PlayerData.GetMoney(deals[i].currency) >= deals[i].buyPrice)
                         {
-                            PlayerData.inventory.Add(deals[i].item);
+                            PlayerData.Inventory.Add(deals[i].item);
                             PlayerData.AddMoney(deals[i].currency, -deals[i].buyPrice);
 
                             // sounds
@@ -103,7 +105,7 @@ namespace BPA_RPG.Screens
 
                     if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
                     {
-                        if (PlayerData.inventory.Remove(deals[i].item))
+                        if (PlayerData.Inventory.Remove(deals[i].item))
                         {
                             PlayerData.AddMoney(deals[i].currency, deals[i].sellPrice);
 
@@ -124,6 +126,11 @@ namespace BPA_RPG.Screens
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
             spritebatch.Draw(menu, MainGame.WindowCenter, new Rectangle(0, 0, menu.Width, menu.Height), Color.White, 0, new Vector2(menu.Width / 2, menu.Height / 2), 1, SpriteEffects.None, 1);
+
+            //Draw info text
+            spritebatch.DrawString(infoFont, "Item", new Vector2(280, 115) - font.MeasureString("Item") / 2, Color.Gold);
+            spritebatch.DrawString(infoFont, "Buy", new Vector2(600, 115) - font.MeasureString("Buy") / 2, Color.Gold);
+            spritebatch.DrawString(infoFont, "Sell", new Vector2(750, 115) - font.MeasureString("Sell") / 2, Color.Gold);
 
             foreach (GameObject texture in textures)
             {

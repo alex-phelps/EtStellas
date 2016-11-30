@@ -1,4 +1,5 @@
 ﻿using BPA_RPG.GameItems;
+using BPA_RPG.GameItems.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -35,17 +36,14 @@ namespace BPA_RPG.GameObjects
             position.Y += (float)Math.Sin(rotation) * speed;
 
             //check collide
-            if (!hasMissed && target.shield.visible && IntersectPixels(target.shield))
+            if (!hasMissed && target.shield.visible && IntersectPixels(target.shield) && !weapon.passShield)
             {
                 deleteList.Add(this);
             }
             else if (!hasMissed && IntersectPixels(target))
             {
-                if (rand.NextDouble() < weapon.hitChance)
-                {
-                    target.hullPoints -= weapon.damage;
+                if (weapon.HitShip(target))
                     deleteList.Add(this);
-                }
                 else hasMissed = true;
             }
 

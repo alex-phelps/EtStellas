@@ -10,12 +10,13 @@ using BPA_RPG.GameItems;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Input;
 using System.Text.RegularExpressions;
+using BPA_RPG.GameItems.Weapons;
 
 namespace BPA_RPG.Screens
 {
     public class ShipHoldScreen : Screen
     {
-        private List<GameItem> inventory => PlayerData.inventory;
+        private List<GameItem> inventory => PlayerData.Inventory;
         private List<Type> weaponHold => PlayerData.ship.weaponHold;
         private Weapon[] weapons => PlayerData.weapons;
         private int holdSize => PlayerData.ship.holdSize;
@@ -202,10 +203,10 @@ namespace BPA_RPG.Screens
 
                 spritebatch.Draw(inventory[k].texture, new Vector2(250, 145 + (i * 30)), Color.White);
                 spritebatch.DrawString(font, inventory[k].name, new Vector2(290, 145 + (i * 30)), Color.White);
-
-                holdScrollArrowTop.Draw(gameTime, spritebatch);
-                holdScrollArrowBot.Draw(gameTime, spritebatch);
             }
+
+            holdScrollArrowTop.Draw(gameTime, spritebatch);
+            holdScrollArrowBot.Draw(gameTime, spritebatch);
 
             spritebatch.Draw(partInv, new Vector2(517, 107), new Rectangle(0, 0, partInv.Width, partInv.Height), Color.White);
 
@@ -239,6 +240,12 @@ namespace BPA_RPG.Screens
 
             spritebatch.End();
             spritebatch.Begin();
+
+
+            //Draw item infobox
+            for (int i = 0; i < 10; i++)
+                if (itemRects[i].visible && !(i + firstRender >= inventory.Count))
+                    inventory[i + firstRender].DrawInfo(spritebatch);
 
             base.Draw(gameTime, spritebatch);
         }
