@@ -11,14 +11,15 @@ namespace BPA_RPG.GameItems
     public class Engine : ShipPart
     {
         public static Engine BasicEngine;
+        public static Engine CryoThermalEngine;
 
 
 
         public readonly int power;
         public readonly float fuelRate; // fuel used per 10,000 meters (pixels)
 
-        public Engine(string name, Texture2D texture, int power, float fuelRate)
-            : base(name, texture)
+        public Engine(string name, Texture2D texture, int power, float fuelRate, string info = "")
+            : base(name, texture, info)
         {
             this.power = power;
             this.fuelRate = fuelRate;
@@ -28,7 +29,8 @@ namespace BPA_RPG.GameItems
         {
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
 
-            BasicEngine = new Engine("Basic Engine", content.Load<Texture2D>("Images/DebugTexture"), 20, 1.2f);
+            BasicEngine = new Engine("Basic Engine", content.Load<Texture2D>("Images/DebugTexture"), 20, 1.2f, "A basic plutonium engine");
+            CryoThermalEngine = new Engine("Cryothermal Engine", content.Load<Texture2D>("Images/DebugTexture"), 20, 1.2f, "An engine powered by absolute zero temperatures");
 
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
         }

@@ -67,7 +67,7 @@
     <Compile Include="GameItems\Weapons\LaserWeapon.cs" />
     <Compile Include="GameItems\Ship.cs" />
     <Compile Include="GameItems\ShipPart.cs" />
-    <Compile Include="GameItems\Weapons\MissileWeapon.cs" />
+    <Compile Include="GameItems\Weapons\MissileLauncher.cs" />
     <Compile Include="GameItems\Weapons\Weapon.cs" />
     <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\BattleShip.cs" />

@@ -39,27 +39,46 @@ namespace BPA_RPG.GameItems
             {
                 Vector2 pos = InputManager.newMouseState.Position.ToVector2() + new Vector2(12, 0);
 
-                spritebatch.Draw(infoBoxCap, pos, Color.White);
-                pos += new Vector2(0, infoBoxCap.Height);
-
-                int lines = 1;
-                foreach(char c in info)
+                for (int i = 0; i < info.Length; i++)
                 {
-                    if (font.MeasureString(info).X > 172)
+                    if (font.MeasureString(info.Substring(0, i)).X > 164)
                     {
-                        int i = info.LastIndexOf(" ");
-                        info = info.Remove(i, i + 1).Insert(i, "\n");
+                        if (info.Contains(" "))
+                        {
+                            int k = info.Substring(0, i).LastIndexOf(" ");
+                            string newLine = info.Remove(k, 1).Insert(k, "\n");
+
+                            if (font.MeasureString(newLine.Substring(0, i)).X <= 164)
+                            {
+                                info = newLine;
+                                i++;
+                            }
+                        }
+
+                        //If that didn't fix it
+                        if (font.MeasureString(info.Substring(0, i)).X > 164)
+                        {
+                            info = info.Insert(i - 2, "-\n");
+                            i += 2;
+                        }
                     }
                 }
 
-                for (int i = 0; i < lines; i++)
-                {
-                    spritebatch.Draw(infoBox, pos, Color.White);
-                    spritebatch.DrawString(font, info, pos + new Vector2(6, 3), Color.White);
-                    pos += new Vector2(0, infoBox.Height);
-                }
 
-                spritebatch.Draw(infoBoxCap, pos, new Rectangle(0, 0, infoBoxCap.Width, infoBoxCap.Height), Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.FlipVertically, 1);
+                Vector2 boxPos = pos;
+                spritebatch.Draw(infoBoxCap, boxPos, Color.White);
+                boxPos += new Vector2(0, infoBoxCap.Height);
+
+                for (int i = 0; i <= info.Count(c => c == '\n'); i++)
+                {
+                    spritebatch.Draw(infoBox, boxPos, Color.White);
+                    boxPos += new Vector2(0, infoBox.Height);
+                }
+                
+                Vector2 b = font.MeasureString("N\nN");
+
+                spritebatch.Draw(infoBoxCap, boxPos, new Rectangle(0, 0, infoBoxCap.Width, infoBoxCap.Height), Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.FlipVertically, 1);
+spritebatch.DrawString(font, info, pos + new Vector2(6, infoBoxCap.Height), Color.White);
             }
         }
 
@@ -71,7 +90,7 @@ namespace BPA_RPG.GameItems
             infoBox = content.Load<Texture2D>("Images/ItemInfoBox");
             font = content.Load<SpriteFont>("Fonts/KeyFont");
 
-            Fuel = new GameItem("Fuel", content.Load<Texture2D>("Images/Items/Fuel"), "Fuel for spacecrafts. blahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+            Fuel = new GameItem("Fuel", content.Load<Texture2D>("Images/Items/Fuel"), "Plutonium fuel for spacecrafts.");
 
             MainGame.eventLogger.Log(typeof(GameItem), "Finished loading game items.");
         }
@@ -82,8 +101,14 @@ namespace BPA_RPG.GameItems
             {
                 case "fuel":
                     return Fuel;
+                case "startership":
+                    return Ship.StarterShip;
                 case "neoncruiser":
                     return Ship.NeonCruiser;
+                case "basicengine":
+                    return Engine.BasicEngine;
+                case "cryothermalengine":
+                    return Engine.CryoThermalEngine;
                 default:
                     return Fuel;
             }

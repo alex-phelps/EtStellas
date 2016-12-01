@@ -152,6 +152,14 @@ namespace BPA_RPG.Screens
                 sellPrice.Draw(gameTime, spritebatch);
             }
 
+
+            for (int i = 0; i < itemNames.Count; i++)
+            {
+                if (itemNames[i].boundingRectangle.Contains(InputManager.newMouseState.Position))
+                    deals[i].item.DrawInfo(spritebatch);
+            }
+
+
             base.Draw(gameTime, spritebatch);
         }
 

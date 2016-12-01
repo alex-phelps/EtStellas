@@ -242,10 +242,19 @@ namespace BPA_RPG.Screens
             spritebatch.Begin();
 
 
-            //Draw item infobox
+            //Draw item infobox for inv
             for (int i = 0; i < 10; i++)
                 if (itemRects[i].visible && !(i + firstRender >= inventory.Count))
                     inventory[i + firstRender].DrawInfo(spritebatch);
+
+            //Draw item infobox for engine and weapons
+            if (new Rectangle(520, 110, 60, 60).Contains(InputManager.newMouseState.Position))
+                PlayerData.engine?.DrawInfo(spritebatch);
+            for (int i = 0; i < weaponHold.Count; i++)
+            {
+                if (new Rectangle(520, 180 + i * 70, 60, 60).Contains(InputManager.newMouseState.Position))
+                    weapons[i]?.DrawInfo(spritebatch);
+            }
 
             base.Draw(gameTime, spritebatch);
         }

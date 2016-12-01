@@ -125,6 +125,15 @@ namespace BPA_RPG.Screens
                 buyPrice.Draw(gameTime, spritebatch);
             }
 
+            for (int i = 0; i < textures.Count; i++)
+            {
+                Rectangle rect = textures[i].boundingRectangle;
+                if (itemNames[i].boundingRectangle.Contains(InputManager.newMouseState.Position) ||
+                    new Rectangle(rect.X + rect.Width / 4, rect.Y, rect.Width / 2, rect.Height).Contains(InputManager.newMouseState.Position))
+                    deals[i].item.DrawInfo(spritebatch);
+
+            }
+
             base.Draw(gameTime, spritebatch);
         }
 

@@ -16,8 +16,9 @@ namespace BPA_RPG.GameItems.Weapons
 
         private Random rand;
 
-        protected Weapon(string name, Texture2D texture, Texture2D projectileTexture, int damage, int shots, int maxCooldown, float hitChance, bool passShield = false)
-            : base(name, texture)
+        protected Weapon(string name, Texture2D texture, Texture2D projectileTexture, int damage, int shots,
+            int maxCooldown, float hitChance, bool passShield = false, string info = "")
+            : base(name, texture, info)
         {
             this.projectileTexture = projectileTexture;
             this.damage = damage;
@@ -49,7 +50,7 @@ namespace BPA_RPG.GameItems.Weapons
             MainGame.eventLogger.Log(typeof(Weapon), "Begin loading weapons");
 
             LaserWeapon.LoadContent(content);
-            MissileWeapon.LoadContent(content);
+            MissileLauncher.LoadContent(content);
 
             MainGame.eventLogger.Log(typeof(Weapon), "Finished loading weapons");
         }
