@@ -3,6 +3,8 @@ using BPA_RPG.GameItems.Weapons;
 using BPA_RPG.GameObjects;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace BPA_RPG
 {

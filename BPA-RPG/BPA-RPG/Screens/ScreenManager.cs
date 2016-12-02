@@ -74,8 +74,7 @@ namespace BPA_RPG.Screens
             screen.manager = this;
             if (!screen.loaded && loaded)
                 screen.LoadContent(content);
-            if (Peek() != null)
-                Peek().Deactivated();
+            Peek()?.Deactivated();
             screens.Push(screen);
         }
 
@@ -99,8 +98,8 @@ namespace BPA_RPG.Screens
             if (screens.Count < 1)
                 return null;
             Screen prev = screens.Pop();
-            if (Peek() != null)
-                Peek().Activated();
+
+            Peek()?.Activated();
             return prev;
         }
     }
