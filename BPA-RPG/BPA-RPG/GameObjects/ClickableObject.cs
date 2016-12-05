@@ -7,10 +7,10 @@ namespace BPA_RPG.GameObjects
 {
     public class ClickableObject : GameObject
     {
-        private Action onClick;
-        private Action onHover;
-        private Action onUnHover;
-        private Action onHold;
+        protected Action onClick;
+        protected Action onHover;
+        protected Action onUnHover;
+        protected Action onHold;
 
         private bool holding;
 

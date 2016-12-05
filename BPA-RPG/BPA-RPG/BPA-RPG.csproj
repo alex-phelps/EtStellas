@@ -93,6 +93,7 @@
     <Compile Include="GameObjects\Planet.cs" />
     <Compile Include="GameObjects\PlayerShip.cs" />
     <Compile Include="GameObjects\Shield.cs" />
+    <Compile Include="GameObjects\ShipInfoBox.cs" />
     <Compile Include="GameObjects\WeaponProjectile.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="MainGame.cs" />
@@ -123,6 +124,7 @@
   <ItemGroup>
     <Content Include="Content\Images\AKey.png" />
     <Content Include="Content\Images\BattleOverlay.png" />
+    <Content Include="Content\Images\CloseX.png" />
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
     <Content Include="Content\Images\DKey.png" />
@@ -157,6 +159,7 @@
     <Content Include="Content\Images\ShieldButtonCooldown.png" />
     <Content Include="Content\Images\ShipHealthBar.png" />
     <Content Include="Content\Images\ShipHoldMenu.png" />
+    <Content Include="Content\Images\ShipInfoBox.png" />
     <Content Include="Content\Images\SKey.png" />
     <Content Include="Content\Images\SpaceKey.png" />
     <Content Include="Content\Images\StarBackground.png" />

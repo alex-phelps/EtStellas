@@ -16,6 +16,7 @@ namespace BPA_RPG.Screens
         private readonly List<Screen> menuScreens;
         private List<ClickableObject> menuTabs;
         private List<DrawableString> tabStrings;
+        private ClickableObject closeX;
         private int selectedScreen = 0;
 
         public TabMenuScreen(params Screen[] menuScreens)
@@ -65,7 +66,11 @@ namespace BPA_RPG.Screens
 
                 tabStrings.Add(new DrawableString(tabFont, menuScreens[i].title, MainGame.WindowCenter - new Vector2(230 - (i * 150), 242) - tabFont.MeasureString(menuScreens[i].title) / 2, Color.White));
             }
-                
+
+            closeX = new ClickableObject(content.Load<Texture2D>("Images/CloseX"), () => manager.Pop())
+            {
+                position = MainGame.WindowCenter + new Vector2(331, -206)
+            };
 
             base.LoadContent(content);
         }
@@ -82,6 +87,8 @@ namespace BPA_RPG.Screens
 
             foreach (ClickableObject tab in menuTabs)
                 tab.Update(gameTime);
+
+            closeX.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -102,6 +109,8 @@ namespace BPA_RPG.Screens
             tabStrings[selectedScreen].Draw(gameTime, spritebatch);
 
             menuScreens[selectedScreen].Draw(gameTime, spritebatch);
+
+            closeX.Draw(gameTime, spritebatch);
 
             base.Draw(gameTime, spritebatch);
         }

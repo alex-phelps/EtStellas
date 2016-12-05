@@ -43,6 +43,8 @@ namespace BPA_RPG.Screens
         private Texture2D mmScrollBar;
         private ClickableObject mmScrollIcon;
 
+        private ShipInfoBox shipInfoBox;
+
         private Camera playerCamera;
         private Camera miniMapCamera;
 
@@ -119,6 +121,8 @@ namespace BPA_RPG.Screens
             {
                 position = new Vector2(MainGame.WindowWidth - 10, MainGame.WindowHeight - 137)
             };
+
+            shipInfoBox = new ShipInfoBox(content);
 
             base.LoadContent(content);
         }
@@ -198,6 +202,8 @@ namespace BPA_RPG.Screens
             playerDot.Update(gameTime, miniMapScale);
             foreach (MiniMapDot d in planetDots)
                 d.Update(gameTime, miniMapScale);
+
+            shipInfoBox.Update(gameTime);
                         
             base.Update(gameTime);
         }
@@ -269,6 +275,9 @@ namespace BPA_RPG.Screens
                 spritebatch.DrawString(planetInfoFont, "GPS", new Vector2(MainGame.WindowWidth - 245, MainGame.WindowHeight - 146), Color.White);
                 spritebatch.Draw(mmScrollBar, new Vector2(MainGame.WindowWidth - 12, MainGame.WindowHeight - 140), Color.White);
                 mmScrollIcon.Draw(gameTime, spritebatch);
+
+                //Draw shpi info
+                shipInfoBox.Draw(gameTime, spritebatch);
             }
 
             base.Draw(gameTime, spritebatch);
