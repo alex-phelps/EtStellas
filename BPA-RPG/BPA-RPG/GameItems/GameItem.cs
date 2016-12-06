@@ -78,7 +78,7 @@ namespace BPA_RPG.GameItems
                 Vector2 b = font.MeasureString("N\nN");
 
                 spritebatch.Draw(infoBoxCap, boxPos, new Rectangle(0, 0, infoBoxCap.Width, infoBoxCap.Height), Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.FlipVertically, 1);
-spritebatch.DrawString(font, info, pos + new Vector2(6, infoBoxCap.Height), Color.White);
+                spritebatch.DrawString(font, info, pos + new Vector2(6, infoBoxCap.Height), Color.White);
             }
         }
 
@@ -95,7 +95,7 @@ spritebatch.DrawString(font, info, pos + new Vector2(6, infoBoxCap.Height), Colo
             MainGame.eventLogger.Log(typeof(GameItem), "Finished loading game items.");
         }
 
-        public static GameItem ItemFromText(string line)
+        public static GameItem Parse(string line)
         {
             switch (line.ToLower())
             {
@@ -110,7 +110,7 @@ spritebatch.DrawString(font, info, pos + new Vector2(6, infoBoxCap.Height), Colo
                 case "cryothermalengine":
                     return Engine.CryoThermalEngine;
                 default:
-                    return Fuel;
+                    throw new FormatException();
             }
         }
     }

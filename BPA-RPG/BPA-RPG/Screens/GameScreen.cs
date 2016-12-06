@@ -43,8 +43,6 @@ namespace BPA_RPG.Screens
         private Texture2D mmScrollBar;
         private ClickableObject mmScrollIcon;
 
-        private ShipInfoBox shipInfoBox;
-
         private Camera playerCamera;
         private Camera miniMapCamera;
 
@@ -88,7 +86,11 @@ namespace BPA_RPG.Screens
 
             planetInfoBox = content.Load<Texture2D>("Images/PlanetInfoBox");
             planetInfoLandButton = new ClickableObject(content.Load<Texture2D>("Images/PlanetInfoLandButton"), () =>
-                manager.Push(new TabMenuScreen(new MenuChoiceScreen(ship.lastPlanet.name, ship.lastPlanet.name.Replace(" ", "")), new ShipHoldScreen())))
+            {
+                if (ship.inOrbit)
+                    manager.Push(new TabMenuScreen(new MenuChoiceScreen(ship.lastPlanet.name, ship.lastPlanet.name.Replace(" ", "")), new ShipHoldScreen()));
+                else manager.Push(new TabMenuScreen(new ShipHoldScreen()));
+            })
             {
                 position = new Vector2(70, MainGame.WindowHeight - 30)
             };
@@ -122,8 +124,6 @@ namespace BPA_RPG.Screens
                 position = new Vector2(MainGame.WindowWidth - 10, MainGame.WindowHeight - 137)
             };
 
-            shipInfoBox = new ShipInfoBox(content);
-
             base.LoadContent(content);
         }
 
@@ -155,8 +155,7 @@ namespace BPA_RPG.Screens
                 dKey.scale = .95f;
             else dKey.scale = 1;
 
-            if (ship.inOrbit)
-               planetInfoLandButton.Update(gameTime);
+            planetInfoLandButton.Update(gameTime);
             
             playerCamera.Update(ship.position);
             
@@ -202,8 +201,6 @@ namespace BPA_RPG.Screens
             playerDot.Update(gameTime, miniMapScale);
             foreach (MiniMapDot d in planetDots)
                 d.Update(gameTime, miniMapScale);
-
-            shipInfoBox.Update(gameTime);
                         
             base.Update(gameTime);
         }
@@ -246,6 +243,18 @@ namespace BPA_RPG.Screens
                     planetInfoLandButton.Draw(gameTime, spritebatch);
                     spritebatch.DrawString(planetInfoFont, "Land", planetInfoLandButton.position - planetInfoFont.MeasureString("Land") / 2, Color.White);
                 }
+                else
+                {
+                    spritebatch.Draw(planetInfoBox, new Vector2(0, MainGame.WindowHeight - planetInfoBox.Height), Color.White);
+                    spritebatch.DrawString(keyFont, "Ship Access", new Vector2(10, MainGame.WindowHeight - 114), Color.White);
+
+                    string info = ship.name;
+                    spritebatch.DrawString(planetInfoFont, info, new Vector2(20, MainGame.WindowHeight - 90), Color.White);
+                    spritebatch.Draw(ship.texture, new Rectangle(145, MainGame.WindowHeight - 60, 50, 50), new Rectangle(0, 0, ship.Width / 2, ship.Height), Color.White);
+
+                    planetInfoLandButton.Draw(gameTime, spritebatch);
+                    spritebatch.DrawString(planetInfoFont, "Open Hold", planetInfoLandButton.position - planetInfoFont.MeasureString("Open Hold") / 2, Color.White);
+                }
 
 
                 //Draw minimap
@@ -275,9 +284,6 @@ namespace BPA_RPG.Screens
                 spritebatch.DrawString(planetInfoFont, "GPS", new Vector2(MainGame.WindowWidth - 245, MainGame.WindowHeight - 146), Color.White);
                 spritebatch.Draw(mmScrollBar, new Vector2(MainGame.WindowWidth - 12, MainGame.WindowHeight - 140), Color.White);
                 mmScrollIcon.Draw(gameTime, spritebatch);
-
-                //Draw shpi info
-                shipInfoBox.Draw(gameTime, spritebatch);
             }
 
             base.Draw(gameTime, spritebatch);
@@ -291,7 +297,7 @@ namespace BPA_RPG.Screens
         private void DrawSprites(GameTime gameTime, SpriteBatch spritebatch, Camera camera)
         {
             spritebatch.End();
-            spritebatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, 
+            spritebatch.Begin(SpriteSortMode.Deferred, null, 
                 null, null, null, null, camera.transform);
 
 

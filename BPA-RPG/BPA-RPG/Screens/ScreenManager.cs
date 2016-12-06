@@ -98,6 +98,7 @@ namespace BPA_RPG.Screens
             if (screens.Count < 1)
                 return null;
             Screen prev = screens.Pop();
+            prev.Deactivated();
 
             Peek()?.Activated();
             return prev;

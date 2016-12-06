@@ -13,19 +13,23 @@ namespace BPA_RPG.Choice
     /// </summary>
     public class ChoiceOption
     {
-        public string synopsis { get; private set; }
+        public readonly string synopsis;
+        public readonly Dictionary<GameItem, int> requirements;
+        public readonly bool invisible;
 
-        private Action action;
+        private readonly Action action;
 
         /// <summary>
         /// Creates a new ChoiceOption ojbect
         /// </summary>
         /// <param name="synopsis">Option synopsis</param>
         /// <param name="actions">Actions that execution on selection of this option</param>
-        public ChoiceOption(string synopsis, Action action, ScreenManager manager)
+        public ChoiceOption(string synopsis, Action action, Dictionary<GameItem, int> requirements, bool invisible, ScreenManager manager)
         {
             this.synopsis = synopsis;
             this.action = action;
+            this.requirements = requirements;
+            this.invisible = invisible;
         }
 
         /// <summary>
@@ -33,7 +37,31 @@ namespace BPA_RPG.Choice
         /// </summary>
         public void Activate()
         {
-            action?.Invoke();
+            //Make sure requirements are met, just in case
+            if (MeetsRequirements())
+                action?.Invoke();
+        }
+
+        /// <summary>
+        /// Checks if the player meets this options requirements
+        /// </summary>
+        /// <returns></returns>
+        public bool MeetsRequirements()
+        {
+            foreach (KeyValuePair<GameItem, int> item in requirements)
+            {
+                //If positive, check if player has at least that amount
+                if (item.Value > 0)
+                {
+                    if (PlayerData.Inventory.Count(i => i == item.Key) < item.Value)
+                        return false;
+                }
+                //If number is negative or 0, check if player has at MOST that amount
+                else if (PlayerData.Inventory.Count(i => i == item.Key) > Math.Abs(item.Value))
+                    return false;
+            }
+
+            return true;
         }
 
 
@@ -49,6 +77,8 @@ namespace BPA_RPG.Choice
             bool endOfLine = false;
             string synopsis;
             Action action = null;
+            Dictionary<GameItem, int> requirements = new Dictionary<GameItem, int>();
+            bool invisible = false;
 
             synopsis = lines[lineNum];
             lineNum++;
@@ -63,6 +93,20 @@ namespace BPA_RPG.Choice
 
                 switch (lineParts[0].ToLower())
                 {
+                    case "require":
+                        {
+                            int count;
+                            if (!int.TryParse(lineParts[2], out count))
+                                break;
+
+                            requirements.Add(GameItem.Parse(lineParts[1]), count);
+                        }
+                        break;
+
+                    case "invisible":
+                        invisible = true;
+                        break;
+
                     case "credits":
                         {
                             int amount;
@@ -84,11 +128,31 @@ namespace BPA_RPG.Choice
                         break;
 
                     case "get":
-                        action += () => GetItem(lineParts[1]);
+                        {
+                            int count;
+                            if (!int.TryParse(lineParts[2], out count))
+                                break;
+
+                            action += () =>
+                            {
+                                for (int i = 0; i < count; i++)
+                                    PlayerData.Inventory.Add(GameItem.Parse(lineParts[1]));
+                            };
+                        }
                         break;
 
                     case "remove":
-                        action += () => RemoveItem(lineParts[1]);
+                        {
+                            int count;
+                            if (!int.TryParse(lineParts[2], out count))
+                                break;
+
+                            action += () =>
+                            {
+                                for (int i = 0; i < count; i++)
+                                    PlayerData.Inventory.Remove(GameItem.Parse(lineParts[1]));
+                            };
+                        }
                         break;
                     case "enemy":
                         int level;
@@ -108,7 +172,7 @@ namespace BPA_RPG.Choice
 
                         List<string> choiceLines = new List<string>();
 
-                        while (!endOfLine && !lines[lineNum].StartsWith("]"))
+                        while (!endOfLine)
                         {
                             choiceLines.Add(lines[lineNum]);
                             lineNum++;
@@ -131,25 +195,7 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new ChoiceOption(synopsis, action, manager);
-        }
-
-        /// <summary>
-        /// Gives the player the item specified
-        /// </summary>
-        /// <param name="item">Item to give to player, in string form</param>
-        private static void GetItem(string itemString)
-        {
-
-        }
-
-        /// <summary>
-        /// Removes an item from the player's inventory
-        /// </summary>
-        /// <param name="item">Item to remove, in string form</param>
-        private static void RemoveItem(string itemString)
-        {
-            
+            return new ChoiceOption(synopsis, action, requirements, invisible, manager);
         }
     }
 }

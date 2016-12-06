@@ -5,9 +5,11 @@ choice //starts a choice
 {
 >choice text
 // choice methods
+require item 3 // makes choice require certain items. A negative number or 0 means player must have less than that number
 credits 500 //adds 500 credits to player's bank
 get item // gives player an item
 remove item // removes an item from the player
+exit // exits
 
 choice // nested choices
 {

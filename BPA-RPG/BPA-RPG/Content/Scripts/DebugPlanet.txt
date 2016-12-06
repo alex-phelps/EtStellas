@@ -2,6 +2,16 @@
 > Give me money
 credits 99999999
 jex 99999999
+> 10 Fuel
+invisible
+require fuel 10
+remove fuel 10
+choice
+{
+You lost 10 fuel!
+> Return
+return
+}
 > Text 1
 jex 500
 choice

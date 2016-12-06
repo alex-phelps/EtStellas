@@ -32,7 +32,9 @@ namespace BPA_RPG.GameObjects
             base.Update(gameTime);
 
             info = new List<string>();
-            info.Add("Money");
+            info.Add("<SHIP>");
+            info.Add(PlayerData.ship.baseShip.name);
+            info.Add("<CURRENCY>");
             foreach (Currency c in Enum.GetValues(typeof(Currency)))
                 info.Add(PlayerData.GetMoney(c) + " " + c);
 

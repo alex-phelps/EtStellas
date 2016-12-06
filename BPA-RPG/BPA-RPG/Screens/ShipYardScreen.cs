@@ -52,9 +52,9 @@ namespace BPA_RPG.Screens
                 textures.Add(new GameObject(deals[i].item.texture)
                 {
                     position = pos,
-                    scale = 4,
                     source = new Rectangle(0, 0, deals[i].item.texture.Width / 2, deals[i].item.texture.Height)
                 });
+                textures[i].ScaleTo(250, 250);
 
                 pos += new Vector2(0, 70);
                 

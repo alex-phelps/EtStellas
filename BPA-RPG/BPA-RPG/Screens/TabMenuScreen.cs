@@ -17,6 +17,7 @@ namespace BPA_RPG.Screens
         private List<ClickableObject> menuTabs;
         private List<DrawableString> tabStrings;
         private ClickableObject closeX;
+        private ShipInfoBox shipInfoBox;
         private int selectedScreen = 0;
 
         public TabMenuScreen(params Screen[] menuScreens)
@@ -27,6 +28,20 @@ namespace BPA_RPG.Screens
             translucent = true;
             menuTabs = new List<ClickableObject>();
             tabStrings = new List<DrawableString>();
+        }
+
+        public override void Activated()
+        {
+            menuScreens[selectedScreen].Activated();
+
+            base.Activated();
+        }
+
+        public override void Deactivated()
+        {
+            menuScreens[selectedScreen].Deactivated();
+
+            base.Deactivated();
         }
 
         public override void LoadContent(ContentManager content)
@@ -72,6 +87,8 @@ namespace BPA_RPG.Screens
                 position = MainGame.WindowCenter + new Vector2(331, -206)
             };
 
+            shipInfoBox = new ShipInfoBox(content);
+
             base.LoadContent(content);
         }
 
@@ -89,6 +106,8 @@ namespace BPA_RPG.Screens
                 tab.Update(gameTime);
 
             closeX.Update(gameTime);
+
+            shipInfoBox.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -111,6 +130,8 @@ namespace BPA_RPG.Screens
             menuScreens[selectedScreen].Draw(gameTime, spritebatch);
 
             closeX.Draw(gameTime, spritebatch);
+
+            shipInfoBox.Draw(gameTime, spritebatch);
 
             base.Draw(gameTime, spritebatch);
         }

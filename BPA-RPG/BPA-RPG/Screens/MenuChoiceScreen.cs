@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.Choice;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using BPA_RPG.GameItems;
 
 namespace BPA_RPG.Screens
 {
@@ -31,9 +32,26 @@ namespace BPA_RPG.Screens
                     synopsis.text += line + "\n";
                 }
 
+                //Keep track of number of invis option so that visible options are draw in correct place on screen
+                int numInvis = 0;
                 for (int i = 0; i < value.options.Count; i++)
                 {
-                    options.Add(new DrawableString(choiceFont, value.options[i].synopsis, synopsis.position + new Vector2(0, synopsis.boundingRectangle.Height + 40 + 30 * i), Color.White));
+                    bool canChoose = value.options[i].MeetsRequirements();
+
+                    //If you can't choose and option is "invisible", dont draw it.
+                    if (canChoose || !value.options[i].invisible)
+                    {
+                        string requirements = "(Need: ";
+
+                        foreach (KeyValuePair<GameItem, int> item in value.options[i].requirements)
+                            requirements += item.Value + " " + item.Key.name + " ";
+                        requirements += ")";
+
+                        options.Add(new DrawableString(choiceFont, value.options[i].synopsis + (canChoose ? "" : " " + requirements),
+                            synopsis.position + new Vector2(0, synopsis.boundingRectangle.Height + 40 + 30 * (i - numInvis)),
+                            canChoose ? Color.White : Color.Gray));
+                    }
+                    else numInvis++;
                 }
             }
         }
@@ -55,6 +73,14 @@ namespace BPA_RPG.Screens
             translucent = true;
         }
 
+        public override void Activated()
+        {
+            base.Activated();
+
+            //Re-parse choice
+            currentChoice = currentChoice;
+        }
+
         public override void LoadContent(ContentManager content)
         {
             choiceFont = content.Load<SpriteFont>("Fonts/ChoiceFont");
@@ -68,13 +94,16 @@ namespace BPA_RPG.Screens
         public override void Update(GameTime gameTime)
         {
             for (int i = 0; i < options.Count; i++)
-                if (options[i].boundingRectangle.Contains(InputManager.newMouseState.Position))
+                if (options[i].color != Color.Gray)
                 {
-                    options[i].color = new Color(0, 60, 255);
-                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
-                        currentChoice.options[i].Activate();
+                    if (options[i].boundingRectangle.Contains(InputManager.newMouseState.Position))
+                    {
+                        options[i].color = new Color(0, 60, 255);
+                        if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
+                            currentChoice.options[i].Activate();
+                    }
+                    else options[i].color = Color.White;
                 }
-                else options[i].color = Color.White;
             
             base.Update(gameTime);
         }

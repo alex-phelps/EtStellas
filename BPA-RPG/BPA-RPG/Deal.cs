@@ -41,7 +41,7 @@ namespace BPA_RPG
 
             string[] lineParts = line.Split(new string[] { " " }, StringSplitOptions.None);
 
-            item = GameItem.ItemFromText(lineParts[0]);
+            item = GameItem.Parse(lineParts[0]);
 
             switch (lineParts[1].ToLower())
             {
