@@ -57,13 +57,31 @@ namespace BPA_RPG.Screens
                 textures[i].ScaleTo(250, 250);
 
                 pos += new Vector2(0, 70);
-                
+
+                int k = i; //keep lambda from referencing i
+
                 itemNames.Add(new DrawableString(font, deals[i].item.name, pos - font.MeasureString(deals[i].item.name) / 2, Color.Gold));
 
                 pos += new Vector2(0, 20);
 
                 string text = "Buy: " + (deals[i].canBuy ? deals[i].buyPrice + " " + deals[i].currency : "N/A");
-                buyPrices.Add(new DrawableString(font, text, pos - font.MeasureString(text) / 2, Color.White));
+                buyPrices.Add(new DrawableString(font, text, pos - font.MeasureString(text) / 2, Color.White, () =>
+                {
+                    if (PlayerData.GetMoney(deals[k].currency) >= deals[k].buyPrice && deals[k].item as Ship != null &&
+                            !PlayerData.ship.Equals(deals[k].item as Ship))
+                    {
+                        PlayerData.ship.baseShip = (Ship)deals[k].item;
+                        PlayerData.AddMoney(deals[k].currency, -deals[k].buyPrice);
+
+                        // sounds
+                    }
+                    else
+                    {
+                        manager.Push(new InfoBoxScreen("No Money", "Not enough " + deals[k].currency));
+                    }
+                },
+                () => buyPrices[k].color = new Color(0, 60, 255),
+                () => buyPrices[k].color = Color.White));
             }
 
             base.LoadContent(content);
@@ -72,31 +90,7 @@ namespace BPA_RPG.Screens
         public override void Update(GameTime gameTime)
         {
             foreach (DrawableString buyPrice in buyPrices)
-            {
-                int i = buyPrices.IndexOf(buyPrice);
-
-                if (deals[i].canBuy && buyPrice.boundingRectangle.Contains(InputManager.newMouseState.Position))
-                {
-                    buyPrice.color = new Color(0, 60, 255);
-
-                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
-                    {
-                        if (PlayerData.GetMoney(deals[i].currency) >= deals[i].buyPrice && deals[i].item as Ship != null &&
-                            !PlayerData.ship.Equals(deals[i].item))
-                        {
-                            PlayerData.ship.baseShip = (Ship)deals[i].item;
-                            PlayerData.AddMoney(deals[i].currency, -deals[i].buyPrice);
-
-                            // sounds
-                        }
-                        else
-                        {
-                            manager.Push(new InfoBoxScreen("No Money", "Not enough " + deals[i].currency));
-                        }
-                    }
-                }
-                else buyPrice.color = Color.White;
-            }
+                buyPrice.Update(gameTime);
 
             base.Update(gameTime);
         }

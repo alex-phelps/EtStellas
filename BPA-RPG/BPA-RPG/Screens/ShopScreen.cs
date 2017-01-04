@@ -52,15 +52,50 @@ namespace BPA_RPG.Screens
                 itemNames.Add(new DrawableString(font, deals[i].item.name, pos - font.MeasureString(deals[i].item.name) / 2, Color.White));
 
                 pos += new Vector2(280, 0);
+
+                int k = i; //keep lambdas from referencing i
+
                 if (deals[i].canBuy) 
-                    buyPrices.Add(new DrawableString(font, deals[i].buyPrice + " " + deals[i].currency.ToString(),
-                        pos - font.MeasureString(deals[i].buyPrice + " " + deals[i].currency.ToString()) / 2, Color.White));
-                else buyPrices.Add(new DrawableString(font, "N/A", pos - font.MeasureString("N/A") / 2, Color.White));
+                    buyPrices.Add(
+                        new DrawableString(font, deals[i].buyPrice + " " + deals[i].currency.ToString(),
+                        pos - font.MeasureString(deals[i].buyPrice + " " + deals[i].currency.ToString()) / 2, Color.White, () =>
+                        {
+                            if (PlayerData.GetMoney(deals[k].currency) >= deals[k].buyPrice)
+                            {
+                                PlayerData.Inventory.Add(deals[k].item);
+                                PlayerData.AddMoney(deals[k].currency, -deals[k].buyPrice);
+
+                                // sounds
+                            }
+                            else
+                            {
+                                manager.Push(new InfoBoxScreen("No Money", "Not enough " + deals[k].currency));
+                            }
+                        },
+                        () => buyPrices[k].color = new Color(0, 60, 255),
+                        () => buyPrices[k].color = Color.White));
+                else buyPrices.Add(
+                    new DrawableString(font, "N/A", pos - font.MeasureString("N/A") / 2, Color.White));
 
                 pos += new Vector2(150, 0);
                 if (deals[i].canSell)
-                    sellPrices.Add(new DrawableString(font, deals[i].sellPrice + " " + deals[i].currency.ToString(),
-                        pos - font.MeasureString(deals[i].sellPrice + " " + deals[i].currency.ToString()) / 2, Color.White));
+                    sellPrices.Add(
+                        new DrawableString(font, deals[i].sellPrice + " " + deals[i].currency.ToString(),
+                        pos - font.MeasureString(deals[i].sellPrice + " " + deals[i].currency.ToString()) / 2, Color.White, () =>
+                        {
+                            if (PlayerData.Inventory.Remove(deals[k].item))
+                            {
+                                PlayerData.AddMoney(deals[k].currency, deals[k].sellPrice);
+
+                                // Add sounds here
+                            }
+                            else
+                            {
+                                manager.Push(new InfoBoxScreen("No Item", "Not enough " + deals[k].item.name));
+                            }
+                        },
+                        () => sellPrices[k].color = new Color(0, 60, 255),
+                        () => sellPrices[k].color = Color.White));
                 else sellPrices.Add(new DrawableString(font, "N/A", pos - font.MeasureString("N/A") / 2, Color.White));
             }
 
@@ -70,55 +105,10 @@ namespace BPA_RPG.Screens
         public override void Update(GameTime gameTime)
         {
             foreach (DrawableString buyPrice in buyPrices)
-            {
-                int i = buyPrices.IndexOf(buyPrice);
-
-                if (deals[i].canBuy && buyPrice.boundingRectangle.Contains(InputManager.newMouseState.Position))
-                {
-                    buyPrice.color = new Color(0, 60, 255);
-
-                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
-                    {
-                        if (PlayerData.GetMoney(deals[i].currency) >= deals[i].buyPrice)
-                        {
-                            PlayerData.Inventory.Add(deals[i].item);
-                            PlayerData.AddMoney(deals[i].currency, -deals[i].buyPrice);
-
-                            // sounds
-                        }
-                        else
-                        {
-                            manager.Push(new InfoBoxScreen("No Money", "Not enough " + deals[i].currency));
-                        }
-                    }
-                }
-                else buyPrice.color = Color.White;
-            }
+                buyPrice.Update(gameTime);
 
             foreach (DrawableString sellPrice in sellPrices)
-            {
-                int i = sellPrices.IndexOf(sellPrice);
-
-                if (deals[i].canSell && sellPrice.boundingRectangle.Contains(InputManager.newMouseState.Position))
-                {
-                    sellPrice.color = new Color(0, 60, 255);
-
-                    if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
-                    {
-                        if (PlayerData.Inventory.Remove(deals[i].item))
-                        {
-                            PlayerData.AddMoney(deals[i].currency, deals[i].sellPrice);
-
-                            // Add sounds here
-                        }
-                        else
-                        {
-                            manager.Push(new InfoBoxScreen("No Item", "Not enough " + deals[i].item.name));
-                        }
-                    }
-                }
-                else sellPrice.color = Color.White;
-            }
+                sellPrice.Update(gameTime);
             
             base.Update(gameTime);
         }

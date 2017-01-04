@@ -13,6 +13,7 @@ You lost 10 fuel!
 return
 }
 > Text 1
+require fuel -3
 jex 500
 choice
 {

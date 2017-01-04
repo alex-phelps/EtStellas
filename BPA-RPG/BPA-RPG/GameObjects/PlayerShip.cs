@@ -47,7 +47,10 @@ namespace BPA_RPG.GameObjects
                 texture = value.texture;
 
                 if (PlayerData.weapons != null)
+                {
                     PlayerData.Inventory.AddRange(PlayerData.weapons);
+                    PlayerData.Inventory.RemoveAll(x => x == null);
+                }
 
                 PlayerData.weapons = new Weapon[weaponHold.Count];
 

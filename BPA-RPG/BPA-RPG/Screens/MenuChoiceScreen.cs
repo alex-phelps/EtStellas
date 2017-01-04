@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.Choice;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
 using BPA_RPG.GameItems;
 
 namespace BPA_RPG.Screens
@@ -44,12 +43,26 @@ namespace BPA_RPG.Screens
                         string requirements = "(Need: ";
 
                         foreach (KeyValuePair<GameItem, int> item in value.options[i].requirements)
-                            requirements += item.Value + " " + item.Key.name + " ";
+                        {
+                            if (item.Value < 0)
+                                requirements += "< ";
+                            else requirements += "> ";
+
+                            requirements += Math.Abs(item.Value) + " " + item.Key.name + "  ";
+
+                        }
+                        requirements = requirements.TrimEnd();
                         requirements += ")";
 
+                        int j = i; //keep lambda from referencing i
+                        int k = j - numInvis; //correct index
+
                         options.Add(new DrawableString(choiceFont, value.options[i].synopsis + (canChoose ? "" : " " + requirements),
-                            synopsis.position + new Vector2(0, synopsis.boundingRectangle.Height + 40 + 30 * (i - numInvis)),
-                            canChoose ? Color.White : Color.Gray));
+                            synopsis.position + new Vector2(0, synopsis.boundingRectangle.Height + 40 + 30 * (k)),
+                            canChoose ? Color.White : Color.Gray, 
+                            () => { if (canChoose) value.options[j].Activate(); },
+                            () => { if (canChoose) options[k].color = new Color(0, 60, 255); },
+                            () => { if (canChoose) options[k].color = Color.White; }));
                     }
                     else numInvis++;
                 }
@@ -94,16 +107,7 @@ namespace BPA_RPG.Screens
         public override void Update(GameTime gameTime)
         {
             for (int i = 0; i < options.Count; i++)
-                if (options[i].color != Color.Gray)
-                {
-                    if (options[i].boundingRectangle.Contains(InputManager.newMouseState.Position))
-                    {
-                        options[i].color = new Color(0, 60, 255);
-                        if (InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
-                            currentChoice.options[i].Activate();
-                    }
-                    else options[i].color = Color.White;
-                }
+                options[i].Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -114,9 +118,7 @@ namespace BPA_RPG.Screens
 
             synopsis.Draw(gameTime, spritebatch);
             foreach (DrawableString option in options)
-            {
                 option.Draw(gameTime, spritebatch);
-            }
 
             base.Draw(gameTime, spritebatch);
         }
