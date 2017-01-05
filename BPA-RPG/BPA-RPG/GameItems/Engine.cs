@@ -29,8 +29,8 @@ namespace BPA_RPG.GameItems
         {
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
 
-            BasicEngine = new Engine("Basic Engine", content.Load<Texture2D>("Images/DebugTexture"), 20, 1.2f, "A basic plutonium engine");
-            CryoThermalEngine = new Engine("Cryothermal Engine", content.Load<Texture2D>("Images/DebugTexture"), 20, 1.2f, "An engine powered by absolute zero temperatures");
+            BasicEngine = new Engine("Basic Engine", content.Load<Texture2D>("Images/Items/BasicEngine"), 20, 1.2f, "A basic plutonium engine");
+            CryoThermalEngine = new Engine("Cryothermal Engine", content.Load<Texture2D>("Images/Items/CryothermalEngine"), 20, 1.2f, "An engine powered by absolute zero temperatures");
 
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
         }

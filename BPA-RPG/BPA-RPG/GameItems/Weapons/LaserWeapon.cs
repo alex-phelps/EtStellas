@@ -26,7 +26,7 @@ namespace BPA_RPG.GameItems.Weapons
 
             Texture2D projTex = content.Load<Texture2D>("Images/Laser");
 
-            BasicLaser = new LaserWeapon("Basic Laser", content.Load<Texture2D>("Images/DebugTexture"), projTex,
+            BasicLaser = new LaserWeapon("Basic Laser", content.Load<Texture2D>("Images/Items/Weapons/BasicLaser"), projTex,
                 5, 2, 6, 0.95f, "A basic two shot laser weapon.");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading laser weapons");

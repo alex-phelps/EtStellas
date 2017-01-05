@@ -37,7 +37,7 @@ namespace BPA_RPG.GameItems.Weapons
 
             Texture2D projTex = content.Load<Texture2D>("Images/Missile");
 
-            BasicMissile = new MissileLauncher("Basic Missile", content.Load<Texture2D>("Images/DebugTexture"), projTex,
+            BasicMissile = new MissileLauncher("Basic Missile", content.Load<Texture2D>("Images/Items/Weapons/BasicMissile"), projTex,
                 20, 10, 1, 18, .75f, "A basic missile weapon that can pierce shields.");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading missile weapons");

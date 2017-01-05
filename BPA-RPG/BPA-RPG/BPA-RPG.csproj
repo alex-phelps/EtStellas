@@ -140,6 +140,7 @@
     <Content Include="Content\Images\ItemInfoBox.png" />
     <Content Include="Content\Images\ItemInfoBoxCap.png" />
     <Content Include="Content\Images\Items\Fuel.png" />
+    <Content Include="Content\Images\Items\Weapons\BasicLaser.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\MenuTab.png" />
     <Content Include="Content\Images\MiniMapDot.png" />
