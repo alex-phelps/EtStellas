@@ -12,17 +12,19 @@ namespace BPA_RPG.GameItems.Weapons
         public readonly int shots;
         public readonly int maxCooldown;
         public readonly float hitChance;
+        public readonly int speed;
         public readonly bool passShield;
 
         private Random rand;
 
         protected Weapon(string name, Texture2D texture, Texture2D projectileTexture, int damage, int shots,
-            int maxCooldown, float hitChance, bool passShield = false, string info = "")
+            int maxCooldown, float hitChance, int speed, string info = "", bool passShield = false)
             : base(name, texture, info)
         {
             this.projectileTexture = projectileTexture;
             this.damage = damage;
             this.shots = shots;
+            this.speed = speed;
             this.maxCooldown = maxCooldown;
             this.hitChance = hitChance;
             this.passShield = passShield;

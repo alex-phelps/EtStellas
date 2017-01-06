@@ -80,6 +80,7 @@
     <Compile Include="EventLogger.cs" />
     <Compile Include="GameItems\Engine.cs" />
     <Compile Include="GameItems\GameItem.cs" />
+    <Compile Include="GameItems\Weapons\BombWeapon.cs" />
     <Compile Include="GameItems\Weapons\LaserWeapon.cs" />
     <Compile Include="GameItems\Ship.cs" />
     <Compile Include="GameItems\ShipPart.cs" />

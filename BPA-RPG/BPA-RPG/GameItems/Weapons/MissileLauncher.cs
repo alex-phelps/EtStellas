@@ -19,7 +19,7 @@ namespace BPA_RPG.GameItems.Weapons
         private int damageBonus;
 
         public MissileLauncher(string name, Texture2D texture, Texture2D projectileTexture, int damage, int damageBonus, int shots, int maxCooldown, float hitChance, string info = "", bool passShield = true)
-            : base(name, texture, projectileTexture, damage, shots, maxCooldown, hitChance, passShield, info)
+            : base(name, texture, projectileTexture, damage, shots, maxCooldown, hitChance, 8, info, passShield)
         {
             this.damageBonus = damageBonus;
 

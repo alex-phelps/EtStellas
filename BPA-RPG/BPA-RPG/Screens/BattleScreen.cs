@@ -426,12 +426,12 @@ namespace BPA_RPG.Screens
 
         private void PlayerFire(Weapon weapon)
         {
-            projectiles.Add(new WeaponProjectile(weapon, player.position, enemy, 10, projDelete));
+            projectiles.Add(new WeaponProjectile(weapon, player.position, enemy, weapon.speed, projDelete));
         }
 
         private void EnemyFire(Weapon weapon)
         {
-            projectiles.Add(new WeaponProjectile(weapon, enemy.position, player, -10, projDelete));
+            projectiles.Add(new WeaponProjectile(weapon, enemy.position, player, -weapon.speed, projDelete));
         }
     }
 }

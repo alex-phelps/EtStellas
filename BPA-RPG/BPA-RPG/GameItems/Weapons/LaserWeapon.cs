@@ -16,7 +16,7 @@ namespace BPA_RPG.GameItems.Weapons
 
 
         public LaserWeapon(string name, Texture2D texture, Texture2D projectileTexture, int damage, int shots, int maxCooldown, float hitChance, string info = "")
-            : base(name, texture, projectileTexture, damage, shots, maxCooldown, hitChance, false, info)
+            : base(name, texture, projectileTexture, damage, shots, maxCooldown, hitChance, 10, info)
         {
         }
 
