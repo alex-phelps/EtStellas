@@ -110,22 +110,26 @@ namespace BPA_RPG.Screens
 
             fireButtons = new List<ClickableObject>();
             playerShotCount = new List<double>();
+
+            int h = 0; //index for fireButtons
             for (int i = 0; i < PlayerData.weapons.Length; i++)
             {
                 if (PlayerData.weapons[i] == null)
                     continue;
 
                 int k = i; //keep lambda from referencing i
+                int j = h; //keep lambda from referencing h
                 fireButtons.Add(new ClickableObject(content.Load<Texture2D>("Images/FireButton"), () =>
                 {
-                    if (player.cooldowns[k] == player.maxCooldowns[k])
+                    if (player.cooldowns[j] == player.maxCooldowns[j])
                     {
                         PlayerFire(PlayerData.weapons[k]);
-                        playerShotCount[k] = PlayerData.weapons[k].shots - 1;
-                        player.cooldowns[k] = 0;
+                        playerShotCount[j] = PlayerData.weapons[k].shots - 1;
+                        player.cooldowns[j] = 0;
                     }
                 }));
                 playerShotCount.Add(0);
+                h++;
             }
 
             for (int i = 0; i < fireButtons.Count; i++)

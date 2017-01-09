@@ -53,6 +53,7 @@ namespace BPA_RPG.GameItems.Weapons
 
             LaserWeapon.LoadContent(content);
             MissileLauncher.LoadContent(content);
+            BombWeapon.LoadContent(content); 
 
             MainGame.eventLogger.Log(typeof(Weapon), "Finished loading weapons");
         }

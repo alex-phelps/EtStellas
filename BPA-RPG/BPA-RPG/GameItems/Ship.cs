@@ -57,7 +57,7 @@ namespace BPA_RPG.GameItems
                 100, 20, 7, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(MissileLauncher) }, 
                 "A basic trading ship.");
             NeonCruiser = new Ship("Neon Cruiser", content.Load<Texture2D>("Images/NeonCruiser"),
-                120, 30, 15, 0.1f, 0.03f, 0.0004f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon), typeof(LaserWeapon), typeof(LaserWeapon) },
+                120, 30, 15, 0.1f, 0.03f, 0.0004f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon), typeof(LaserWeapon), typeof(BombWeapon) },
                 "A quick starcraft with cryothermal thusters.");
 
             MainGame.eventLogger.Log(typeof(Ship), "Finished loading ships");

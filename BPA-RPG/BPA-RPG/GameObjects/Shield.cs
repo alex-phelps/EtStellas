@@ -72,5 +72,12 @@ namespace BPA_RPG.GameObjects
                 cooldownTime = 0;
             }
         }
+
+        public void EMP()
+        {
+            visible = false;
+            shieldTimeTime = 0;
+            cooldownTime = 0;
+        }
     }
 }

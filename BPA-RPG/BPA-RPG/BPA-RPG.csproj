@@ -129,6 +129,7 @@
     <Content Include="Content\Images\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
     <Content Include="Content\Images\DKey.png" />
+    <Content Include="Content\Images\EMPBomb.png" />
     <Content Include="Content\Images\FireButton.png" />
     <Content Include="Content\Images\Fuel.png" />
     <Content Include="Content\Images\FuelBar.png" />
@@ -140,6 +141,7 @@
     <Content Include="Content\Images\ItemHoverRect.png" />
     <Content Include="Content\Images\ItemInfoBox.png" />
     <Content Include="Content\Images\ItemInfoBoxCap.png" />
+    <Content Include="Content\Images\FireBomb.png" />
     <Content Include="Content\Images\Items\Fuel.png" />
     <Content Include="Content\Images\Items\Weapons\BasicLaser.png" />
     <Content Include="Content\Images\MenuButton.png" />

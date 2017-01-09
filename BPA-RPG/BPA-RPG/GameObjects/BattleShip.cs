@@ -25,6 +25,9 @@ namespace BPA_RPG.GameObjects
         public List<double> cooldowns;
         public List<int> maxCooldowns;
         public List<double> cooldownTimes;
+
+        public int fireCount;
+        private double fireTime;
         
         /// <summary>
         /// Creates player BattleShip
@@ -93,7 +96,17 @@ namespace BPA_RPG.GameObjects
                     cooldownTimes.Add(gameTime.TotalGameTime.TotalMilliseconds);
             }
 
+            if (fireTime == 0) //not practically initialized
+                fireTime = gameTime.TotalGameTime.TotalMilliseconds;
 
+            //update fire timer
+            if (fireCount > 0 && gameTime.TotalGameTime.TotalMilliseconds > fireTime + 500)
+            {
+                hullPoints -= fireCount;
+                fireTime = gameTime.TotalGameTime.TotalMilliseconds;
+            }
+
+            //update cooldown timers
             for (int i = 0; i < cooldowns.Count; i++)
             {
                 if (cooldowns[i] < maxCooldowns[i] &&
@@ -105,7 +118,7 @@ namespace BPA_RPG.GameObjects
                 else if (cooldowns[i] > maxCooldowns[i])
                     cooldowns[i] = maxCooldowns[i];
             }
-
+            
             shield.Update(gameTime);
 
             base.Update(gameTime);
@@ -118,6 +131,16 @@ namespace BPA_RPG.GameObjects
                 SpriteEffects.None, 1);
 
             shield?.Draw(gameTime, spritebatch);
+        }
+
+        public void EMP()
+        {
+            for (int i = 0; i < cooldowns.Count; i++)
+            {
+                cooldowns[i] = 0;
+            }
+
+            shield.EMP();
         }
 
         /// <summary>
