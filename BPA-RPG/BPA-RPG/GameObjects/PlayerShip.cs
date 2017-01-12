@@ -48,8 +48,8 @@ namespace BPA_RPG.GameObjects
 
                 if (PlayerData.weapons != null)
                 {
-                    PlayerData.Inventory.AddRange(PlayerData.weapons);
-                    PlayerData.Inventory.RemoveAll(x => x == null);
+                    PlayerData.inventory.AddRange(PlayerData.weapons);
+                    PlayerData.inventory.RemoveAll(x => x == null);
                 }
 
                 PlayerData.weapons = new Weapon[weaponHold.Count];
@@ -136,7 +136,7 @@ namespace BPA_RPG.GameObjects
 
                 //Keyboard input
 
-                if (PlayerData.Inventory.Contains(GameItem.Fuel))
+                if (PlayerData.inventory.Contains(GameItem.Fuel))
                 {
                     if (InputManager.newKeyState.IsKeyDown(Keys.W))
                     {
@@ -199,7 +199,7 @@ namespace BPA_RPG.GameObjects
             rotation += rotSpeed;
             rotation %= MathHelper.TwoPi;
 
-            if (!inOrbit && PlayerData.Inventory.Contains(GameItem.Fuel))
+            if (!inOrbit && PlayerData.inventory.Contains(GameItem.Fuel))
             {
                 travelDistance += Math.Abs(prevPos.X - position.X) + Math.Abs(prevPos.Y - position.Y);
 
@@ -211,7 +211,7 @@ namespace BPA_RPG.GameObjects
 
                 if (fuelUsed >= 1)
                 {
-                    PlayerData.Inventory.Remove(GameItem.Fuel);
+                    PlayerData.inventory.Remove(GameItem.Fuel);
                     fuelUsed = 0;
                 }
             }

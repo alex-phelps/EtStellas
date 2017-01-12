@@ -105,6 +105,7 @@
     <Compile Include="Screens\BattleScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\InfoBoxScreen.cs" />
+    <Compile Include="Screens\JettisonScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Screens\MenuChoiceScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
@@ -144,6 +145,10 @@
     <Content Include="Content\Images\FireBomb.png" />
     <Content Include="Content\Images\Items\Fuel.png" />
     <Content Include="Content\Images\Items\Weapons\BasicLaser.png" />
+    <Content Include="Content\Images\Items\Weapons\BasicMissile.png" />
+    <Content Include="Content\Images\Items\Weapons\EMPBomb.png" />
+    <Content Include="Content\Images\Items\Weapons\FireBomb.png" />
+    <Content Include="Content\Images\JettisonScreen.png" />
     <Content Include="Content\Images\MenuButton.png" />
     <Content Include="Content\Images\MenuTab.png" />
     <Content Include="Content\Images\MiniMapDot.png" />

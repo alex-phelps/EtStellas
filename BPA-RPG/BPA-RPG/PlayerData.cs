@@ -16,25 +16,12 @@ namespace BPA_RPG
     {
         public static PlayerShip ship;
         public static string name = "TestName";
-        private static List<GameItem> inventory = new List<GameItem>();
+        public static List<GameItem> inventory = new List<GameItem>();
         public static Weapon[] weapons;
         public static Engine engine;
 
         private static int credits;
         private static int jex;
-
-        public static List<GameItem> Inventory
-        {
-            get
-            {
-                return inventory;
-            }
-
-            set
-            {
-                inventory = value;
-            }
-        }
 
         public static void AddMoney(Currency currency, int value)
         {

@@ -77,7 +77,7 @@ namespace BPA_RPG
             PlayerData.ship = new PlayerShip(Ship.StarterShip);
 
             //Give player starter items
-            PlayerData.Inventory.AddRange(new GameItem[] 
+            PlayerData.inventory.AddRange(new GameItem[] 
             {
                 GameItem.Fuel,
                 GameItem.Fuel,

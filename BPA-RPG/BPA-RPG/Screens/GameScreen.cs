@@ -225,7 +225,7 @@ namespace BPA_RPG.Screens
 
                 spritebatch.Draw(fuelBar, new Vector2(5, 95), Color.White);
                 spritebatch.Draw(fuel, new Vector2(5, 95), new Rectangle(0, 0, (int)(fuel.Width * (1 - ship.fuelUsed)), fuel.Height), Color.White);
-                string fuelText = "Fuel Storage:  " + PlayerData.Inventory.Count(s => s == GameItem.Fuel);
+                string fuelText = "Fuel Storage:  " + PlayerData.inventory.Count(s => s == GameItem.Fuel);
                 spritebatch.DrawString(keyFont, fuelText, new Vector2(70, 115) - keyFont.MeasureString(fuelText) / 2, Color.White);
 
                 if (ship.inOrbit)
@@ -250,7 +250,7 @@ namespace BPA_RPG.Screens
 
                     string info = ship.name;
                     spritebatch.DrawString(planetInfoFont, info, new Vector2(20, MainGame.WindowHeight - 90), Color.White);
-                    spritebatch.Draw(ship.texture, new Rectangle(145, MainGame.WindowHeight - 60, 50, 50), new Rectangle(0, 0, ship.Width / 2, ship.Height), Color.White);
+                    spritebatch.Draw(ship.texture, new Rectangle(145, MainGame.WindowHeight - 60, 50, 50), new Rectangle(0, 0, ship.width / 2, ship.height), Color.White);
 
                     planetInfoLandButton.Draw(gameTime, spritebatch);
                     spritebatch.DrawString(planetInfoFont, "Open Hold", planetInfoLandButton.position - planetInfoFont.MeasureString("Open Hold") / 2, Color.White);

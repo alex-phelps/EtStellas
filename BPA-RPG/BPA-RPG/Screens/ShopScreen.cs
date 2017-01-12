@@ -62,7 +62,7 @@ namespace BPA_RPG.Screens
                         {
                             if (PlayerData.GetMoney(deals[k].currency) >= deals[k].buyPrice)
                             {
-                                PlayerData.Inventory.Add(deals[k].item);
+                                PlayerData.inventory.Add(deals[k].item);
                                 PlayerData.AddMoney(deals[k].currency, -deals[k].buyPrice);
 
                                 // sounds
@@ -83,7 +83,7 @@ namespace BPA_RPG.Screens
                         new DrawableString(font, deals[i].sellPrice + " " + deals[i].currency.ToString(),
                         pos - font.MeasureString(deals[i].sellPrice + " " + deals[i].currency.ToString()) / 2, Color.White, () =>
                         {
-                            if (PlayerData.Inventory.Remove(deals[k].item))
+                            if (PlayerData.inventory.Remove(deals[k].item))
                             {
                                 PlayerData.AddMoney(deals[k].currency, deals[k].sellPrice);
 

@@ -24,11 +24,11 @@ namespace BPA_RPG.GameObjects
                 //Set all values dependant on the texture
 
                 Texture = value;
-                Width = value.Width;
-                Height = value.Height;
-                source = new Rectangle(0, 0, Width, Height);
+                width = value.Width;
+                height = value.Height;
+                source = new Rectangle(0, 0, width, height);
 
-                colorData = new Color[Width * Height];
+                colorData = new Color[width * height];
                 value.GetData(colorData);
             }
 
@@ -40,8 +40,8 @@ namespace BPA_RPG.GameObjects
         public float scale = 1;
         public bool visible = true;
 
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public int width { get; private set; }
+        public int height { get; private set; }
 
         /// <summary>
         /// Color data for the pixels of this objects image
@@ -56,7 +56,7 @@ namespace BPA_RPG.GameObjects
             get
             {
                 return
-                Matrix.CreateTranslation(new Vector3(-Width / 2, -Height / 2, 0.0f)) *
+                Matrix.CreateTranslation(new Vector3(-width / 2, -height / 2, 0.0f)) *
                 Matrix.CreateRotationZ(rotation) *
                 Matrix.CreateScale(scale) *
                 Matrix.CreateTranslation(new Vector3(position, 0.0f));
@@ -70,7 +70,7 @@ namespace BPA_RPG.GameObjects
         {
             get
             {
-                Rectangle rectangle = new Rectangle(0, 0, Width, Height);
+                Rectangle rectangle = new Rectangle(0, 0, width, height);
                 Matrix transform = transformMatrix;
 
                 //Get all four corners in local space
@@ -151,10 +151,10 @@ namespace BPA_RPG.GameObjects
             Matrix transformAToB = transformMatrix * Matrix.Invert(obj.transformMatrix);
 
             //For each row of pixel in A
-            for (int yA = 0; yA < Height; yA++)
+            for (int yA = 0; yA < height; yA++)
             {
                 //For each pixel in that row
-                for (int xA = 0; xA < Width; xA++)
+                for (int xA = 0; xA < width; xA++)
                 {
                     //Calculate this pixel's location in B
                     Vector2 positionInB = Vector2.Transform(new Vector2(xA, yA), transformAToB);
@@ -162,12 +162,12 @@ namespace BPA_RPG.GameObjects
                     int xB = (int)Math.Round(positionInB.X);
                     int yB = (int)Math.Round(positionInB.Y);
 
-                    if (xB >= 0 && xB < obj.Width &&
-                        yB >= 0 && yB < obj.Height)
+                    if (xB >= 0 && xB < obj.width &&
+                        yB >= 0 && yB < obj.height)
                     {
                         //Get colors of the overlapping pixels
-                        Color colorA = colorData[xA + yA * Width];
-                        Color colorB = obj.colorData[xB + yB * obj.Width];
+                        Color colorA = colorData[xA + yA * width];
+                        Color colorB = obj.colorData[xB + yB * obj.width];
 
                         //If both pixels are not completely transparent
                         if (colorA.A * colorB.A != 0)
@@ -186,8 +186,8 @@ namespace BPA_RPG.GameObjects
         public void ScaleTo(int width, int height, float scale = 1)
         {
             this.scale = width >= height
-                ? (width * scale) / Width
-                : (height * scale) / Height;
+                ? (width * scale) / this.width
+                : (height * scale) / this.height;
         }
 
         public void ScaleTo(Rectangle rect, float scale = 1)

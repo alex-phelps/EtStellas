@@ -49,9 +49,9 @@ namespace BPA_RPG.GameItems.Weapons
         {
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Begin loading bomb weapons");
 
-            FireBomb = new BombWeapon("Fire Bomb", content.Load<Texture2D>("Images/DebugTexture"), content.Load<Texture2D>("Images/FireBomb"),
+            FireBomb = new BombWeapon("Fire Bomb", content.Load<Texture2D>("Images/Items/Weapons/FireBomb"), content.Load<Texture2D>("Images/FireBomb"),
                 4, 8, .55f, Effect.fire, "A bomb weapon that sets enemy's systems on fire.");
-            EMPBomb = new BombWeapon("EMP Bomb", content.Load<Texture2D>("Images/DebugTexture"), content.Load<Texture2D>("Images/EMPBomb"),
+            EMPBomb = new BombWeapon("EMP Bomb", content.Load<Texture2D>("Images/Items/Weapons/EMPBomb"), content.Load<Texture2D>("Images/EMPBomb"),
                 0, 8, .7f, Effect.emp, "Launches a bomb that released an electromagnetic pulse to disable enemy systems.");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading bomb weapons");

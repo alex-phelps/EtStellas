@@ -126,8 +126,8 @@ namespace BPA_RPG.GameObjects
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
         {
-            spritebatch.Draw(texture, position, new Rectangle(0, 0, Width / 2, Height),
-                color, rotation, new Vector2(Width / 4, Height / 2), scale,
+            spritebatch.Draw(texture, position, new Rectangle(0, 0, width / 2, height),
+                color, rotation, new Vector2(width / 4, height / 2), scale,
                 SpriteEffects.None, 1);
 
             shield?.Draw(gameTime, spritebatch);

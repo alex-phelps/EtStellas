@@ -16,7 +16,7 @@ namespace BPA_RPG.Screens
 {
     public class ShipHoldScreen : Screen
     {
-        private List<GameItem> inventory => PlayerData.Inventory;
+        private List<GameItem> inventory => PlayerData.inventory;
         private List<Type> weaponHold => PlayerData.ship.weaponHold;
         private Weapon[] weapons => PlayerData.weapons;
         private int holdSize => PlayerData.ship.holdSize;
@@ -57,7 +57,7 @@ namespace BPA_RPG.Screens
             };
 
             holdScrollArrowBot = new ClickableObject(holdScrollArrowReg,
-                () => firstRender--,
+                () => firstRender++,
                 () => holdScrollArrowBot.texture = holdScrollArrowBlue,
                 () => holdScrollArrowBot.texture = holdScrollArrowReg)
             {
@@ -216,7 +216,7 @@ namespace BPA_RPG.Screens
             spritebatch.DrawString(font, "[Engine]", new Vector2(700, 125) - font.MeasureString("[Engine]") / 2, Color.White);
             if (PlayerData.engine != null)
                 spritebatch.Draw(PlayerData.engine.texture, new Vector2(550, 140), new Rectangle(0, 0, 20, 20), Color.White,
-                    0, new Vector2(PlayerData.engine.Width / 2, PlayerData.engine.Height / 2), 3, SpriteEffects.None, 1);
+                    0, new Vector2(PlayerData.engine.width / 2, PlayerData.engine.height / 2), 3, SpriteEffects.None, 1);
 
             string name = PlayerData.engine != null ? PlayerData.engine.name : "None!";
             spritebatch.DrawString(font, name, new Vector2(700, 155) - font.MeasureString(name) / 2, Color.White);
@@ -229,7 +229,7 @@ namespace BPA_RPG.Screens
                 spritebatch.DrawString(font, "[" + type + "]", new Vector2(700, 195 + i * 70) - font.MeasureString("[" + type + "]") / 2, Color.White);
                 if (weapons[i] != null)
                     spritebatch.Draw(weapons[i].texture, new Vector2(550, 210 + i * 70), new Rectangle(0, 0, 20, 20), Color.White,
-                        0, new Vector2(weapons[i].Width / 2, weapons[i].Height / 2), 3, SpriteEffects.None, 1); ;
+                        0, new Vector2(weapons[i].width / 2, weapons[i].height / 2), 3, SpriteEffects.None, 1); ;
                 
                 spritebatch.DrawString(font, weapons[i] != null ? weapons[i].name : "None!", new Vector2(700, 225 + i * 70) - font.MeasureString(weapons[i] != null ? weapons[i].name : "None!") / 2, Color.White);
             }

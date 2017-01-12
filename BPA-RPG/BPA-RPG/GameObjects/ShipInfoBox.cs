@@ -24,7 +24,7 @@ namespace BPA_RPG.GameObjects
             infoBox = content.Load<Texture2D>("Images/ShipInfoBox");
             font = content.Load<SpriteFont>("Fonts/ChoiceTabFont");
 
-            position = new Vector2(MainGame.WindowWidth / 2, MainGame.WindowHeight - Height / 2);
+            position = new Vector2(MainGame.WindowWidth / 2, MainGame.WindowHeight - height / 2);
         }
 
         public override void Update(GameTime gameTime)
@@ -39,18 +39,18 @@ namespace BPA_RPG.GameObjects
                 info.Add(PlayerData.GetMoney(c) + " " + c);
 
 
-            if (new Rectangle(boundingRectangle.Location, new Point(boundingRectangle.Width, Height + (renderInfo ? info.Count * infoBox.Height : 0)))
+            if (new Rectangle(boundingRectangle.Location, new Point(boundingRectangle.Width, height + (renderInfo ? info.Count * infoBox.Height : 0)))
                 .Contains(InputManager.newMouseState.Position))
             {
                 renderInfo = true;
 
-                position.Y = MainGame.WindowHeight - Height / 2 - info.Count * infoBox.Height;
+                position.Y = MainGame.WindowHeight - height / 2 - info.Count * infoBox.Height;
             }
             else
             {
                 renderInfo = false;
 
-                position.Y = MainGame.WindowHeight - Height / 2;
+                position.Y = MainGame.WindowHeight - height / 2;
             }
         }
 
@@ -64,7 +64,7 @@ namespace BPA_RPG.GameObjects
             {
                 for (int i = 0; i < info.Count; i++)
                 {
-                    Vector2 pos = position + new Vector2(0, Height / 2 + infoBox.Height / 2 + i * infoBox.Height);
+                    Vector2 pos = position + new Vector2(0, height / 2 + infoBox.Height / 2 + i * infoBox.Height);
                     spritebatch.Draw(infoBox, pos, new Rectangle(0, 0, infoBox.Width, infoBox.Height), Color.White, 0, new Vector2(infoBox.Width / 2, infoBox.Height / 2), 1, SpriteEffects.None, 1);
                     spritebatch.DrawString(font, info[i], pos - font.MeasureString(info[i]) / 2, Color.White);
                 }

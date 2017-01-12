@@ -53,11 +53,11 @@ namespace BPA_RPG.Choice
                 //If positive, check if player has at least that amount
                 if (item.Value > 0)
                 {
-                    if (PlayerData.Inventory.Count(i => i == item.Key) < item.Value)
+                    if (PlayerData.inventory.Count(i => i == item.Key) < item.Value)
                         return false;
                 }
                 //If number is negative or 0, check if player has at MOST that amount
-                else if (PlayerData.Inventory.Count(i => i == item.Key) > Math.Abs(item.Value))
+                else if (PlayerData.inventory.Count(i => i == item.Key) > Math.Abs(item.Value))
                     return false;
             }
 
@@ -136,7 +136,7 @@ namespace BPA_RPG.Choice
                             action += () =>
                             {
                                 for (int i = 0; i < count; i++)
-                                    PlayerData.Inventory.Add(GameItem.Parse(lineParts[1]));
+                                    PlayerData.inventory.Add(GameItem.Parse(lineParts[1]));
                             };
                         }
                         break;
@@ -150,7 +150,7 @@ namespace BPA_RPG.Choice
                             action += () =>
                             {
                                 for (int i = 0; i < count; i++)
-                                    PlayerData.Inventory.Remove(GameItem.Parse(lineParts[1]));
+                                    PlayerData.inventory.Remove(GameItem.Parse(lineParts[1]));
                             };
                         }
                         break;
