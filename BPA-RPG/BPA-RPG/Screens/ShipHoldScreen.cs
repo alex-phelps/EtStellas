@@ -98,7 +98,8 @@ namespace BPA_RPG.Screens
                     () => itemRects[k].visible = true,
                     () => itemRects[k].visible = false)
                 {
-                    position = new Vector2(337, 155 + (k * 30)), visible = false
+                    position = new Vector2(337, 155 + (k * 30)),
+                    visible = false
                 });
             }
 
@@ -119,9 +120,7 @@ namespace BPA_RPG.Screens
         public override void Update(GameTime gameTime)
         {
             foreach (ClickableObject rect in itemRects)
-            {
                 rect.Update(gameTime);
-            }
 
             if (new Rectangle(520, 110, 60, 60).Contains(InputManager.newMouseState.Position) &&
                 InputManager.newMouseState.LeftButton == ButtonState.Pressed && InputManager.oldMouseState.LeftButton == ButtonState.Released)
@@ -167,11 +166,8 @@ namespace BPA_RPG.Screens
             else if (InputManager.newMouseState.ScrollWheelValue < InputManager.oldMouseState.ScrollWheelValue) //scroll down
                 firstRender++;
 
-            if (firstRender < 0)
-                firstRender = 0;
-            else if (firstRender > inventory.Count - 10)
+            if (firstRender > inventory.Count - 10)
                 firstRender = inventory.Count - 10;
-
             if (firstRender < 0)
                 firstRender = 0;
             

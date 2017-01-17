@@ -13,6 +13,9 @@ namespace BPA_RPG.GameObjects
         private int scrollX;
         private int scrollY;
 
+        /// <summary>
+        /// Creates a background from a texture
+        /// </summary>
         public Background(Texture2D texture) 
             : base(texture)
         {
@@ -20,6 +23,22 @@ namespace BPA_RPG.GameObjects
 
             scrollX = 0;
             scrollY = 0;
+        }
+
+        /// <summary>
+        /// Creates a window size background of specified color
+        /// </summary>
+        public Background(Color color)
+            : base(new Texture2D(MainGame.graphicsDevice, MainGame.WindowWidth, MainGame.WindowHeight))
+        {
+            Color[] colorData = new Color[texture.Height * texture.Width];
+            for (int i = 0; i < colorData.Length; i++)
+            {
+                colorData[i] = color;
+            }
+
+            texture.SetData(colorData);
+            this.colorData = colorData;
         }
 
         public void Scroll(Vector2 scroll, float speed = 1f)

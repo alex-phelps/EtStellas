@@ -109,6 +109,10 @@ namespace BPA_RPG.Screens
 
             shipInfoBox.Update(gameTime);
 
+            //If player has more items than they can hold
+            if (PlayerData.inventory.Count > PlayerData.ship.holdSize)
+                manager.Push(new JettisonScreen());
+
             base.Update(gameTime);
         }
 

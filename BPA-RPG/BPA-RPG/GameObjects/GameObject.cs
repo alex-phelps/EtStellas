@@ -46,7 +46,7 @@ namespace BPA_RPG.GameObjects
         /// <summary>
         /// Color data for the pixels of this objects image
         /// </summary>
-        public Color[] colorData { get; private set; }
+        public Color[] colorData { get; protected set; }
 
         /// <summary>
         /// Matrix that represents all the transformations done on the object
