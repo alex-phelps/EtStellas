@@ -1,9 +1,5 @@
 ﻿using BPA_RPG.GameItems;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,14 +7,19 @@ using BPA_RPG.GameObjects;
 
 namespace BPA_RPG.Screens
 {
+    /// <summary>
+    /// Screen for player item disposal
+    /// </summary>
     public class JettisonScreen : Screen
     {
+        //Hold variables
         private List<GameItem> hold => PlayerData.inventory;
         private int firstRenderH;
         private List<GameObject> itemRectsH;
         private ClickableObject scrollArrowTopH;
         private ClickableObject scrollArrowBotH;
 
+        //Jettison variables
         private List<GameItem> jettison;
         private int firstRenderJ;
         private List<GameObject> itemRectsJ;
@@ -37,6 +38,11 @@ namespace BPA_RPG.Screens
 
         private ClickableObject okButton;
 
+        private Background background;
+
+        /// <summary>
+        /// Creates a new JettisonScreen
+        /// </summary>
         public JettisonScreen()
             : base("Jettison")
         {
@@ -143,6 +149,8 @@ namespace BPA_RPG.Screens
                 position = new Vector2(512, 418)
             };
 
+            background = new Background(Color.Black * .6f);
+
             base.LoadContent(content);
         }
 
@@ -187,6 +195,9 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
+            //Draw background
+            background.Draw(gameTime, spritebatch);
+
             //Draw w/o linear interpolation
             spritebatch.End();
             spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
@@ -252,6 +263,18 @@ namespace BPA_RPG.Screens
             spritebatch.DrawString(titleFont, "Hold", new Vector2(239, 145 - titleFont.MeasureString("Hold").Y / 2), Color.White);
             spritebatch.DrawString(titleFont, "Jettison", new Vector2(785 - titleFont.MeasureString("Jettison").X, 145 - titleFont.MeasureString("Jettison").Y / 2), Color.White);
 
+            //Draw item infoboxes
+            for (int i = 0; i < 5; i++)
+            {
+                //for hold
+                if (itemRectsH[i].visible && !(i + firstRenderH >= hold.Count))
+                    hold[i + firstRenderH].DrawInfo(spritebatch);
+                //for jettison
+                if (itemRectsJ[i].visible && !(i + firstRenderJ >= jettison.Count))
+                    jettison[i + firstRenderJ].DrawInfo(spritebatch);
+            }
+
+            //restart spritebatch
             spritebatch.End();
             spritebatch.Begin();
 

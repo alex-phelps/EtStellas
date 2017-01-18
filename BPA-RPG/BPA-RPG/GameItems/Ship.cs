@@ -14,6 +14,7 @@ namespace BPA_RPG.GameItems
         //Static ships
         public static Ship StarterShip { get; private set; }
         public static Ship NeonCruiser { get; private set; }
+        public static Ship Dumpster { get; private set; }
 
 
 
@@ -53,12 +54,15 @@ namespace BPA_RPG.GameItems
             MainGame.eventLogger.Log(typeof(Ship), "Begin loading ships");
 
             //Define static ships
-            StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/StarterShip"),
+            StarterShip = new Ship("Starter Ship", content.Load<Texture2D>("Images/Ships/StarterShip"),
                 100, 20, 7, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(MissileLauncher) }, 
                 "A basic trading ship.");
-            NeonCruiser = new Ship("Neon Cruiser", content.Load<Texture2D>("Images/NeonCruiser"),
+            NeonCruiser = new Ship("Neon Cruiser", content.Load<Texture2D>("Images/Ships/NeonCruiser"),
                 120, 30, 15, 0.1f, 0.03f, 0.0004f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon), typeof(LaserWeapon), typeof(BombWeapon) },
                 "A quick starcraft with cryothermal thusters.");
+            Dumpster = new Ship("Dumpster", content.Load<Texture2D>("Images/Ships/Dumpster"),
+                40, 5, 3, 0.01f, 0.015f, 0.0001f, new List<Type>() { typeof(LaserWeapon) },
+                "A small, slow, rusty ship that's dirt cheap on the black market.");
 
             MainGame.eventLogger.Log(typeof(Ship), "Finished loading ships");
         }

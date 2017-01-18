@@ -14,6 +14,9 @@ using BPA_RPG.GameItems.Weapons;
 
 namespace BPA_RPG.Screens
 {
+    /// <summary>
+    /// Screen for managing player inventory (hold) and items
+    /// </summary>
     public class ShipHoldScreen : Screen
     {
         private List<GameItem> inventory => PlayerData.inventory;
@@ -34,6 +37,9 @@ namespace BPA_RPG.Screens
         private Texture2D holdScrollArrowBlue;
         private Texture2D partInv;
 
+        /// <summary>
+        /// Creates a new ShipHoldScreen
+        /// </summary>
         public ShipHoldScreen()
             : base("Hold")
         {

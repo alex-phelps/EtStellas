@@ -20,6 +20,8 @@ namespace BPA_RPG.Screens
         private ShipInfoBox shipInfoBox;
         private int selectedScreen = 0;
 
+        private Background background;
+
         public TabMenuScreen(params Screen[] menuScreens)
             : base("Tab Menu")
         {
@@ -89,6 +91,8 @@ namespace BPA_RPG.Screens
 
             shipInfoBox = new ShipInfoBox(content);
 
+            background = new Background(Color.Black * .6f);
+
             base.LoadContent(content);
         }
 
@@ -118,6 +122,9 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
+            //Draw backgrouond
+            background.Draw(gameTime, spritebatch);
+
             for (int i = menuTabs.Count - 1; i >= 0; i--)
             {
                 if (i != selectedScreen)

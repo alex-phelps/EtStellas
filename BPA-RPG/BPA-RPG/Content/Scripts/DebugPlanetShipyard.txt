@@ -2,3 +2,4 @@
 neoncruiser jex 10000 null
 startership credits 10000 null
 neoncruiser credits 10000 null
+dumpster credits 100 null

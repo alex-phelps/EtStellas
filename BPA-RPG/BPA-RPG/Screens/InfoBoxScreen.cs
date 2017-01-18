@@ -20,6 +20,8 @@ namespace BPA_RPG.Screens
 
         private ClickableObject button;
 
+        private Background background;
+
         public InfoBoxScreen(string title, string text, Action onExit = null)
             : base(title)
         {
@@ -44,6 +46,8 @@ namespace BPA_RPG.Screens
             };
             infoBox = content.Load<Texture2D>("Images/InfoBox");
 
+            background = new Background(Color.Black * .6f);
+
             base.LoadContent(content);
         }
 
@@ -56,6 +60,9 @@ namespace BPA_RPG.Screens
 
         public override void Draw(GameTime gameTime, SpriteBatch spritebatch)
         {
+            //Draw background
+            background.Draw(gameTime, spritebatch);
+
             spritebatch.Draw(infoBox, MainGame.WindowCenter - new Vector2(infoBox.Width / 2, infoBox.Height / 2), Color.White);
             spritebatch.DrawString(infoFont, text, MainGame.WindowCenter - new Vector2(0, 45) - infoFont.MeasureString(text) / 2, Color.White);
             button.Draw(gameTime, spritebatch);

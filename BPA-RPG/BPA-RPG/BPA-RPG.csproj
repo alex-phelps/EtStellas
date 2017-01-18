@@ -156,7 +156,8 @@
     <Content Include="Content\Images\Missile.png" />
     <Content Include="Content\Images\MMScrollBar.png" />
     <Content Include="Content\Images\MMScrollIcon.png" />
-    <Content Include="Content\Images\NeonCruiser.png" />
+    <Content Include="Content\Images\Ships\Dumpster.png" />
+    <Content Include="Content\Images\Ships\NeonCruiser.png" />
     <Content Include="Content\Images\PartInv.png" />
     <Content Include="Content\Images\PlanetA.png" />
     <Content Include="Content\Images\PlanetB.png" />
@@ -173,7 +174,7 @@
     <Content Include="Content\Images\SpaceKey.png" />
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />
-    <Content Include="Content\Images\StarterShip.png" />
+    <Content Include="Content\Images\Ships\StarterShip.png" />
     <Content Include="Content\Images\WeaponCooldown.png" />
     <Content Include="Content\Images\WeaponCooldownBar.png" />
     <Content Include="Content\Images\Laser.png" />

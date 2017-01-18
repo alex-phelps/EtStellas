@@ -29,7 +29,7 @@ namespace BPA_RPG.GameObjects
         /// Creates a window size background of specified color
         /// </summary>
         public Background(Color color)
-            : base(new Texture2D(MainGame.graphicsDevice, MainGame.WindowWidth, MainGame.WindowHeight))
+            : this(new Texture2D(MainGame.graphicsDevice, MainGame.WindowWidth, MainGame.WindowHeight))
         {
             Color[] colorData = new Color[texture.Height * texture.Width];
             for (int i = 0; i < colorData.Length; i++)
