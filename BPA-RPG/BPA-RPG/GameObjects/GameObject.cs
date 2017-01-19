@@ -115,12 +115,12 @@ namespace BPA_RPG.GameObjects
         {
         }
 
-        
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
-        /// <param name="spritebatch">Spritebatch object to draw objects with</param>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// <param name="spritebatch">Spritebatch object to draw objects with</param>
         /// <param name="color">Color to draw in.</param>
         public virtual void Draw(GameTime gameTime, SpriteBatch spritebatch, Color color)
         {
@@ -183,6 +183,10 @@ namespace BPA_RPG.GameObjects
             return false;
         }
 
+        /// <summary>
+        /// Scales the object to given width and height
+        /// </summary>
+        /// <param name="scale">Scale of object in the area</param>
         public void ScaleTo(int width, int height, float scale = 1)
         {
             this.scale = width >= height
@@ -190,6 +194,10 @@ namespace BPA_RPG.GameObjects
                 : (height * scale) / this.height;
         }
 
+        /// <summary>
+        /// Scales object to a given rectangle
+        /// </summary>
+        /// <param name="scale">Scale of object in the area</param>
         public void ScaleTo(Rectangle rect, float scale = 1)
         {
             ScaleTo(rect.Width, rect.Height, scale);

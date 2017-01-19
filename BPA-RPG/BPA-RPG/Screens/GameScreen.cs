@@ -11,6 +11,9 @@ using BPA_RPG.GameItems;
 
 namespace BPA_RPG.Screens
 {
+    /// <summary>
+    /// Screen for the main gameplay
+    /// </summary>
     public class GameScreen : Screen
     {
         private Viewport defaultView;
@@ -48,6 +51,9 @@ namespace BPA_RPG.Screens
 
         private bool drawHUD;
         
+        /// <summary>
+        /// Creates a new Gamescreen
+        /// </summary>
         public GameScreen()
             : base("Game")
         {
@@ -210,6 +216,10 @@ namespace BPA_RPG.Screens
             DrawBackground(gameTime, spritebatch);
             DrawSprites(gameTime, spritebatch, playerCamera);
 
+
+            spritebatch.End();
+            spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp); // draw HUD w/o linear interpolation
+
             //Draw HUD
             if (drawHUD)
             {
@@ -250,7 +260,7 @@ namespace BPA_RPG.Screens
 
                     string info = ship.name;
                     spritebatch.DrawString(planetInfoFont, info, new Vector2(20, MainGame.WindowHeight - 90), Color.White);
-                    spritebatch.Draw(ship.texture, new Rectangle(145, MainGame.WindowHeight - 60, 50, 50), new Rectangle(0, 0, ship.width / 2, ship.height), Color.White);
+                    spritebatch.Draw(ship.texture, new Vector2(145, MainGame.WindowHeight - 60), new Rectangle(0, 0, ship.width / 2, ship.height), Color.White, 0, Vector2.Zero, 50f / (ship.height  >= ship.width / 2 ? ship.height : ship.width / 2), SpriteEffects.None, 0);
 
                     planetInfoLandButton.Draw(gameTime, spritebatch);
                     spritebatch.DrawString(planetInfoFont, "Open Hold", planetInfoLandButton.position - planetInfoFont.MeasureString("Open Hold") / 2, Color.White);
@@ -281,6 +291,7 @@ namespace BPA_RPG.Screens
 
                 MainGame.graphicsDevice.Viewport = defaultView;
 
+                //Draw GPS overlay
                 spritebatch.DrawString(planetInfoFont, "GPS", new Vector2(MainGame.WindowWidth - 245, MainGame.WindowHeight - 146), Color.White);
                 spritebatch.Draw(mmScrollBar, new Vector2(MainGame.WindowWidth - 12, MainGame.WindowHeight - 140), Color.White);
                 mmScrollIcon.Draw(gameTime, spritebatch);
@@ -292,8 +303,9 @@ namespace BPA_RPG.Screens
         /// <summary>
         /// Draws sprites in accordence to the posistion of the camera.
         /// </summary>
-        /// <param name="spritebatch"></param>
-        /// <param name="camera"></param>
+        /// <param name="gameTime">Provides a snapshot of timing values</param>
+        /// <param name="spritebatch">Spritebatch object to draw objects with</param>
+        /// <param name="camera">Ship camera</param>
         private void DrawSprites(GameTime gameTime, SpriteBatch spritebatch, Camera camera)
         {
             spritebatch.End();
@@ -312,6 +324,11 @@ namespace BPA_RPG.Screens
             spritebatch.Begin();
         }
 
+        /// <summary>
+        /// Draws background(s)
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values</param>
+        /// <param name="spritebatch">Spritebatch object to draw objects with</param>
         private void DrawBackground(GameTime gameTime, SpriteBatch spritebatch)
         {
             spritebatch.End();

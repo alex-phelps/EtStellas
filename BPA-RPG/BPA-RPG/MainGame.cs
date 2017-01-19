@@ -74,7 +74,7 @@ namespace BPA_RPG
             screenManager = new ScreenManager(Content);
 
             //Set default player ship
-            PlayerData.ship = new PlayerShip(Ship.StarterShip);
+            PlayerData.ship = new PlayerShip(Ship.Discovery);
 
             //Give player starter items
             PlayerData.inventory.AddRange(new GameItem[] 
@@ -89,7 +89,7 @@ namespace BPA_RPG
             });
             PlayerData.engine = Engine.BasicEngine;
             PlayerData.weapons[0] = LaserWeapon.BasicLaser;
-            PlayerData.weapons[1] = MissileLauncher.BasicMissile;
+            PlayerData.weapons[1] = MissileWeapon.BasicMissile;
 
             //Create the Main Menu Screen
             screenManager.Push(new MainMenuScreen());

@@ -84,7 +84,7 @@
     <Compile Include="GameItems\Weapons\LaserWeapon.cs" />
     <Compile Include="GameItems\Ship.cs" />
     <Compile Include="GameItems\ShipPart.cs" />
-    <Compile Include="GameItems\Weapons\MissileLauncher.cs" />
+    <Compile Include="GameItems\Weapons\MissileWeapon.cs" />
     <Compile Include="GameItems\Weapons\Weapon.cs" />
     <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\BattleShip.cs" />
@@ -157,6 +157,7 @@
     <Content Include="Content\Images\MMScrollBar.png" />
     <Content Include="Content\Images\MMScrollIcon.png" />
     <Content Include="Content\Images\Ships\Dumpster.png" />
+    <Content Include="Content\Images\Ships\Eos.png" />
     <Content Include="Content\Images\Ships\NeonCruiser.png" />
     <Content Include="Content\Images\PartInv.png" />
     <Content Include="Content\Images\PlanetA.png" />
@@ -170,11 +171,12 @@
     <Content Include="Content\Images\ShipHealthBar.png" />
     <Content Include="Content\Images\ShipHoldMenu.png" />
     <Content Include="Content\Images\ShipInfoBox.png" />
+    <Content Include="Content\Images\Ships\Viridian.png" />
     <Content Include="Content\Images\SKey.png" />
     <Content Include="Content\Images\SpaceKey.png" />
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />
-    <Content Include="Content\Images\Ships\StarterShip.png" />
+    <Content Include="Content\Images\Ships\Discovery.png" />
     <Content Include="Content\Images\WeaponCooldown.png" />
     <Content Include="Content\Images\WeaponCooldownBar.png" />
     <Content Include="Content\Images\Laser.png" />

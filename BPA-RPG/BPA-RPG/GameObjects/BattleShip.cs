@@ -150,7 +150,7 @@ namespace BPA_RPG.GameObjects
         public static BattleShip CreateEnemyShip(int level)
         {
             //TEMP
-            return new BattleShip(Ship.StarterShip, new List<Weapon>() { LaserWeapon.BasicLaser });
+            return new BattleShip(Ship.Discovery, new List<Weapon>() { LaserWeapon.BasicLaser });
         }
     }
 }
