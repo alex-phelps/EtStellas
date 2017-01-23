@@ -149,8 +149,17 @@ namespace BPA_RPG.GameObjects
         /// <returns></returns>
         public static BattleShip CreateEnemyShip(int level)
         {
+            Random rand = new Random();
+
+            //Get a random ship that has a level less than given level parameter
+            Ship ship = Ship.ships.Where(x => x.level <= level).OrderBy(x => rand.Next()).First();
+
+            List<Weapon> weapons = new List<Weapon>();
+            foreach (Type type in ship.weaponTypes)
+                weapons.Add(Weapon.weapons.Where(x => x.GetType() == type && x.level <= level).OrderBy(x => rand.Next()).First());
+
             //TEMP
-            return new BattleShip(Ship.Discovery, new List<Weapon>() { LaserWeapon.BasicLaser });
+            return new BattleShip(ship, weapons);
         }
     }
 }

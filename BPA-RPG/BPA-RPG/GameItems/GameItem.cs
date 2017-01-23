@@ -17,8 +17,6 @@ namespace BPA_RPG.GameItems
     {
         //List of all items
         public static List<GameItem> items = new List<GameItem>();
-        //Static items
-        public static GameItem Fuel { get; private set; }
 
 
         private static Texture2D infoBoxCap;
@@ -110,7 +108,7 @@ namespace BPA_RPG.GameItems
             infoBox = content.Load<Texture2D>("Images/ItemInfoBox");
             font = content.Load<SpriteFont>("Fonts/KeyFont");
 
-            Fuel = new GameItem("Fuel", content.Load<Texture2D>("Images/Items/Fuel"), "Plutonium fuel for spacecrafts.");
+            new GameItem("Fuel", content.Load<Texture2D>("Images/Items/Fuel"), "Plutonium fuel for spacecrafts.");
 
             MainGame.eventLogger.Log(typeof(GameItem), "Finished loading game items.");
         }

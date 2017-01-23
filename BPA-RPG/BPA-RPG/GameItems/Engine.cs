@@ -10,8 +10,8 @@ namespace BPA_RPG.GameItems
 {
     public class Engine : ShipPart
     {
-        public static Engine BasicEngine;
-        public static Engine CryoThermalEngine;
+        //Static engines
+        public static List<Engine> engines = new List<Engine>();
 
 
 
@@ -23,14 +23,16 @@ namespace BPA_RPG.GameItems
         {
             this.power = power;
             this.fuelRate = fuelRate;
+
+            engines.Add(this);
         }
 
         public static new void LoadContent(ContentManager content)
         {
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
 
-            BasicEngine = new Engine("Basic Engine", content.Load<Texture2D>("Images/Items/BasicEngine"), 20, 1.2f, "A basic plutonium engine");
-            CryoThermalEngine = new Engine("Cryothermal Engine", content.Load<Texture2D>("Images/Items/CryothermalEngine"), 20, 1.2f, "An engine powered by absolute zero temperatures");
+            new Engine("Basic Engine", content.Load<Texture2D>("Images/Items/BasicEngine"), 20, 1.2f, "A basic plutonium engine");
+            new Engine("Cryothermal Engine", content.Load<Texture2D>("Images/Items/CryothermalEngine"), 20, 1.2f, "An engine powered by absolute zero temperatures");
 
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
         }

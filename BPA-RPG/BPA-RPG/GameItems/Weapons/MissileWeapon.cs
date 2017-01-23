@@ -11,15 +11,12 @@ namespace BPA_RPG.GameItems.Weapons
 {
     public class MissileWeapon : Weapon
     {
-        public static MissileWeapon BasicMissile { get; private set; }
-
-
 
         private Random rand;
         private int damageBonus;
 
-        public MissileWeapon(string name, Texture2D texture, Texture2D projectileTexture, int damage, int damageBonus, int shots, int maxCooldown, float hitChance, string info = "", bool passShield = true)
-            : base(name, texture, projectileTexture, damage, shots, maxCooldown, hitChance, 8, info, passShield)
+        public MissileWeapon(string name, int level, Texture2D texture, Texture2D projectileTexture, int damage, int damageBonus, int shots, int maxCooldown, float hitChance, string info = "", bool passShield = true)
+            : base(name, level, texture, projectileTexture, damage, shots, maxCooldown, hitChance, 8, info, passShield)
         {
             this.damageBonus = damageBonus;
 
@@ -37,7 +34,7 @@ namespace BPA_RPG.GameItems.Weapons
 
             Texture2D projTex = content.Load<Texture2D>("Images/Missile");
 
-            BasicMissile = new MissileWeapon("Basic Missile", content.Load<Texture2D>("Images/Items/Weapons/BasicMissile"), projTex,
+            new MissileWeapon("Basic Missile", 1, content.Load<Texture2D>("Images/Items/Weapons/BasicMissile"), projTex,
                 20, 10, 1, 15, .75f, "A basic missile weapon that can pierce shields.");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading missile weapons");

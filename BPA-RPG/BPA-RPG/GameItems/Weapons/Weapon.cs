@@ -2,11 +2,17 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace BPA_RPG.GameItems.Weapons
 {
     public abstract class Weapon : ShipPart
     {
+        //Static weapons
+        public static List<Weapon> weapons = new List<Weapon>();
+
+
+        public readonly int level;
         public readonly Texture2D projectileTexture;
         public readonly int damage;
         public readonly int shots;
@@ -17,7 +23,7 @@ namespace BPA_RPG.GameItems.Weapons
 
         private Random rand;
 
-        protected Weapon(string name, Texture2D texture, Texture2D projectileTexture, int damage, int shots,
+        protected Weapon(string name, int level, Texture2D texture, Texture2D projectileTexture, int damage, int shots,
             int maxCooldown, float hitChance, int speed, string info = "", bool passShield = false)
             : base(name, texture, info)
         {
@@ -30,6 +36,8 @@ namespace BPA_RPG.GameItems.Weapons
             this.passShield = passShield;
 
             rand = new Random();
+
+            weapons.Add(this);
         }
 
         public bool HitShip(BattleShip target)

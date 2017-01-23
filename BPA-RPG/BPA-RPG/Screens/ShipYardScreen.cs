@@ -47,16 +47,16 @@ namespace BPA_RPG.Screens
 
             for (int i = 0; i < deals.Count; i++)
             {
-                Vector2 pos = new Vector2(312 + (i % 3) * 200, 150 + (i / 3) * 210);
+                Vector2 pos = new Vector2(312 + (i % 3) * 200, 145 + (i / 3) * 210);
                 
                 textures.Add(new GameObject(deals[i].item.texture)
                 {
                     position = pos,
                     source = new Rectangle(0, 0, deals[i].item.texture.Width / 2, deals[i].item.texture.Height)
                 });
-                textures[i].ScaleTo(250, 250);
+                textures[i].ScaleTo(140, 140);
 
-                pos += new Vector2(0, 70);
+                pos += new Vector2(0, 75);
 
                 int k = i; //keep lambda from referencing i
 

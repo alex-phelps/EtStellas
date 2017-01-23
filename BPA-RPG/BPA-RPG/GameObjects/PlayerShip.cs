@@ -79,7 +79,7 @@ namespace BPA_RPG.GameObjects
         public float rotSpeed;
         public float maxRotSpeed => baseShip.maxRotSpeed;
         public float rotAccel;
-        public List<Type> weaponHold => baseShip.weaponHold;
+        public List<Type> weaponHold => baseShip.weaponTypes;
 
 
         public PlayerShip(Ship ship) 
@@ -136,7 +136,7 @@ namespace BPA_RPG.GameObjects
 
                 //Keyboard input
 
-                if (PlayerData.inventory.Contains(GameItem.Fuel))
+                if (PlayerData.inventory.Count(x => x.name == "fuel") > 0)
                 {
                     if (InputManager.newKeyState.IsKeyDown(Keys.W))
                     {
@@ -199,7 +199,7 @@ namespace BPA_RPG.GameObjects
             rotation += rotSpeed;
             rotation %= MathHelper.TwoPi;
 
-            if (!inOrbit && PlayerData.inventory.Contains(GameItem.Fuel))
+            if (!inOrbit && PlayerData.inventory.Count(x => x.name == "fuel") > 0)
             {
                 travelDistance += Math.Abs(prevPos.X - position.X) + Math.Abs(prevPos.Y - position.Y);
 
@@ -211,7 +211,7 @@ namespace BPA_RPG.GameObjects
 
                 if (fuelUsed >= 1)
                 {
-                    PlayerData.inventory.Remove(GameItem.Fuel);
+                    PlayerData.inventory.Remove(PlayerData.inventory.First(x => x.name == "fuel"));
                     fuelUsed = 0;
                 }
             }

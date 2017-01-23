@@ -74,22 +74,18 @@ namespace BPA_RPG
             screenManager = new ScreenManager(Content);
 
             //Set default player ship
-            PlayerData.ship = new PlayerShip(Ship.Discovery);
+            PlayerData.ship = new PlayerShip(Ship.ships[0]);
 
             //Give player starter items
             PlayerData.inventory.AddRange(new GameItem[] 
             {
-                GameItem.Fuel,
-                GameItem.Fuel,
-                GameItem.Fuel,
-                GameItem.Fuel,
-                GameItem.Fuel,
-                BombWeapon.EMPBomb,
-                Engine.CryoThermalEngine
+                GameItem.items[0], //fuel
+                GameItem.items[0],
+                GameItem.items[0],
+                GameItem.items[0],
+                GameItem.items[0]
             });
-            PlayerData.engine = Engine.BasicEngine;
-            PlayerData.weapons[0] = LaserWeapon.BasicLaser;
-            PlayerData.weapons[1] = MissileWeapon.BasicMissile;
+            PlayerData.engine = Engine.engines[0]; // Basic engine
 
             //Create the Main Menu Screen
             screenManager.Push(new MainMenuScreen());

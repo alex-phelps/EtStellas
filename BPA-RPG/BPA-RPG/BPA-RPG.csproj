@@ -171,6 +171,7 @@
     <Content Include="Content\Images\ShipHealthBar.png" />
     <Content Include="Content\Images\ShipHoldMenu.png" />
     <Content Include="Content\Images\ShipInfoBox.png" />
+    <Content Include="Content\Images\Ships\OceanJet.png" />
     <Content Include="Content\Images\Ships\Viridian.png" />
     <Content Include="Content\Images\SKey.png" />
     <Content Include="Content\Images\SpaceKey.png" />

@@ -186,18 +186,18 @@ namespace BPA_RPG.GameObjects
         /// <summary>
         /// Scales the object to given width and height
         /// </summary>
-        /// <param name="scale">Scale of object in the area</param>
+        /// <param name="scale">Scale of area</param>
         public void ScaleTo(int width, int height, float scale = 1)
         {
-            this.scale = width >= height
-                ? (width * scale) / this.width
-                : (height * scale) / this.height;
+            this.scale = source.Width >= source.Height
+                ? (width * scale) / source.Width
+                : (height * scale) / source.Height;
         }
 
         /// <summary>
         /// Scales object to a given rectangle
         /// </summary>
-        /// <param name="scale">Scale of object in the area</param>
+        /// <param name="scale">Scale of area</param>
         public void ScaleTo(Rectangle rect, float scale = 1)
         {
             ScaleTo(rect.Width, rect.Height, scale);
