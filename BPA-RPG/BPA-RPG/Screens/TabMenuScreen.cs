@@ -14,6 +14,8 @@ namespace BPA_RPG.Screens
     class TabMenuScreen : Screen
     {
         private readonly List<Screen> menuScreens;
+        private readonly bool canExit;
+
         private List<ClickableObject> menuTabs;
         private List<DrawableString> tabStrings;
         private ClickableObject closeX;
@@ -22,14 +24,20 @@ namespace BPA_RPG.Screens
 
         private Background background;
 
-        public TabMenuScreen(params Screen[] menuScreens)
+        public TabMenuScreen(bool canExit, params Screen[] menuScreens)
             : base("Tab Menu")
         {
+            this.canExit = canExit;
             this.menuScreens = new List<Screen>(menuScreens);
 
             translucent = true;
             menuTabs = new List<ClickableObject>();
             tabStrings = new List<DrawableString>();
+        }
+
+        public TabMenuScreen(params Screen[] menuScreens)
+            : this(true, menuScreens)
+        {
         }
 
         public override void Activated()
@@ -98,8 +106,8 @@ namespace BPA_RPG.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (InputManager.newKeyState.IsKeyDown(Keys.Enter) && InputManager.oldKeyState.IsKeyUp(Keys.Enter) ||
-                InputManager.newMouseState.RightButton == ButtonState.Pressed && InputManager.oldMouseState.RightButton == ButtonState.Released)
+            if (canExit && (InputManager.newKeyState.IsKeyDown(Keys.Enter) && InputManager.oldKeyState.IsKeyUp(Keys.Enter) ||
+                InputManager.newMouseState.RightButton == ButtonState.Pressed && InputManager.oldMouseState.RightButton == ButtonState.Released))
             {
                 manager.Pop();
             }
@@ -109,7 +117,8 @@ namespace BPA_RPG.Screens
             foreach (ClickableObject tab in menuTabs)
                 tab.Update(gameTime);
 
-            closeX.Update(gameTime);
+            if (canExit)
+                closeX.Update(gameTime);
 
             shipInfoBox.Update(gameTime);
 
@@ -140,7 +149,8 @@ namespace BPA_RPG.Screens
 
             menuScreens[selectedScreen].Draw(gameTime, spritebatch);
 
-            closeX.Draw(gameTime, spritebatch);
+            if (canExit)
+                closeX.Draw(gameTime, spritebatch);
 
             shipInfoBox.Draw(gameTime, spritebatch);
 

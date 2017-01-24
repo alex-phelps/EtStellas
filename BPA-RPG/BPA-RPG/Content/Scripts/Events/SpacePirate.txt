@@ -1,0 +1,44 @@
+﻿You run into a menacing ship with telltale pirate markings.
+
+They make a demand: 
+    "Your money or your life!"
+
+> Pay 100 credits
+require credits 100
+
+choice
+{
+You pay the pirates their requested sum.
+
+"Hehe... Thanks for the business."
+
+Soon the ship is out of sight.
+
+>Done
+exit
+}
+
+>Pay 12 jex
+require jex 22
+
+choice
+{
+You pay the pirates their requested sum.
+
+"Hehe... Thanks for the business."
+
+Soon the ship is out of sight.
+
+>Done
+exit
+}
+
+>Refuse
+
+choice
+{
+You refuse their 'deal' and they boot up their weapons system.
+
+>Ok
+enemy
+}

@@ -1,3 +1,2 @@
-﻿fuel credits 10 2
-fuel jex 20 3
-firebomb credits 200 null
+﻿fuel credits 15 2
+fuel jex 4 null

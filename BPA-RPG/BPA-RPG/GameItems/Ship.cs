@@ -58,13 +58,13 @@ namespace BPA_RPG.GameItems
             new Ship("Discovery", 1, content.Load<Texture2D>("Images/Ships/Discovery"),
                 80, 20, 6, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(MissileWeapon) }, 
                 "A basic, slow trading ship.");
-            new Ship("Neon Cruiser", 1, content.Load<Texture2D>("Images/Ships/NeonCruiser"),
+            new Ship("Neon Cruiser", 2, content.Load<Texture2D>("Images/Ships/NeonCruiser"),
                 120, 25, 12, 0.1f, 0.03f, 0.0004f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon), typeof(BombWeapon) },
                 "A quick starcraft with cryothermal thusters.");
             new Ship("Dumpster", 0, content.Load<Texture2D>("Images/Ships/Dumpster"),
                 40, 8, 3, 0.01f, 0.015f, 0.0001f, new List<Type>() { typeof(LaserWeapon) },
                 "A small, slow, rusty ship that's dirt cheap on the black market.");
-            new Ship("Viridian", 2, content.Load<Texture2D>("Images/Ships/Viridian"),
+            new Ship("Viridian", 3, content.Load<Texture2D>("Images/Ships/Viridian"),
                 130, 35, 6, 0.04f, 0.025f, 0.0002f, new List<Type>() { typeof(MissileWeapon), typeof(MissileWeapon), typeof(BombWeapon) },
                 "A slower ship specializing in explosives.");
             new Ship("Eos", 2, content.Load<Texture2D>("Images/Ships/Eos"),

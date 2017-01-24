@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Input;
 using BPA_RPG.GameItems;
+using System.IO;
 
 namespace BPA_RPG.Screens
 {
@@ -16,6 +17,8 @@ namespace BPA_RPG.Screens
     /// </summary>
     public class GameScreen : Screen
     {
+        private Random rand;
+
         private Viewport defaultView;
         private Viewport miniMapView;
 
@@ -37,7 +40,8 @@ namespace BPA_RPG.Screens
         private SpriteFont planetInfoFont;
         private Texture2D planetInfoBox;
         private ClickableObject planetInfoLandButton;
-
+        
+        private bool drawHUD;
         private int miniMapScale = 50;
         private SpriteFont miniMapFont;
         private Texture2D miniMapOverlay;
@@ -48,8 +52,6 @@ namespace BPA_RPG.Screens
 
         private Camera playerCamera;
         private Camera miniMapCamera;
-
-        private bool drawHUD;
         
         /// <summary>
         /// Creates a new Gamescreen
@@ -67,6 +69,8 @@ namespace BPA_RPG.Screens
 
             playerCamera = new Camera();
             miniMapCamera = new Camera();
+
+            rand = new Random();
         }
 
         public override void LoadContent(ContentManager content)
@@ -207,7 +211,21 @@ namespace BPA_RPG.Screens
             playerDot.Update(gameTime, miniMapScale);
             foreach (MiniMapDot d in planetDots)
                 d.Update(gameTime, miniMapScale);
-                        
+
+
+            //Event encounters
+            if (!ship.inOrbit && ship.accelerating && rand.Next(1000) == 0)
+            {
+                //Push random event
+                manager.Push(new TabMenuScreen(false, new MenuChoiceScreen("Event", 
+                    Directory.GetFiles("Content/Scripts/Events").OrderBy(x => rand.Next()).
+                    First(x => !x.EndsWith("Shop.txt") && !x.EndsWith("Shipyard.txt")).
+                    Replace("Content/Scripts/", "").Replace(".txt", "")), 
+                    new ShipHoldScreen()));
+
+                ship.speed = 0;
+            }
+
             base.Update(gameTime);
         }
 
@@ -235,7 +253,7 @@ namespace BPA_RPG.Screens
 
                 spritebatch.Draw(fuelBar, new Vector2(5, 95), Color.White);
                 spritebatch.Draw(fuel, new Vector2(5, 95), new Rectangle(0, 0, (int)(fuel.Width * (1 - ship.fuelUsed)), fuel.Height), Color.White);
-                string fuelText = "Fuel Storage:  " + PlayerData.inventory.Count(s => s.name == "fuel");
+                string fuelText = "Fuel Storage:  " + PlayerData.inventory.Count(s => s.name == "Fuel");
                 spritebatch.DrawString(keyFont, fuelText, new Vector2(70, 115) - keyFont.MeasureString(fuelText) / 2, Color.White);
 
                 if (ship.inOrbit)

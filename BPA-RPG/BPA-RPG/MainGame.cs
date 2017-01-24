@@ -90,6 +90,7 @@ namespace BPA_RPG
             //Create the Main Menu Screen
             screenManager.Push(new MainMenuScreen());
             screenManager.Push(new GameScreen());
+            screenManager.Push(new TabMenuScreen(false, new MenuChoiceScreen("New Game Text", "NewGameScript")));
 
             //Load ScreenManager
             screenManager.LoadContent();

@@ -14,7 +14,8 @@ namespace BPA_RPG.Choice
     public class ChoiceOption
     {
         public readonly string synopsis;
-        public readonly Dictionary<GameItem, int> requirements;
+        public readonly Dictionary<GameItem, int> itemRequirements;
+        public readonly Dictionary<Currency, int> moneyRequirements;
         public readonly bool invisible;
 
         private readonly Action action;
@@ -24,11 +25,12 @@ namespace BPA_RPG.Choice
         /// </summary>
         /// <param name="synopsis">Option synopsis</param>
         /// <param name="actions">Actions that execution on selection of this option</param>
-        public ChoiceOption(string synopsis, Action action, Dictionary<GameItem, int> requirements, bool invisible, ScreenManager manager)
+        public ChoiceOption(string synopsis, Action action, Dictionary<GameItem, int> itemRequirements, Dictionary<Currency, int> moneyRequirements, bool invisible, ScreenManager manager)
         {
             this.synopsis = synopsis;
             this.action = action;
-            this.requirements = requirements;
+            this.itemRequirements = itemRequirements;
+            this.moneyRequirements = moneyRequirements;
             this.invisible = invisible;
         }
 
@@ -48,7 +50,7 @@ namespace BPA_RPG.Choice
         /// <returns></returns>
         public bool MeetsRequirements()
         {
-            foreach (KeyValuePair<GameItem, int> item in requirements)
+            foreach (KeyValuePair<GameItem, int> item in itemRequirements)
             {
                 //If positive, check if player has at least that amount
                 if (item.Value > 0)
@@ -59,6 +61,19 @@ namespace BPA_RPG.Choice
                 //If number is negative or 0, check if player has at MOST that amount
                 else if (PlayerData.inventory.Count(i => i == item.Key) > Math.Abs(item.Value))
                     return false;
+            }
+
+            foreach (KeyValuePair<Currency, int> money in moneyRequirements)
+            {
+                //If positive, check if player has at least that amount
+                if (money.Value > 0)
+                {
+                    if (PlayerData.GetMoney(money.Key) < money.Value)
+                        return false;
+                }
+                //If number is negative or 0, check if player has at MOST that amount
+                else if (PlayerData.GetMoney(money.Key) > Math.Abs(money.Value))
+                        return false;
             }
 
             return true;
@@ -77,7 +92,8 @@ namespace BPA_RPG.Choice
             bool endOfLine = false;
             string synopsis;
             Action action = null;
-            Dictionary<GameItem, int> requirements = new Dictionary<GameItem, int>();
+            Dictionary<GameItem, int> itemRequirements = new Dictionary<GameItem, int>();
+            Dictionary<Currency, int> moneyRequirements = new Dictionary<Currency, int>();
             bool invisible = false;
 
             synopsis = lines[lineNum];
@@ -99,7 +115,26 @@ namespace BPA_RPG.Choice
                             if (!int.TryParse(lineParts[2], out count))
                                 break;
 
-                            requirements.Add(GameItem.Parse(lineParts[1]), count);
+                            try
+                            {
+                                itemRequirements.Add(GameItem.Parse(lineParts[1]), count);
+                            }
+                            catch (InvalidOperationException e)
+                            {
+                                switch (lineParts[1].ToLower())
+                                {
+                                    case "credits":
+                                        moneyRequirements.Add(Currency.credits, count);
+                                        break;
+
+                                    case "jex":
+                                        moneyRequirements.Add(Currency.jex, count);
+                                        break;
+
+                                    default:
+                                        throw e;
+                                }
+                            }
                         }
                         break;
 
@@ -156,8 +191,13 @@ namespace BPA_RPG.Choice
                         break;
                     case "enemy":
                         int level;
-                        if (!int.TryParse(lineParts[1], out level))
-                            break;
+                        float pos = Math.Abs(PlayerData.ship.position.X) + Math.Abs(PlayerData.ship.position.Y);
+
+                        if (pos < 10000)
+                            level = 1;
+                        else if (pos < 30000)
+                            level = 2;
+                        else level = 3;
 
                         action += () => manager.Push(new BattleScreen(PlayerData.ship, level));
                         break;
@@ -195,7 +235,7 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new ChoiceOption(synopsis, action, requirements, invisible, manager);
+            return new ChoiceOption(synopsis, action, itemRequirements, moneyRequirements, invisible, manager);
         }
     }
 }

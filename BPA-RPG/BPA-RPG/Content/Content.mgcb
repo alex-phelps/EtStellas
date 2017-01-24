@@ -787,3 +787,9 @@
 /processorParam:TextureFormat=Color
 /build:Images/Ships/OceanJet.png
 
+#begin Scripts/Events/SpacePirate.txt
+/copy:Scripts/Events/SpacePirate.txt
+
+#begin Scripts/NewGameScript.txt
+/copy:Scripts/NewGameScript.txt
+

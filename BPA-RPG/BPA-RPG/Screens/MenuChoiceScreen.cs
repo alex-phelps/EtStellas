@@ -42,7 +42,19 @@ namespace BPA_RPG.Screens
                     {
                         string requirements = "(Need: ";
 
-                        foreach (KeyValuePair<GameItem, int> item in value.options[i].requirements)
+                        //Money requirements
+                        foreach (KeyValuePair<Currency, int> money in value.options[i].moneyRequirements)
+                        {
+                            if (money.Value < 0)
+                                requirements += "< ";
+                            else requirements += "> ";
+
+                            requirements += Math.Abs(money.Value) + " " + money.Key + "  ";
+
+                        }
+
+                        //Item requirements
+                        foreach (KeyValuePair<GameItem, int> item in value.options[i].itemRequirements)
                         {
                             if (item.Value < 0)
                                 requirements += "< ";
@@ -51,6 +63,7 @@ namespace BPA_RPG.Screens
                             requirements += Math.Abs(item.Value) + " " + item.Key.name + "  ";
 
                         }
+
                         requirements = requirements.TrimEnd();
                         requirements += ")";
 

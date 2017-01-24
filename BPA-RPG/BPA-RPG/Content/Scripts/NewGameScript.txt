@@ -1,0 +1,18 @@
+﻿"Here it is..."
+
+Vilvan pulls out a hologram chip from a dustly metal drawer in your father's desk.
+He places the chip on the desk and presses the center, activating the chip.
+Soon the figure of a familiar man appears above the electronic piece.
+
+"Hello... Silvester."
+
+The man you know as your father adresses you from the hologram.
+
+"If you are seeing this, that means that it's been 18 years since I left Emphaslia.
+I know you must have a lot of questions. I understand that it it probably hard to
+understand why I left you and your mother, but that is why I've asked Vilvan to
+give you this on your 20th birthday."
+
+
+> Next
+exit

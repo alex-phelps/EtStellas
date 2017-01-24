@@ -6,9 +6,14 @@ choice //starts a choice
 >choice text
 // choice methods
 require item 3 // makes choice require certain items. A negative number or 0 means player must have less than that number
+require currency 3 // same as items but with money
+invisible // makes choice invisible if you don't meet the requirements
 credits 500 //adds 500 credits to player's bank
+jex 80
 get item // gives player an item
 remove item // removes an item from the player
+enemy // encounter an enemy
+return // goes back one screen
 exit // exits
 
 choice // nested choices

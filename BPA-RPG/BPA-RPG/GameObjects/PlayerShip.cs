@@ -136,7 +136,7 @@ namespace BPA_RPG.GameObjects
 
                 //Keyboard input
 
-                if (PlayerData.inventory.Count(x => x.name == "fuel") > 0)
+                if (PlayerData.inventory.Count(x => x.name == "Fuel") > 0)
                 {
                     if (InputManager.newKeyState.IsKeyDown(Keys.W))
                     {
@@ -199,7 +199,7 @@ namespace BPA_RPG.GameObjects
             rotation += rotSpeed;
             rotation %= MathHelper.TwoPi;
 
-            if (!inOrbit && PlayerData.inventory.Count(x => x.name == "fuel") > 0)
+            if (!inOrbit && PlayerData.inventory.Count(x => x.name == "Fuel") > 0)
             {
                 travelDistance += Math.Abs(prevPos.X - position.X) + Math.Abs(prevPos.Y - position.Y);
 
@@ -211,7 +211,7 @@ namespace BPA_RPG.GameObjects
 
                 if (fuelUsed >= 1)
                 {
-                    PlayerData.inventory.Remove(PlayerData.inventory.First(x => x.name == "fuel"));
+                    PlayerData.inventory.Remove(PlayerData.inventory.First(x => x.name == "Fuel"));
                     fuelUsed = 0;
                 }
             }

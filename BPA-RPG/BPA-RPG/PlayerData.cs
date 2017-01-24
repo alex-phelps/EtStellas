@@ -15,7 +15,7 @@ namespace BPA_RPG
     public static class PlayerData
     {
         public static PlayerShip ship;
-        public static string name = "TestName";
+        public static string name = "Silvester";
         public static List<GameItem> inventory = new List<GameItem>();
         public static Weapon[] weapons;
         public static Engine engine;

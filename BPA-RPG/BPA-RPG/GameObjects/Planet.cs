@@ -17,7 +17,7 @@ namespace BPA_RPG.GameObjects
 
 
         public readonly string name;
-        public float orbitDistance => texture.Width * 2f / 3f;
+        public float orbitDistance => texture.Width * 2 / 3f;
 
         public Planet(string name, Texture2D texture) 
             : base(texture)
