@@ -81,6 +81,7 @@ namespace BPA_RPG.Screens
 
             Planet home = planets.First(p => p.position == Vector2.Zero);
             ship.position = home.position - new Vector2(home.orbitDistance - 1, 0);
+            ship.lastPlanet = home;
             
             starBackground = new Background(content.Load<Texture2D>("Images/StarBackground"));
             starBackground2 = new Background(content.Load<Texture2D>("Images/StarBackground2"));

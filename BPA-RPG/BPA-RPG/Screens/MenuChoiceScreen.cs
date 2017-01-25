@@ -23,7 +23,7 @@ namespace BPA_RPG.Screens
             {
                 CurrentChoice = value;
 
-                synopsis = new DrawableString(choiceFont, "", new Vector2(240, 115), Color.White);
+                synopsis = new DrawableString(choiceFont, "", new Vector2(240, 105), Color.White);
                 options = new List<DrawableString>();
 
                 foreach (string line in value.synopsis)
@@ -71,7 +71,7 @@ namespace BPA_RPG.Screens
                         int k = j - numInvis; //correct index
 
                         options.Add(new DrawableString(choiceFont, value.options[i].synopsis + (canChoose ? "" : " " + requirements),
-                            synopsis.position + new Vector2(0, synopsis.boundingRectangle.Height + 40 + 30 * (k)),
+                            synopsis.position + new Vector2(0, synopsis.boundingRectangle.Height + 20 + 30 * (k)),
                             canChoose ? Color.White : Color.Gray, 
                             () => { if (canChoose) value.options[j].Activate(); },
                             () => { if (canChoose) options[k].color = new Color(0, 60, 255); },

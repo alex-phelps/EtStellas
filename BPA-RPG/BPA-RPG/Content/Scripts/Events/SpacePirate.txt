@@ -14,11 +14,11 @@ You pay the pirates their requested sum.
 
 Soon the ship is out of sight.
 
->Done
+> Done
 exit
 }
 
->Pay 12 jex
+> Pay 12 jex
 require jex 22
 
 choice
@@ -29,7 +29,7 @@ You pay the pirates their requested sum.
 
 Soon the ship is out of sight.
 
->Done
+> Done
 exit
 }
 
@@ -39,6 +39,6 @@ choice
 {
 You refuse their 'deal' and they boot up their weapons system.
 
->Ok
+> Ok
 enemy
 }

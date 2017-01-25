@@ -1,18 +1,53 @@
 ﻿"Here it is..."
 
-Vilvan pulls out a hologram chip from a dustly metal drawer in your father's desk.
-He places the chip on the desk and presses the center, activating the chip.
-Soon the figure of a familiar man appears above the electronic piece.
+Vilvan pulls out a hologram chip from a dustly metal drawer in
+your father's desk. He places the chip on the desk and presses
+the center, activating the chip. Soon the figure of a familiar
+man appears above the electronic piece.
 
 "Hello... Silvester."
 
 The man you know as your father adresses you from the hologram.
 
-"If you are seeing this, that means that it's been 18 years since I left Emphaslia.
-I know you must have a lot of questions. I understand that it it probably hard to
-understand why I left you and your mother, but that is why I've asked Vilvan to
-give you this on your 20th birthday."
+"If you are seeing this, that means that it's been 18 years
+since I left Emphaslia. I know you must have a lot of questions.
+It's probably hard to understand why I left you and your mother,
+but that is why I've asked Vilvan to give you this on your 20th
+birthday."
+> Next
 
+choice
+{
+You glance at Vilvan for a second before turning your gaze back
+on the image of your father.
+
+"By the time you're watching this, I'll be long gone. However,
+If you are still interested in knowing about me after all these
+years, I have left you a little gift. I'll let you decide what
+to do and where to go."
 
 > Next
-exit
+
+choice
+{
+You turn to Vilvan.
+
+"Your father instructed me to give you this after you watched the
+holovid."
+
+Vilvan pulls a keycard out of his pocket. 
+
+"This is the key to your father's old spacecraft. As he mentioned,
+you are free to do whatever you like with it."
+> Next
+
+choice
+{
+
+}
+> Back
+return
+}
+> Back
+return
+}
