@@ -73,19 +73,8 @@ namespace BPA_RPG
             //Create a new ScreenManager to handle different screens.
             screenManager = new ScreenManager(Content);
 
-            //Set default player ship
+            //Set default player ship as Discorvery
             PlayerData.ship = new PlayerShip(Ship.ships[0]);
-
-            //Give player starter items
-            PlayerData.inventory.AddRange(new GameItem[] 
-            {
-                GameItem.items[0], //fuel
-                GameItem.items[0],
-                GameItem.items[0],
-                GameItem.items[0],
-                GameItem.items[0]
-            });
-            PlayerData.engine = Engine.engines[0]; // Basic engine
 
             //Create the Main Menu Screen
             screenManager.Push(new MainMenuScreen());

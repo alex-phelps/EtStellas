@@ -49,8 +49,9 @@ namespace BPA_RPG.Choice
         /// </summary>
         /// <param name="screen">Screen that holds this choice</param>
         /// <param name="lines">Lines of text that represent a choice</param>
+        /// <param name="baseChoice">The original choice in a choice tree</param>
         /// <returns></returns>
-        public static MenuChoice ChoiceFromText(MenuChoiceScreen screen, List<string> lines, ScreenManager manager)
+        public static MenuChoice ChoiceFromText(MenuChoiceScreen screen, List<string> lines, ScreenManager manager, MenuChoice baseChoice = null)
         {
             int lineNum = 0;
             bool endOfLine = false;
@@ -74,14 +75,14 @@ namespace BPA_RPG.Choice
                 optionLines.Add(lines[lineNum]);
                 lineNum++;
 
-                bool inNewChoice = false;
+                int choiceLevels = 1;
 
-                while (!endOfLine && (!lines[lineNum].StartsWith(">") || inNewChoice))
+                while (!endOfLine && (!lines[lineNum].StartsWith(">") || choiceLevels > 1))
                 {
                     if (lines[lineNum].StartsWith("choice"))
-                        inNewChoice = true;
+                        choiceLevels++;
                     else if (lines[lineNum].StartsWith("}"))
-                        inNewChoice = false;
+                        choiceLevels--;
 
                     optionLines.Add(lines[lineNum]);
                     lineNum++;
@@ -96,21 +97,7 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new MenuChoice(synopsis, options);
-        }
-
-        /// <summary>
-        /// Creates a MenuChoice object from text.
-        /// </summary>
-        /// <param name="screen">Screen that holds this choice</param>
-        /// <param name="lines">Lines of text that represent a choice</param>
-        /// <param name="baseChoice">The original choice in a choice tree</param>
-        /// <returns></returns>
-        public static MenuChoice ChoiceFromText(MenuChoiceScreen screen, List<string> lines, ScreenManager manager, MenuChoice baseChoice)
-        {
-            MenuChoice choice = ChoiceFromText(screen, lines, manager);
-            choice.baseChoice = baseChoice;
-            return choice;
+            return new MenuChoice(synopsis, options) { baseChoice = baseChoice };
         }
     }
 }

@@ -43,11 +43,26 @@ you are free to do whatever you like with it."
 
 choice
 {
+After searching for an hour or so, you finally find the ship
+your father told you about. You gather everything you can find
+and board the ship.
 
-}
-> Back
+- You got the Discovery!
+- You got 5 fuel!
+- You got a Basic Laser!
+- You got a Basic Missile!
+- You got a Basic Engine!
+
+Check your hold to equip items!
+
+> Begin your adventure!
+get fuel 5
+get basiclaser 1
+get basicmissile 1
+get basicengine 1
+exit
+> Read again
 return
 }
-> Back
-return
+}
 }
