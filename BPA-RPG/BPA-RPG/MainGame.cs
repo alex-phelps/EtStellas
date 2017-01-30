@@ -77,11 +77,7 @@ namespace BPA_RPG
             PlayerData.ship = new PlayerShip(Ship.ships[0]);
 
             //Create the Main Menu Screen
-            screenManager.Push(new MainMenuScreen());
-            screenManager.Push(new GameScreen());
-
-            //hook to new game menu option later
-            screenManager.Push(new TabMenuScreen(false, new MenuChoiceScreen("Intro", "NewGameScript")));
+            screenManager.Push(new TitleScreen());
 
             //Load ScreenManager
             screenManager.LoadContent();

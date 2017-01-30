@@ -113,7 +113,7 @@ namespace BPA_RPG.GameObjects
 
                 // Check keyboard input
 
-                if (InputManager.newKeyState.IsKeyDown(Keys.Space))
+                if (InputManager.newKeyState.IsKeyDown(Keys.Space) && PlayerData.engine != null)
                 {
                     inOrbit = false;
                     autoPilotActive = true;

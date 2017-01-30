@@ -106,7 +106,7 @@
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\InfoBoxScreen.cs" />
     <Compile Include="Screens\JettisonScreen.cs" />
-    <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Screens\TitleScreen.cs" />
     <Compile Include="Screens\MenuChoiceScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
@@ -178,6 +178,7 @@
     <Content Include="Content\Images\StarBackground.png" />
     <Content Include="Content\Images\StarBackground2.png" />
     <Content Include="Content\Images\Ships\Discovery.png" />
+    <Content Include="Content\Images\TitleScreen.png" />
     <Content Include="Content\Images\WeaponCooldown.png" />
     <Content Include="Content\Images\WeaponCooldownBar.png" />
     <Content Include="Content\Images\Laser.png" />
@@ -198,7 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="BPA-RPG_TemporaryKey.pfx" />
+    <None Include="Content\Fonts\TitleFont.spritefont" />
     <None Include="Content\Fonts\MiniMapFont.spritefont" />
     <None Include="Content\Fonts\KeyFont.spritefont" />
     <None Include="Content\Fonts\InfoFont.spritefont" />

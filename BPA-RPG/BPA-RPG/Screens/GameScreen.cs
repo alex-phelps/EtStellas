@@ -166,6 +166,11 @@ namespace BPA_RPG.Screens
                 dKey.scale = .95f;
             else dKey.scale = 1;
 
+            //If player tries to leave a planet without an engine
+            if (InputManager.newKeyState.IsKeyDown(Keys.Space) && ship.inOrbit && PlayerData.engine == null)
+                manager.Push(new InfoBoxScreen("Warning!", "Please be sure to equip an\nengine before embarking!", 
+                    () => manager.Push(new TabMenuScreen(new ShipHoldScreen()))));
+
             planetInfoLandButton.Update(gameTime);
             
             playerCamera.Update(ship.position);
