@@ -40,5 +40,5 @@ choice
 You refuse their 'deal' and they boot up their weapons system.
 
 > Ok
-enemy
+exit
 }
