@@ -237,7 +237,7 @@ namespace BPA_RPG.Screens
             }
 
             if (mouseItem != null)
-                spritebatch.Draw(mouseItem.texture, InputManager.oldMouseState.Position.ToVector2(), 
+                spritebatch.Draw(mouseItem.texture, InputManager.oldMouseState.Position.ToVector2() - new Vector2(mouseItem.width, mouseItem.height), 
                     new Rectangle(0, 0, 20, 20), Color.White, 0, Vector2.Zero, 2, SpriteEffects.None, 1);
 
             spritebatch.End();

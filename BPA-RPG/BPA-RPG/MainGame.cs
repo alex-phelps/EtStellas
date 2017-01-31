@@ -26,6 +26,8 @@ namespace BPA_RPG
         private SpriteBatch spriteBatch;
         private ScreenManager screenManager;
 
+        private Texture2D mouseIcon;
+
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -46,8 +48,6 @@ namespace BPA_RPG
         {
             graphicsDevice = GraphicsDevice;
 
-            IsMouseVisible = true;
-
             //Create new EventLogger to log important events
             eventLogger = new EventLogger();
 
@@ -60,6 +60,8 @@ namespace BPA_RPG
         /// </summary>
         protected override void LoadContent()
         {
+            mouseIcon = Content.Load<Texture2D>("Images/MouseIcon");
+
             //Load game items, ships, and planets
             GameItem.LoadContent(Content);
             Engine.LoadContent(Content);
@@ -118,6 +120,7 @@ namespace BPA_RPG
             
             spriteBatch.Begin();
             screenManager.Draw(gameTime, spriteBatch);
+            spriteBatch.Draw(mouseIcon, InputManager.newMouseState.Position.ToVector2(), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

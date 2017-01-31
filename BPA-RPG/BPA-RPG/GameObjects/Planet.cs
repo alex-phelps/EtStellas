@@ -16,8 +16,9 @@ namespace BPA_RPG.GameObjects
         public static List<Planet> planets;
 
 
-        public readonly string name;
         public float orbitDistance => texture.Width * 2 / 3f;
+
+        public readonly string name;
 
         public Planet(string name, Texture2D texture) 
             : base(texture)

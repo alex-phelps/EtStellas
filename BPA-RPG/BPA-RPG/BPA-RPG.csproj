@@ -156,6 +156,7 @@
     <Content Include="Content\Images\Missile.png" />
     <Content Include="Content\Images\MMScrollBar.png" />
     <Content Include="Content\Images\MMScrollIcon.png" />
+    <Content Include="Content\Images\MouseIcon.png" />
     <Content Include="Content\Images\Ships\Dumpster.png" />
     <Content Include="Content\Images\Ships\Eos.png" />
     <Content Include="Content\Images\Ships\NeonCruiser.png" />

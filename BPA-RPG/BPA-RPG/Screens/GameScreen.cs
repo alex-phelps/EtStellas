@@ -41,7 +41,7 @@ namespace BPA_RPG.Screens
         private Texture2D planetInfoBox;
         private ClickableObject planetInfoLandButton;
         
-        private bool drawHUD;
+        private bool drawHUD = true;
         private int miniMapScale = 50;
         private SpriteFont miniMapFont;
         private Texture2D miniMapOverlay;

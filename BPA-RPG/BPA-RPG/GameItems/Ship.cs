@@ -56,7 +56,7 @@ namespace BPA_RPG.GameItems
 
             //Define static ships
             new Ship("Discovery", 1, content.Load<Texture2D>("Images/Ships/Discovery"),
-                80, 20, 20000000, 200, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(MissileWeapon) }, 
+                80, 20, 8, 0.05f, 0.025f, 0.0003f, new List<Type>() { typeof(LaserWeapon), typeof(MissileWeapon) }, 
                 "A basic, slow trading ship.");
             new Ship("Neon Cruiser", 2, content.Load<Texture2D>("Images/Ships/NeonCruiser"),
                 120, 25, 12, 0.1f, 0.03f, 0.0004f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon), typeof(BombWeapon) },
