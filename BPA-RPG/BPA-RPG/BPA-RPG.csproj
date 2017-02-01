@@ -106,6 +106,7 @@
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\InfoBoxScreen.cs" />
     <Compile Include="Screens\JettisonScreen.cs" />
+    <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
     <Compile Include="Screens\MenuChoiceScreen.cs" />
     <Compile Include="Screens\Screen.cs" />

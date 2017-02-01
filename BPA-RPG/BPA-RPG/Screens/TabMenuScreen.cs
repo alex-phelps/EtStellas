@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BPA_RPG.Screens
 {
-    class TabMenuScreen : Screen
+    public class TabMenuScreen : Screen
     {
         private readonly List<Screen> menuScreens;
         private readonly bool canExit;

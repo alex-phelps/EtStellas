@@ -18,7 +18,7 @@ namespace BPA_RPG
         /// <summary>
         /// Logs important data to file
         /// </summary>
-        /// <param name="type">Sender's class type</param>
+        /// <param name="type">Sender's public class type</param>
         /// <param name="log">String to log to file</param>
         public void Log(Type type, string log)
         {

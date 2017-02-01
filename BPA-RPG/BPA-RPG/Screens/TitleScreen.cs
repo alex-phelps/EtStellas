@@ -19,6 +19,7 @@ namespace BPA_RPG.Screens
 
         private Texture2D titleScreen;
 
+        private SpriteFont font;
         private List<DrawableString> options;
 
         private GameObject ship;
@@ -48,76 +49,32 @@ namespace BPA_RPG.Screens
 
             titleScreen = content.Load<Texture2D>("Images/TitleScreen");
 
-            SpriteFont font = content.Load<SpriteFont>("Fonts/TitleFont");
+            font = content.Load<SpriteFont>("Fonts/TitleFont");
 
             options = new List<DrawableString>();
+
             //New Game option
-            options.Add(new DrawableString(font, "New Game", new Vector2(880, 280) - font.MeasureString("New Game"), Color.White, 
-                () =>
-                {
-                    manager.Push(new GameScreen());
-                    manager.Push(new TabMenuScreen(false, new MenuChoiceScreen("Intro", "NewGameScript")));
-                }, () =>
-                {
-                    options[0].text = "New Game ";
-                    options[0].position.X = 880 - font.MeasureString(options[0].text).X;
-                },
-                () =>
-                {
-                    options[0].text = "New Game";
-                    options[0].position.X = 880 - font.MeasureString(options[0].text).X;
-                }));
+            options.Add(CreateOption("New Game", 0, () =>
+            {
+                manager.Push(new GameScreen());
+                manager.Push(new TabMenuScreen(false, new MenuChoiceScreen("Intro", "NewGameScript")));
+            }));
 
             //Load Game option
-            options.Add(new DrawableString(font, "Load Game", new Vector2(880, 340) - font.MeasureString("Load Game"), Color.White,
-                () =>
+            options.Add(CreateOption("Load Game", 1, () =>
+            {
+                if (File.Exists("saveData.sav"))
                 {
-                    if (File.Exists("saveDate.sav"))
-                    {
-                        manager.Push(new GameScreen());
-                        PlayerData.Load();
-                    }
-                }, () =>
-                {
-                    options[1].text = "Load Game ";
-                    options[1].position.X = 880 - font.MeasureString(options[1].text).X;
-                },
-                () =>
-                {
-                    options[1].text = "Load Game";
-                    options[1].position.X = 880 - font.MeasureString(options[1].text).X;
-                }));
+                    manager.Push(new GameScreen());
+                    PlayerData.Load();
+                }
+            }));
 
             //Options option
-            options.Add(new DrawableString(font, "Options", new Vector2(880, 400) - font.MeasureString("Options"), Color.White,
-                () =>
-                {
-                    //Options
-
-                }, () =>
-                {
-                    options[2].text = "Options ";
-                    options[2].position.X = 880 - font.MeasureString(options[2].text).X;
-                },
-                () =>
-                {
-                    options[2].text = "Options";
-                    options[2].position.X = 880 - font.MeasureString(options[2].text).X;
-                }));
+            options.Add(CreateOption("Options", 2)); // add options
 
             //Exit option
-            options.Add(new DrawableString(font, "Exit", new Vector2(880, 460) - font.MeasureString("Exit"), Color.White,
-                () => Environment.Exit(0), 
-                () =>
-                {
-                    options[3].text = "Exit ";
-                    options[3].position.X = 880 - font.MeasureString(options[3].text).X;
-                },
-                () =>
-                {
-                    options[3].text = "Exit";
-                    options[3].position.X = 880 - font.MeasureString(options[3].text).X;
-                }));
+            options.Add(CreateOption("Exit", 3, () => Environment.Exit(0)));
 
             base.LoadContent(content);
         }
@@ -158,6 +115,22 @@ namespace BPA_RPG.Screens
                 option.Draw(gameTime, spritebatch);
 
             base.Draw(gameTime, spritebatch);
+        }
+
+        private DrawableString CreateOption(string name, int index, Action onClick = null)
+        {
+            return new DrawableString(font, name, new Vector2(880, 280 +  60 * index) - font.MeasureString(name), Color.White,
+                onClick, 
+                () =>
+                {
+                    options[index].text = name + "  ";
+                    options[index].position.X = 880 - font.MeasureString(options[index].text).X;
+                },
+                () =>
+                {
+                    options[index].text = name;
+                    options[index].position.X = 880 - font.MeasureString(options[index].text).X;
+                });
         }
     }
 }

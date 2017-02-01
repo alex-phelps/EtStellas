@@ -72,7 +72,7 @@ namespace BPA_RPG.GameItems
                 "An impractical ship that is easily spotted and only utilizes bomb weapons.");
             new Ship("Ocean Jet", 3, content.Load<Texture2D>("Images/Ships/OceanJet"),
                 170, 40, 18, 0.12f, 0.04f, 0.0005f, new List<Type>() { typeof(LaserWeapon), typeof(LaserWeapon), typeof(MissileWeapon), typeof(BombWeapon) },
-                "A high class transport ship with a kritonium hull and antimatter thrusters.");
+                "A high public class transport ship with a kritonium hull and antimatter thrusters.");
 
             MainGame.eventLogger.Log(typeof(Ship), "Finished loading ships");
         }

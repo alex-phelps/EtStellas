@@ -153,6 +153,10 @@ namespace BPA_RPG.Screens
         public override void Update(GameTime gameTime)
         {
             //Key Input
+
+            if (InputManager.newKeyState.IsKeyDown(Keys.Escape) && InputManager.oldKeyState.IsKeyUp(Keys.Escape))
+                manager.Push(new PauseScreen());
+
             if (InputManager.newKeyState.IsKeyDown(Keys.W))
                 wKey.scale = .95f;
             else wKey.scale = 1;
