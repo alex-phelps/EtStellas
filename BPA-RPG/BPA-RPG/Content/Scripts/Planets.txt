@@ -1,6 +1,5 @@
 ﻿//Name Range
 Debug Planet 0
-Planet A 1
 Planet B 1
-InfoBox 2
-ChoiceMenu 2
+Menkov IV 2
+Koria 1

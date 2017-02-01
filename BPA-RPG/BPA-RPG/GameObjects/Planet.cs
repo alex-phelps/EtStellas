@@ -61,7 +61,7 @@ namespace BPA_RPG.GameObjects
 
             try
             {
-                Texture2D debugImage = content.Load<Texture2D>("Images/DebugPlanet");
+                Texture2D debugImage = content.Load<Texture2D>("Images/Planets/DebugPlanet");
                 StreamReader file = File.OpenText("Content/Scripts/Planets.txt");
                 List<string> lines = new List<string>();
                 Random rand = new Random();
@@ -89,8 +89,8 @@ namespace BPA_RPG.GameObjects
                     ranges[range].RemoveAt(posIndex);
 
                     //Create planet
-                    planets.Add(new Planet(name, File.Exists("Content/Images/" + name.Replace(" ", "") + ".xnb") 
-                        ? content.Load<Texture2D>("Images/" + name.Replace(" ", "")) : debugImage, pos));
+                    planets.Add(new Planet(name, File.Exists("Content/Images/Planets/" + name.Replace(" ", "") + ".xnb") 
+                        ? content.Load<Texture2D>("Images/Planets/" + name.Replace(" ", "")) : debugImage, pos));
                 }
             }
             catch (Exception e)

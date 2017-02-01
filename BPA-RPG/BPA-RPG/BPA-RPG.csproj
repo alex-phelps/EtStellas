@@ -70,7 +70,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Choice\MenuChoice.cs" />
@@ -127,7 +127,7 @@
     <Content Include="Content\Images\AKey.png" />
     <Content Include="Content\Images\BattleOverlay.png" />
     <Content Include="Content\Images\CloseX.png" />
-    <Content Include="Content\Images\DebugPlanet.png" />
+    <Content Include="Content\Images\Planets\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
     <Content Include="Content\Images\DKey.png" />
     <Content Include="Content\Images\EMPBomb.png" />
@@ -157,12 +157,13 @@
     <Content Include="Content\Images\MMScrollBar.png" />
     <Content Include="Content\Images\MMScrollIcon.png" />
     <Content Include="Content\Images\MouseIcon.png" />
+    <Content Include="Content\Images\Planets\Koria.png" />
+    <Content Include="Content\Images\Planets\MenkovIV.png" />
     <Content Include="Content\Images\Ships\Dumpster.png" />
     <Content Include="Content\Images\Ships\Eos.png" />
     <Content Include="Content\Images\Ships\NeonCruiser.png" />
     <Content Include="Content\Images\PartInv.png" />
-    <Content Include="Content\Images\PlanetA.png" />
-    <Content Include="Content\Images\PlanetB.png" />
+    <Content Include="Content\Images\Planets\PlanetB.png" />
     <Content Include="Content\Images\ChoiceMenu.png" />
     <Content Include="Content\Images\PlanetInfoBox.png" />
     <Content Include="Content\Images\PlanetInfoLandButton.png" />
