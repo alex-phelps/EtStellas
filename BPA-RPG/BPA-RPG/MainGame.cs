@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Content;
 using BPA_RPG.GameObjects;
 using System.Collections.Generic;
 using BPA_RPG.GameItems.Weapons;
+using System.Xml.Serialization;
+using System.IO;
+using System.Windows.Forms;
 
 namespace BPA_RPG
 {
@@ -19,6 +22,7 @@ namespace BPA_RPG
         public static readonly int WindowHeight = 576;
         public static Vector2 WindowCenter => new Vector2(WindowWidth / 2, WindowHeight / 2);
 
+        public static GraphicsDeviceManager graphicsDeviceManager { get; private set; }
         public static GraphicsDevice graphicsDevice { get; private set; }
         public static EventLogger eventLogger { get; private set; }
 
@@ -46,10 +50,15 @@ namespace BPA_RPG
         /// </summary>
         protected override void Initialize()
         {
+            graphicsDeviceManager = graphics;
             graphicsDevice = GraphicsDevice;
 
             //Create new EventLogger to log important events
             eventLogger = new EventLogger();
+
+            Form f = Form.FromHandle(Window.Handle) as Form;
+            if (f != null)
+                f.FormClosing += (s, e) => Save();
 
             base.Initialize();
         }
@@ -124,6 +133,45 @@ namespace BPA_RPG
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+
+
+        private struct OptionsData
+        {
+            public bool isFullscreen;
+        }
+
+        private void Save(string filename = "options")
+        {
+            filename += ".dat";
+
+            XmlSerializer xml = new XmlSerializer(typeof(OptionsData));
+            OptionsData data = new OptionsData()
+            {
+                isFullscreen = graphics.IsFullScreen
+            };
+
+            using (TextWriter writer = new StreamWriter(filename))
+                xml.Serialize(writer, data);
+
+            eventLogger.Log(this, "Saved options");
+        }
+
+        private void Load(string filename = "options")
+        {
+            filename += ".dat";
+
+            XmlSerializer xml = new XmlSerializer(typeof(OptionsData));
+            OptionsData data;
+
+            using (TextReader reader = new StreamReader(filename))
+                data = (OptionsData)xml.Deserialize(reader);
+
+            graphics.IsFullScreen = data.isFullscreen;
+            graphics.ApplyChanges();
+
+            eventLogger.Log(this, "Loaded options");
         }
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BPA_RPG.Screens
 {
-    public class PauseScreen : Screen
+    public class OptionsScreen : Screen
     {
         private Background background;
         private Texture2D overlay;
@@ -19,8 +19,8 @@ namespace BPA_RPG.Screens
         private SpriteFont font;
         private List<DrawableString> options;
 
-        public PauseScreen()
-            : base("Pause")
+        public OptionsScreen()
+            : base("Options")
         {
             translucent = true;
         }
@@ -33,20 +33,14 @@ namespace BPA_RPG.Screens
             font = content.Load<SpriteFont>("Fonts/TitleFont");
             options = new List<DrawableString>();
 
-            //Resume option
-            options.Add(CreateOption("Resume", 0, () => manager.Pop()));
+            //Back option
+            options.Add(CreateOption("Back", 0, () => manager.Pop()));
 
-            //Save option
-            options.Add(CreateOption("Save", 1, () => PlayerData.SaveGame()));
-
-            //Options option
-            options.Add(CreateOption("Options", 2, () => manager.Push(new OptionsScreen())));
-
-            //Exit option
-            options.Add(CreateOption("Exit", 3, () =>
+            //Fullscreen option
+            options.Add(CreateOption("Fullscreen", 1, () =>
             {
-                manager.Pop();
-                manager.Pop();
+                MainGame.graphicsDeviceManager.IsFullScreen = !MainGame.graphicsDeviceManager.IsFullScreen;
+                MainGame.graphicsDeviceManager.ApplyChanges();
             }));
 
             base.LoadContent(content);

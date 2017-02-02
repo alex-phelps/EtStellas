@@ -82,7 +82,7 @@ namespace BPA_RPG
         /// Saves player data to file
         /// </summary>
         /// <param name="filename">Save location</param>
-        public static void Save(string filename = "saveData")
+        public static void SaveGame(string filename = "saveData")
         {
             filename += ".sav";
 
@@ -124,7 +124,7 @@ namespace BPA_RPG
         /// Saves player data to file
         /// </summary>
         /// <param name="filename">Load file location</param>
-        public static void Load(string filename = "saveData")
+        public static void LoadGame(string filename = "saveData")
         {
             filename += ".sav";
 

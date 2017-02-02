@@ -66,12 +66,12 @@ namespace BPA_RPG.Screens
                 if (File.Exists("saveData.sav"))
                 {
                     manager.Push(new GameScreen());
-                    PlayerData.Load();
+                    PlayerData.LoadGame();
                 }
             }));
 
             //Options option
-            options.Add(CreateOption("Options", 2)); // add options
+            options.Add(CreateOption("Options", 2, () => manager.Push(new OptionsScreen())));
 
             //Exit option
             options.Add(CreateOption("Exit", 3, () => Environment.Exit(0)));
