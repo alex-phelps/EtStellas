@@ -1,5 +1,5 @@
 ﻿//Name Range
 Debug Planet 0
 Planet B 1
-Menkov IV 2
 Koria 1
+Menkov IV 2

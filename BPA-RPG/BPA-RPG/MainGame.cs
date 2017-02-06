@@ -1,15 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using BPA_RPG.Screens;
 using BPA_RPG.GameItems;
-using Microsoft.Xna.Framework.Content;
 using BPA_RPG.GameObjects;
-using System.Collections.Generic;
 using BPA_RPG.GameItems.Weapons;
 using System.Xml.Serialization;
 using System.IO;
-using System.Windows.Forms;
+using System;
 
 namespace BPA_RPG
 {
@@ -56,10 +53,6 @@ namespace BPA_RPG
             //Create new EventLogger to log important events
             eventLogger = new EventLogger();
 
-            Form f = Form.FromHandle(Window.Handle) as Form;
-            if (f != null)
-                f.FormClosing += (s, e) => Save();
-
             base.Initialize();
         }
 
@@ -92,6 +85,12 @@ namespace BPA_RPG
 
             //Load ScreenManager
             screenManager.LoadContent();
+            
+            //Have options save when game closes
+            AppDomain.CurrentDomain.ProcessExit += (s, e) => Save();
+
+            //Load options
+            Load();
 
             eventLogger.Log(this, "Done loading");
         }
@@ -133,13 +132,6 @@ namespace BPA_RPG
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-
-
-        private struct OptionsData
-        {
-            public bool isFullscreen;
         }
 
         private void Save(string filename = "options")

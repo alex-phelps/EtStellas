@@ -1,0 +1,71 @@
+﻿You come across a lone ship after noting a distress signal
+in the area. The crew seems desperate.
+
+"We've run out of fuel and have been stuck here for days!
+Please, could you spare a few for us?"
+
+> Give them 2 fuel
+require fuel 2
+remove fuel 2
+jex 50
+
+choice
+{
+"Thank you very much! With this we can hopefully make it to the
+nearest filling outpost. Take this as a small token of our thanks."
+
+- You got 50 jex!
+
+> Exit
+exit
+}
+
+> Give them 6 fuel
+require 6 fuel
+invisible
+remove fuel 6
+get firebomb 1
+
+choice 
+{
+"Wow! Thank you so much! I don't know how to thank you - take this!"
+
+- You got a Fire Bomb!
+
+> Exit
+exit
+}
+
+> Politely decline
+
+choice
+{
+You tell the stranded ship that you can't afford to spare any fuel.
+
+"Okay... Plases, if you can, could you inform someone of our situation?"
+
+> Exit
+exit
+}
+
+> Raid the helpless ship
+
+choice
+{
+You turn to attack the stranded ship. To your suprise, however, your
+prey suddenly boots up its weapons system.
+
+> Fight
+enemy
+
+choice
+{
+After the fight, you wade through the wreckage, searing for anything
+useful. However, it seems the ship really did have nothing interesting
+aboard.
+
+> Exit
+exit
+}
+
+}

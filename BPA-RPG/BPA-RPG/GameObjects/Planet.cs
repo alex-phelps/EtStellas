@@ -54,8 +54,10 @@ namespace BPA_RPG.GameObjects
                 new List<Vector2>() // lvl 2, under 30k
                 {
                     new Vector2(-11000, -11500),
-                    new Vector2(-13000, -12000),
                     new Vector2(-19000, -6000),
+                    new Vector2(800, 21000),
+                    new Vector2(9400, 19000),
+                    new Vector2(16000, -12000)
                 }
             };
 

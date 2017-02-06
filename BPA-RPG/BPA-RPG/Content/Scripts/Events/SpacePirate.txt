@@ -33,12 +33,24 @@ Soon the ship is out of sight.
 exit
 }
 
->Refuse
+> Refuse
 
 choice
 {
 You refuse their 'deal' and they boot up their weapons system.
 
 > Ok
+enemy
+
+choice
+{
+You dismantle the pirate's ship and find a few credits.
+
+- You got 120 credits!
+
+> Exit
+credits 120
 exit
+}
+
 }

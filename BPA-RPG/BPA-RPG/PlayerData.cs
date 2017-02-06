@@ -33,6 +33,11 @@ namespace BPA_RPG
         public int jex;
     }
 
+    public struct OptionsData
+    {
+        public bool isFullscreen;
+    }
+
     public static class PlayerData
     {
         public static PlayerShip ship;

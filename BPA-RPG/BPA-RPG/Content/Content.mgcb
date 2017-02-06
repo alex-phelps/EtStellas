@@ -835,3 +835,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/Planets/Koria.png
 
+#begin Scripts/Events/DistressSignal.txt
+/copy:Scripts/Events/DistressSignal.txt
+
