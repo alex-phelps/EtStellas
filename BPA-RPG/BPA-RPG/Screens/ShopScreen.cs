@@ -48,10 +48,10 @@ namespace BPA_RPG.Screens
                     position = pos
                 });
 
-                pos += new Vector2(80, 0);
-                itemNames.Add(new DrawableString(font, deals[i].item.name, pos - font.MeasureString(deals[i].item.name) / 2, Color.White));
+                pos += new Vector2(30, 0);
+                itemNames.Add(new DrawableString(font, deals[i].item.name, new Vector2(pos.X, pos.Y - font.MeasureString(deals[i].item.name).Y / 2), Color.White));
 
-                pos += new Vector2(280, 0);
+                pos += new Vector2(330, 0);
 
                 int k = i; //keep lambdas from referencing i
 

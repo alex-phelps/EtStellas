@@ -40,32 +40,38 @@ namespace BPA_RPG.Screens
                     //If you can't choose and option is "invisible", dont draw it.
                     if (canChoose || !value.options[i].invisible)
                     {
-                        string requirements = "(Need: ";
+                        string requirements = "";
 
-                        //Money requirements
-                        foreach (KeyValuePair<Currency, int> money in value.options[i].moneyRequirements)
+                        //If requirements include money and/or items, tell the player about them. Variables are kept secret
+                        if (value.options[i].moneyRequirements.Count != 0 || value.options[i].itemRequirements.Count != 0)
                         {
-                            if (money.Value < 0)
-                                requirements += "< ";
-                            else requirements += "> ";
+                            requirements = "(Need: ";
 
-                            requirements += Math.Abs(money.Value) + " " + money.Key + "  ";
+                            //Money requirements
+                            foreach (KeyValuePair<Currency, int> money in value.options[i].moneyRequirements)
+                            {
+                                if (money.Value < 0)
+                                    requirements += "< ";
+                                else requirements += "> ";
 
+                                requirements += Math.Abs(money.Value) + " " + money.Key + "  ";
+
+                            }
+
+                            //Item requirements
+                            foreach (KeyValuePair<GameItem, int> item in value.options[i].itemRequirements)
+                            {
+                                if (item.Value < 0)
+                                    requirements += "< ";
+                                else requirements += "> ";
+
+                                requirements += Math.Abs(item.Value) + " " + item.Key.name + "  ";
+
+                            }
+
+                            requirements = requirements.TrimEnd();
+                            requirements += ")";
                         }
-
-                        //Item requirements
-                        foreach (KeyValuePair<GameItem, int> item in value.options[i].itemRequirements)
-                        {
-                            if (item.Value < 0)
-                                requirements += "< ";
-                            else requirements += "> ";
-
-                            requirements += Math.Abs(item.Value) + " " + item.Key.name + "  ";
-
-                        }
-
-                        requirements = requirements.TrimEnd();
-                        requirements += ")";
 
                         int j = i; //keep lambda from referencing i
                         int k = j - numInvis; //correct index

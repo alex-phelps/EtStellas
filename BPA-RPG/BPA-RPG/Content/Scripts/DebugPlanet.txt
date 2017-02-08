@@ -12,6 +12,12 @@ You lost 10 fuel!
 > Return
 return
 }
+> Get var
+var set testVar 1
+
+> Test var
+require var testVar 1
+
 > Text 1
 require fuel -3
 require credits 10000000

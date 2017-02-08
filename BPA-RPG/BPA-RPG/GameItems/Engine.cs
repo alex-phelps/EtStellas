@@ -13,10 +13,17 @@ namespace BPA_RPG.GameItems
         //Static engines
         public static List<Engine> engines = new List<Engine>();
 
-
-
+        
+        /// <summary>
+        /// Acceleration boost the engine gives
+        /// </summary>
         public readonly int power;
-        public readonly float fuelRate; // fuel used per 10,000 meters (pixels)
+
+        /// <summary>
+        /// Fuel used per 10,000 meters (pixels)
+        /// </summary>
+        public readonly float fuelRate;
+
 
         public Engine(string name, Texture2D texture, int power, float fuelRate, string info = "")
             : base(name, texture, info)
@@ -31,8 +38,9 @@ namespace BPA_RPG.GameItems
         {
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
 
-            new Engine("Basic Engine", content.Load<Texture2D>("Images/Items/BasicEngine"), 20, 1.2f, "A basic plutonium engine");
-            new Engine("Cryothermal Engine", content.Load<Texture2D>("Images/Items/CryothermalEngine"), 20, 1.2f, "An engine powered by absolute zero temperatures");
+            new Engine("Basic Engine", content.Load<Texture2D>("Images/Items/BasicEngine"), 10, 1.5f, "A basic plutonium engine");
+            new Engine("Cryothermal Engine", content.Load<Texture2D>("Images/Items/CryothermalEngine"), 15, 1.3f, "An engine powered by absolute zero temperatures");
+            new Engine("Antimatter Engine", content.Load<Texture2D>("Images/Items/AntimatterEngine"), 35, 1, "An engine that generates mass amounts of power from anti particles");
 
             MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
         }

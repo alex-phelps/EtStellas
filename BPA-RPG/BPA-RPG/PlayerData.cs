@@ -10,17 +10,27 @@ using System.Linq;
 
 namespace BPA_RPG
 {
+    /// <summary>
+    /// The different currencies that money can be stored as
+    /// </summary>
     public enum Currency
     {
         credits,
         jex
     }
 
+    /// <summary>
+    /// Struct to hold and serialize the player's save data
+    /// </summary>
     public struct SaveData
     {
         //Uses two lists because XML can't serialize Dictionaries
         public List<string> planetNames;
         public List<Vector2> planetPosition;
+
+        //Uses two lists because XML can't serialize Dictionaries
+        public List<string> varNames;
+        public List<int> varValues;
 
         public string shipName;
         public Vector2 shipPosition;
@@ -33,11 +43,17 @@ namespace BPA_RPG
         public int jex;
     }
 
+    /// <summary>
+    /// Struct to hold and serialize the game options
+    /// </summary>
     public struct OptionsData
     {
         public bool isFullscreen;
     }
-
+    
+    /// <summary>
+    /// Class that holds the player's information and methods to use that information
+    /// </summary>
     public static class PlayerData
     {
         public static PlayerShip ship;
@@ -49,6 +65,43 @@ namespace BPA_RPG
         private static int credits;
         private static int jex;
 
+        /// <summary>
+        /// Variables that are created and used by scripts
+        /// </summary>
+        private static Dictionary<string, int> variables = new Dictionary<string, int>();
+
+        /// <summary>
+        /// Set the player variable value for the given variable. If the variable has not been referenced yet, create it
+        /// </summary>
+        /// <param name="variable">Name of the script variable</param>
+        /// <param name="value"></param>
+        public static void SetVariable(string variable, int value)
+        {
+            variable = variable.ToLower();
+
+            if (!variables.ContainsKey(variable))
+                variables.Add(variable, value);
+            else variables[variable] = value;
+        }
+
+        /// <summary>
+        /// Gets the player variable value for the given variable. If the variable has not been referenced yet, create it with a default value of 0
+        /// </summary>
+        /// <param name="variable">Name of the script variable</param>
+        /// <returns></returns>
+        public static int GetVariable(string variable)
+        {
+            variable = variable.ToLower();
+
+            if (!variables.ContainsKey(variable))
+                variables.Add(variable, 0);
+
+            return variables[variable];
+        }
+
+        /// <summary>
+        /// Adds an amount of money to the player's total in the specified currency
+        /// </summary>
         public static void AddMoney(Currency currency, int value)
         {
             switch (currency)
@@ -70,6 +123,9 @@ namespace BPA_RPG
             }
         }
 
+        /// <summary>
+        /// Gets the player's amount of the specified currency's money. Returns -1 if currency is not found
+        /// </summary>
         public static int GetMoney(Currency currency)
         {
             switch (currency)
@@ -98,6 +154,8 @@ namespace BPA_RPG
             {
                 planetNames = new List<string>(),
                 planetPosition = new List<Vector2>(),
+                varNames = new List<string>(),
+                varValues = new List<int>(),
                 shipName = ship.baseShip.name,
                 shipPosition = ship.position,
                 shipRotation = ship.rotation,
@@ -113,8 +171,16 @@ namespace BPA_RPG
                 saveData.planetNames.Add(planet.name);
                 saveData.planetPosition.Add(planet.position);
             }
+
+            foreach (KeyValuePair<string, int> variable in variables)
+            {
+                saveData.varNames.Add(variable.Key);
+                saveData.varValues.Add(variable.Value);
+            }
+
             foreach (GameItem item in inventory)
                 saveData.inventory.Add(item.name);
+
             for (int i = 0; i < weapons.Length; i++)
                 saveData.weapons[i] = weapons[i]?.name;
 
@@ -144,6 +210,10 @@ namespace BPA_RPG
 
             for (int i = 0; i < saveData.planetNames.Count; i++)
                 Planet.planets.First(x => x.name == saveData.planetNames[i]).position = saveData.planetPosition[i];
+
+            variables = new Dictionary<string, int>();
+            for (int i = 0; i < saveData.varNames.Count; i++)
+                variables.Add(saveData.varNames[i], saveData.varValues[i]);
             
             ship.baseShip = Ship.ships.First(x => x.name == saveData.shipName);
             ship.inOrbit = false;

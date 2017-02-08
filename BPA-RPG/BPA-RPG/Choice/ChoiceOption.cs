@@ -16,6 +16,7 @@ namespace BPA_RPG.Choice
         public readonly string synopsis;
         public readonly Dictionary<GameItem, int> itemRequirements;
         public readonly Dictionary<Currency, int> moneyRequirements;
+        public readonly Dictionary<string, int> varRequirements;
         public readonly bool invisible;
 
         private readonly Action action;
@@ -25,12 +26,13 @@ namespace BPA_RPG.Choice
         /// </summary>
         /// <param name="synopsis">Option synopsis</param>
         /// <param name="actions">Actions that execution on selection of this option</param>
-        public ChoiceOption(string synopsis, Action action, Dictionary<GameItem, int> itemRequirements, Dictionary<Currency, int> moneyRequirements, bool invisible, ScreenManager manager)
+        public ChoiceOption(string synopsis, Action action, Dictionary<GameItem, int> itemRequirements, Dictionary<Currency, int> moneyRequirements, Dictionary<string, int> varRequirements, bool invisible, ScreenManager manager)
         {
             this.synopsis = synopsis;
             this.action = action;
             this.itemRequirements = itemRequirements;
             this.moneyRequirements = moneyRequirements;
+            this.varRequirements = varRequirements;
             this.invisible = invisible;
         }
 
@@ -76,6 +78,19 @@ namespace BPA_RPG.Choice
                         return false;
             }
 
+            foreach (KeyValuePair<string, int> variable in varRequirements)
+            {
+                //If positive, check if player has at least that var value
+                if (variable.Value > 0)
+                {
+                    if (PlayerData.GetVariable(variable.Key) < variable.Value)
+                        return false;
+                }
+                //If number is negative or 0, check if player has at MOST that var value
+                else if (PlayerData.GetVariable(variable.Key) > Math.Abs(variable.Value))
+                    return false;
+            }
+
             return true;
         }
 
@@ -94,6 +109,7 @@ namespace BPA_RPG.Choice
             Action action = null;
             Dictionary<GameItem, int> itemRequirements = new Dictionary<GameItem, int>();
             Dictionary<Currency, int> moneyRequirements = new Dictionary<Currency, int>();
+            Dictionary<string, int> varRequirements = new Dictionary<string, int>();
             bool invisible = false;
 
             synopsis = lines[lineNum];
@@ -109,37 +125,62 @@ namespace BPA_RPG.Choice
 
                 switch (lineParts[0].ToLower())
                 {
+                    case "invisible":
+                        invisible = true;
+                        break;
+
                     case "require":
                         {
+                            lineParts[1] = lineParts[1].ToLower();
+
+                            if (lineParts[1] == "var")
+                            {
+                                int value;
+                                if (!int.TryParse(lineParts[3], out value))
+                                    break;
+
+                                varRequirements.Add(lineParts[2], value);
+                                break;
+                            }
+
                             int count;
                             if (!int.TryParse(lineParts[2], out count))
                                 break;
 
-                            try
+                            switch (lineParts[1])
                             {
-                                itemRequirements.Add(GameItem.Parse(lineParts[1]), count);
-                            }
-                            catch (InvalidOperationException e)
-                            {
-                                switch (lineParts[1].ToLower())
-                                {
-                                    case "credits":
-                                        moneyRequirements.Add(Currency.credits, count);
-                                        break;
+                                case "credits":
+                                    moneyRequirements.Add(Currency.credits, count);
+                                    break;
 
-                                    case "jex":
-                                        moneyRequirements.Add(Currency.jex, count);
-                                        break;
+                                case "jex":
+                                    moneyRequirements.Add(Currency.jex, count);
+                                    break;
 
-                                    default:
-                                        throw e;
-                                }
+                                default:
+                                    itemRequirements.Add(GameItem.Parse(lineParts[1]), count);
+                                    break;
                             }
                         }
                         break;
+                        
+                    case "var":
+                        {
+                            int count;
+                            if (!int.TryParse(lineParts[3], out count))
+                                break;
 
-                    case "invisible":
-                        invisible = true;
+                            switch (lineParts[1].ToLower())
+                            {
+                                case "set":
+                                    action += () => PlayerData.SetVariable(lineParts[2], count);
+                                    break;
+
+                                case "add":
+                                    action += () => PlayerData.SetVariable(lineParts[2], PlayerData.GetVariable(lineParts[2]) + count);
+                                    break;
+                            }
+                        }
                         break;
 
                     case "credits":
@@ -235,7 +276,7 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new ChoiceOption(synopsis, action, itemRequirements, moneyRequirements, invisible, manager);
+            return new ChoiceOption(synopsis, action, itemRequirements, moneyRequirements, varRequirements, invisible, manager);
         }
     }
 }
