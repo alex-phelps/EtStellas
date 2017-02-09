@@ -2,3 +2,4 @@
 fuel jex 4 null
 antimatterEngine credits 3000 2800
 burstLaser credits 1200 1000
+heavyMissile credits 2800 null

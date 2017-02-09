@@ -11,7 +11,6 @@ namespace BPA_RPG.GameItems.Weapons
 {
     public class MissileWeapon : Weapon
     {
-
         private Random rand;
         private int damageBonus;
 
@@ -36,6 +35,8 @@ namespace BPA_RPG.GameItems.Weapons
 
             new MissileWeapon("Basic Missile", 1, content.Load<Texture2D>("Images/Items/Weapons/BasicMissile"), projTex,
                 20, 10, 1, 15, .75f, "A basic missile weapon that can pierce shields.");
+            new MissileWeapon("Heavy Missile", 3, content.Load<Texture2D>("Images/Items/Weapons/HeavyMissile"), projTex,
+                15, 20, 2, 20, .7f, "A two shot missile with high damage but somewhat unrealiable.");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading missile weapons");
         }

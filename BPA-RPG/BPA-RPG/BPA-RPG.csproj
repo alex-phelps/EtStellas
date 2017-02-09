@@ -133,6 +133,7 @@
     <Content Include="Content\Images\Items\BasicEngine.png" />
     <Content Include="Content\Images\Items\CryothermalEngine.png" />
     <Content Include="Content\Images\Items\Weapons\BurstLaser.png" />
+    <Content Include="Content\Images\Items\Weapons\HeavyMissile.png" />
     <Content Include="Content\Images\Items\Weapons\WeakLaser.png" />
     <Content Include="Content\Images\Planets\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
