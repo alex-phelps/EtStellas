@@ -66,7 +66,7 @@ namespace BPA_RPG.GameObjects
         private BattleShip(Ship baseShip, List<Weapon> weapons)
             : base(baseShip.texture)
         {
-            name = baseShip.name;
+            name = "Enemy " + baseShip.name;
             maxHullPoints = baseShip.maxHullPoints;
             this.weapons = weapons.ToArray();
 

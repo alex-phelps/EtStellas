@@ -27,6 +27,7 @@ namespace BPA_RPG.GameItems.Weapons
             int maxCooldown, float hitChance, int speed, string info = "", bool passShield = false)
             : base(name, texture, info)
         {
+            this.level = level;
             this.projectileTexture = projectileTexture;
             this.damage = damage;
             this.shots = shots;

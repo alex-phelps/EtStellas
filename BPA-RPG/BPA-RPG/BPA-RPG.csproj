@@ -165,6 +165,7 @@
     <Content Include="Content\Images\MMScrollBar.png" />
     <Content Include="Content\Images\MMScrollIcon.png" />
     <Content Include="Content\Images\MouseIcon.png" />
+    <Content Include="Content\Images\Planets\Emphaslia.png" />
     <Content Include="Content\Images\Planets\Koria.png" />
     <Content Include="Content\Images\Planets\MenkovIV.png" />
     <Content Include="Content\Images\Ships\Dumpster.png" />
