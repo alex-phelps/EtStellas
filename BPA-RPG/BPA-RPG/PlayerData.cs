@@ -143,9 +143,9 @@ namespace BPA_RPG
         /// Saves player data to file
         /// </summary>
         /// <param name="filename">Save location</param>
-        public static void SaveGame(string filename = "saveData")
+        public static void SaveGame()
         {
-            filename += ".sav";
+            string filename = "saveData.sav";
 
             XmlSerializer xml = new XmlSerializer(typeof(SaveData));
 
@@ -195,9 +195,9 @@ namespace BPA_RPG
         /// Saves player data to file
         /// </summary>
         /// <param name="filename">Load file location</param>
-        public static void LoadGame(string filename = "saveData")
+        public static void LoadGame()
         {
-            filename += ".sav";
+            string filename = "saveData.sav";
 
             XmlSerializer xml = new XmlSerializer(typeof(SaveData));
             SaveData saveData;

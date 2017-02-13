@@ -1,0 +1,5 @@
+﻿You meet a roaming jex merchant selling various goods.
+He invites you to check out his wares.
+
+> Leave
+exit

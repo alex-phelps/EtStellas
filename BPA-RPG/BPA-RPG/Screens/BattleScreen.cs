@@ -247,10 +247,15 @@ namespace BPA_RPG.Screens
             }
 
             //Close if battle is over; we get the results later by checking player health
-            if (enemy.hullPoints <= 0 || player.hullPoints <= 0)
-                manager.Push(new InfoBoxScreen("Battle Result", player.hullPoints <= 0 ? "You Lost!" : "You won!", () =>
+            if (enemy.hullPoints < 0)
+                manager.Push(new InfoBoxScreen("Battle Result", "You won!", () => manager.Pop()));
+
+            if (player.hullPoints <= 0)
+                manager.Push(new InfoBoxScreen("Battle Result", "You Lost!", () =>
                 {
                     manager.Pop();
+                    manager.Pop();
+                    manager.Push(new TabMenuScreen(new MenuChoiceScreen("Ship Destroyed", "GameOverDmg")));
                 }));
 
             base.Update(gameTime);

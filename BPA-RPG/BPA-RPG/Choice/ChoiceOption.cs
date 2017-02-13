@@ -2,6 +2,7 @@
 using BPA_RPG.Screens;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -268,6 +269,19 @@ namespace BPA_RPG.Choice
                         break;
                     case "exit":
                         action += () => manager.Pop();
+                        break;
+                    case "gameover":
+                        action += () =>
+                        {
+                            MainGame.eventLogger.Log(typeof(ChoiceOption), "Game Over!");
+
+                            manager.Pop();
+                            manager.Pop();
+
+                            File.Delete("saveData.sav");
+
+                            MainGame.eventLogger.Log(typeof(ChoiceOption), "Deleted save data at: saveData.sav");
+                        };
                         break;
                 }
 

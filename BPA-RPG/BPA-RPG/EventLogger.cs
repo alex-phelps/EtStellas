@@ -22,7 +22,7 @@ namespace BPA_RPG
         /// <param name="log">String to log to file</param>
         public void Log(Type type, string log)
         {
-            file.WriteLine("[" + string.Format("{0:HH:mm:ss.ff}", DateTime.Now) + "] [" + type.ToString() + "] " + log);
+            file.WriteLine("[{0:HH:mm:ss.ff}] {1, -18} {2}", DateTime.Now, "[" + type.ToString().Substring(type.ToString().LastIndexOf('.') + 1) + "]", log);
             file.Flush();
         }
 

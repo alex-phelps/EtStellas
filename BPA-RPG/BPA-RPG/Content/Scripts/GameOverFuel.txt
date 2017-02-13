@@ -1,0 +1,9 @@
+﻿You drift endlessly into the dark abyss of space. Without fuel,
+you have no way to continue your journey.
+
+
+GAME OVER
+
+
+> Back to title
+gameover

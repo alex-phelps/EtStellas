@@ -799,18 +799,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/Planets/DebugPlanet.png
 
-#begin Images/Planets/PlanetB.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/Planets/PlanetB.png
-
 #begin Images/Planets/MenkovIV.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -897,4 +885,28 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/Planets/Emphaslia.png
+
+#begin Scripts/GameOverDmg.txt
+/copy:Scripts/GameOverDmg.txt
+
+#begin Scripts/GameOverFuel.txt
+/copy:Scripts/GameOverFuel.txt
+
+#begin Images/Planets/Custolla.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/Planets/Custolla.png
+
+#begin Scripts/Events/RoamingMerchant.txt
+/copy:Scripts/Events/RoamingMerchant.txt
+
+#begin Scripts/Events/RoamingMerchantShop.txt
+/copy:Scripts/Events/RoamingMerchantShop.txt
 

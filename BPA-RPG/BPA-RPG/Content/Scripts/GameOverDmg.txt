@@ -1,0 +1,10 @@
+﻿The hull finally gives way and your ship breaks apart, 
+pieces floating in all directions.
+
+
+GAME OVER
+
+
+
+> Back to title
+gameover

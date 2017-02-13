@@ -172,7 +172,7 @@
     <Content Include="Content\Images\Ships\Eos.png" />
     <Content Include="Content\Images\Ships\NeonCruiser.png" />
     <Content Include="Content\Images\PartInv.png" />
-    <Content Include="Content\Images\Planets\PlanetB.png" />
+    <Content Include="Content\Images\Planets\Custolla.png" />
     <Content Include="Content\Images\ChoiceMenu.png" />
     <Content Include="Content\Images\PlanetInfoBox.png" />
     <Content Include="Content\Images\PlanetInfoLandButton.png" />
@@ -199,7 +199,11 @@
     <Content Include="Content\Scripts\DebugPlanetShop.txt" />
     <Content Include="Content\Scripts\DefaultPlanetScript.txt" />
     <Content Include="Content\Scripts\Events\DistressSignal.txt" />
+    <Content Include="Content\Scripts\Events\RoamingMerchantShop.txt" />
+    <Content Include="Content\Scripts\Events\RoamingMerchant.txt" />
     <Content Include="Content\Scripts\Events\SpacePirate.txt" />
+    <Content Include="Content\Scripts\GameOverFuel.txt" />
+    <Content Include="Content\Scripts\GameOverDmg.txt" />
     <Content Include="Content\Scripts\NewGameScript.txt" />
     <Content Include="Content\Scripts\Planets.txt" />
     <Content Include="Content\Scripts\Script Syntax.txt" />

@@ -1,5 +1,5 @@
 ﻿//Name Range
 Emphaslia 0
-Planet B 1
+Custolla 1
 Koria 1
 Menkov IV 2

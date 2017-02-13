@@ -236,6 +236,11 @@ namespace BPA_RPG.Screens
                 ship.speed = 0;
             }
 
+            //Check if out of fuel, thus game over
+            if (!ship.inOrbit && ship.speed == 0 && PlayerData.inventory.Count(x => x.name == "Fuel") <= 0)
+                manager.Push(new TabMenuScreen(new MenuChoiceScreen("No Fuel", "GameOverFuel")));
+
+
             base.Update(gameTime);
         }
 
