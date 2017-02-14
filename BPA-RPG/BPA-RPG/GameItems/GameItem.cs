@@ -109,6 +109,10 @@ namespace BPA_RPG.GameItems
             font = content.Load<SpriteFont>("Fonts/KeyFont");
 
             new GameItem("Fuel", content.Load<Texture2D>("Images/Items/Fuel"), "Plutonium fuel for spacecrafts.");
+            new GameItem("Roxol Quartz", content.Load<Texture2D>("Images/Items/RoxolQuartz"), "An uncommon crystal used in most modern machinery.");
+            new GameItem("Naphtha", content.Load<Texture2D>("Images/Items/Naphtha"), "Unrefined oil for machinery and spacecrafts.");
+            new GameItem("Red Eye", content.Load<Texture2D>("Images/items/RedEye"), "A dangerous drug highly sought after on the black market.");
+            new GameItem("Waning Sun", content.Load<Texture2D>("Images/Items/WaningSun"), "A sun on the brink of a supernova, held in statis through quantum locking.");
 
             MainGame.eventLogger.Log(typeof(GameItem), "Finished loading game items.");
         }

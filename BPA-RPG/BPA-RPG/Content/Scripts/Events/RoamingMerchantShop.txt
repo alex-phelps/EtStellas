@@ -1,3 +1,4 @@
 ﻿fuel jex 3 1
 basicLaser jex 120 100
 empBomb jex 90 60
+redEye jex null 300

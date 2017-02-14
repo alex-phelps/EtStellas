@@ -132,6 +132,10 @@
     <Content Include="Content\Images\Items\AntimatterEngine.png" />
     <Content Include="Content\Images\Items\BasicEngine.png" />
     <Content Include="Content\Images\Items\CryothermalEngine.png" />
+    <Content Include="Content\Images\Items\Naphtha.png" />
+    <Content Include="Content\Images\Items\RedEye.png" />
+    <Content Include="Content\Images\Items\RoxolQuartz.png" />
+    <Content Include="Content\Images\Items\WaningSun.png" />
     <Content Include="Content\Images\Items\Weapons\BurstLaser.png" />
     <Content Include="Content\Images\Items\Weapons\HeavyMissile.png" />
     <Content Include="Content\Images\Items\Weapons\WeakLaser.png" />
@@ -194,6 +198,8 @@
     <Content Include="Content\Images\WeaponCooldownBar.png" />
     <Content Include="Content\Images\Laser.png" />
     <Content Include="Content\Images\WKey.png" />
+    <Content Include="Content\Scripts\EmphasliaShop.txt" />
+    <Content Include="Content\Scripts\Emphaslia.txt" />
     <Content Include="Content\Scripts\DebugPlanet.txt" />
     <Content Include="Content\Scripts\DebugPlanetShipyard.txt" />
     <Content Include="Content\Scripts\DebugPlanetShop.txt" />
