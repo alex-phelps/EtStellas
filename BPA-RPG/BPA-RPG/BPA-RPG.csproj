@@ -132,7 +132,10 @@
     <Content Include="Content\Images\Items\AntimatterEngine.png" />
     <Content Include="Content\Images\Items\BasicEngine.png" />
     <Content Include="Content\Images\Items\CryothermalEngine.png" />
+    <Content Include="Content\Images\Items\KorianSteel.png" />
+    <Content Include="Content\Images\Items\MiningDrill.png" />
     <Content Include="Content\Images\Items\Naphtha.png" />
+    <Content Include="Content\Images\Items\QChip.png" />
     <Content Include="Content\Images\Items\RedEye.png" />
     <Content Include="Content\Images\Items\RoxolQuartz.png" />
     <Content Include="Content\Images\Items\WaningSun.png" />

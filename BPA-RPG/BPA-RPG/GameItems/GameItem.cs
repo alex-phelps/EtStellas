@@ -113,6 +113,9 @@ namespace BPA_RPG.GameItems
             new GameItem("Naphtha", content.Load<Texture2D>("Images/Items/Naphtha"), "Unrefined oil for machinery and spacecrafts.");
             new GameItem("Red Eye", content.Load<Texture2D>("Images/items/RedEye"), "A dangerous drug highly sought after on the black market.");
             new GameItem("Waning Sun", content.Load<Texture2D>("Images/Items/WaningSun"), "A sun on the brink of a supernova, held in statis through quantum locking.");
+            new GameItem("Korian Steel", content.Load<Texture2D>("Images/Items/KorianSteel"), "High quality steel alloy produced on Koria.");
+            new GameItem("Mining Drill", content.Load<Texture2D>("Images/Items/MiningDrill"), "A small electronic hand drill used to extract ores and minerals.");
+            new GameItem("Q Chip", content.Load<Texture2D>("Images/Items/QChip"), "A miniture quantum computer. Used in almost all modern electronics.");
 
             MainGame.eventLogger.Log(typeof(GameItem), "Finished loading game items.");
         }

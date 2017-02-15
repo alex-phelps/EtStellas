@@ -1,2 +1,1 @@
-﻿redEye jex 0 300
-waningSun jex 0 0
+﻿fuel credits 15 2
