@@ -217,6 +217,20 @@
     <Content Include="Content\Scripts\Planets.txt" />
     <Content Include="Content\Scripts\Script Syntax.txt" />
     <Content Include="Content\Scripts\Shop Script Syntax.txt" />
+    <Content Include="Content\Sounds\Buy1.wav" />
+    <Content Include="Content\Sounds\EMP1.wav" />
+    <Content Include="Content\Sounds\Explosion1.wav" />
+    <Content Include="Content\Sounds\Explosion2.wav" />
+    <Content Include="Content\Sounds\Explosion3.wav" />
+    <Content Include="Content\Sounds\Hazard1.wav" />
+    <Content Include="Content\Sounds\laser1.wav" />
+    <Content Include="Content\Sounds\laser2.wav" />
+    <Content Include="Content\Sounds\laser3.wav" />
+    <Content Include="Content\Sounds\Powerup1.wav" />
+    <Content Include="Content\Sounds\Select1.wav" />
+    <Content Include="Content\Sounds\Select2.wav" />
+    <Content Include="Content\Sounds\Thruster1.wav" />
+    <Content Include="Content\Sounds\Thruster2.wav" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

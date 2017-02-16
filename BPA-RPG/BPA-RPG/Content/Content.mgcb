@@ -1000,3 +1000,255 @@
 /processorParam:TextureFormat=Color
 /build:Images/Items/MiningDrill.png
 
+#begin Images/Items/Sounds/Buy1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Buy1.wav
+
+#begin Images/Items/Sounds/EMP1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/EMP1.wav
+
+#begin Images/Items/Sounds/Explosion1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Explosion1.wav
+
+#begin Images/Items/Sounds/Explosion2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Explosion2.wav
+
+#begin Images/Items/Sounds/Explosion3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Explosion3.wav
+
+#begin Images/Items/Sounds/Hazard1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Hazard1.wav
+
+#begin Images/Items/Sounds/laser1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/laser1.wav
+
+#begin Images/Items/Sounds/laser2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/laser2.wav
+
+#begin Images/Items/Sounds/laser3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/laser3.wav
+
+#begin Images/Items/Sounds/Powerup1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Powerup1.wav
+
+#begin Images/Items/Sounds/Select1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Select1.wav
+
+#begin Images/Items/Sounds/Select2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Select2.wav
+
+#begin Images/Items/Sounds/Thruster1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Thruster1.wav
+
+#begin Images/Items/Sounds/Thruster2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Thruster2.wav
+
+#begin Images/Items/Sounds/Sounds/Buy1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Buy1.wav
+
+#begin Images/Items/Sounds/Sounds/EMP1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/EMP1.wav
+
+#begin Images/Items/Sounds/Sounds/Explosion1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Explosion1.wav
+
+#begin Images/Items/Sounds/Sounds/Explosion2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Explosion2.wav
+
+#begin Images/Items/Sounds/Sounds/Explosion3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Explosion3.wav
+
+#begin Images/Items/Sounds/Sounds/Hazard1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Hazard1.wav
+
+#begin Images/Items/Sounds/Sounds/laser1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/laser1.wav
+
+#begin Images/Items/Sounds/Sounds/laser2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/laser2.wav
+
+#begin Images/Items/Sounds/Sounds/laser3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/laser3.wav
+
+#begin Images/Items/Sounds/Sounds/Powerup1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Powerup1.wav
+
+#begin Images/Items/Sounds/Sounds/Select1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Select1.wav
+
+#begin Images/Items/Sounds/Sounds/Select2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Select2.wav
+
+#begin Images/Items/Sounds/Sounds/Thruster1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Thruster1.wav
+
+#begin Images/Items/Sounds/Sounds/Thruster2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Images/Items/Sounds/Sounds/Thruster2.wav
+
+#begin Sounds/Buy1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Buy1.wav
+
+#begin Sounds/EMP1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/EMP1.wav
+
+#begin Sounds/Explosion1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Explosion1.wav
+
+#begin Sounds/Explosion2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Explosion2.wav
+
+#begin Sounds/Explosion3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Explosion3.wav
+
+#begin Sounds/Hazard1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Hazard1.wav
+
+#begin Sounds/laser1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/laser1.wav
+
+#begin Sounds/laser2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/laser2.wav
+
+#begin Sounds/laser3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/laser3.wav
+
+#begin Sounds/Powerup1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Powerup1.wav
+
+#begin Sounds/Select1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Select1.wav
+
+#begin Sounds/Select2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Select2.wav
+
+#begin Sounds/Thruster1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Thruster1.wav
+
+#begin Sounds/Thruster2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Thruster2.wav
+
