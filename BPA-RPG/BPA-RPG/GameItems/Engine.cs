@@ -42,7 +42,7 @@ namespace BPA_RPG.GameItems
             new Engine("Cryothermal Engine", content.Load<Texture2D>("Images/Items/CryothermalEngine"), 15, 1.3f, "An engine powered by absolute zero temperatures");
             new Engine("Antimatter Engine", content.Load<Texture2D>("Images/Items/AntimatterEngine"), 35, 1, "An engine that generates mass amounts of power from anti particles");
 
-            MainGame.eventLogger.Log(typeof(Engine), "Begin loading engines");
+            MainGame.eventLogger.Log(typeof(Engine), "Finished loading engines");
         }
     }
 }

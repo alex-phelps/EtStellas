@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
 using BPA_RPG.GameItems;
 using System.IO;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -23,6 +24,9 @@ namespace BPA_RPG.Screens
         private List<DrawableString> options;
 
         private GameObject ship;
+
+        private SoundEffectInstance selectSound;
+        private SoundEffectInstance errorSound;
 
         public TitleScreen() 
             : base("Title Screen")
@@ -56,6 +60,7 @@ namespace BPA_RPG.Screens
             //New Game option
             options.Add(CreateOption("New Game", 0, () =>
             {
+                selectSound.Play();
                 manager.Push(new GameScreen());
                 manager.Push(new TabMenuScreen(false, new MenuChoiceScreen("Intro", "NewGameScript")));
             }));
@@ -65,16 +70,31 @@ namespace BPA_RPG.Screens
             {
                 if (File.Exists("saveData.sav"))
                 {
+                    selectSound.Play();
                     manager.Push(new GameScreen());
                     PlayerData.LoadGame();
                 }
+                else errorSound.Play();
             }));
 
             //Options option
-            options.Add(CreateOption("Options", 2, () => manager.Push(new OptionsScreen())));
+            options.Add(CreateOption("Options", 2, () =>
+            {
+                selectSound.Play();
+                manager.Push(new OptionsScreen());
+            }
+            ));
 
             //Exit option
-            options.Add(CreateOption("Exit", 3, () => Environment.Exit(0)));
+            options.Add(CreateOption("Exit", 3, () =>
+            {
+                selectSound.Play();
+                Environment.Exit(0);
+            }));
+
+            //Sfx
+            selectSound = SoundManager.GetEffectInstance("Select1");
+            errorSound = SoundManager.GetEffectInstance("Hazard1");
 
             base.LoadContent(content);
         }

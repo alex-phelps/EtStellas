@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -18,6 +19,8 @@ namespace BPA_RPG.Screens
 
         private SpriteFont font;
         private List<DrawableString> options;
+
+        private SoundEffectInstance selectSound;
 
         public OptionsScreen()
             : base("Options")
@@ -42,6 +45,9 @@ namespace BPA_RPG.Screens
                 MainGame.graphicsDeviceManager.IsFullScreen = !MainGame.graphicsDeviceManager.IsFullScreen;
                 MainGame.graphicsDeviceManager.ApplyChanges();
             }));
+
+            //Sounds
+            selectSound = SoundManager.GetEffectInstance("Select1");
 
             base.LoadContent(content);
         }
@@ -71,7 +77,7 @@ namespace BPA_RPG.Screens
         private DrawableString CreateOption(string name, int index, Action onClick = null)
         {
             return new DrawableString(font, name, new Vector2(880, 280 + 60 * index) - font.MeasureString(name), Color.White,
-                onClick,
+                (() => selectSound.Play()) + onClick,
                 () =>
                 {
                     options[index].text = name + "  ";

@@ -71,6 +71,9 @@ namespace BPA_RPG
             Ship.LoadContent(Content);
             Planet.LoadContent(Content);
 
+            //Load sounds
+            SoundManager.LoadContent(Content);
+
             //Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
