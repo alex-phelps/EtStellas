@@ -1,6 +1,7 @@
 ﻿using BPA_RPG.GameItems;
 using BPA_RPG.GameItems.Weapons;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace BPA_RPG.GameObjects
         private bool hasMissed;
 
         private Random rand = new Random();
+
 
         public WeaponProjectile(Weapon weapon, Vector2 position, BattleShip target, int speed, List<WeaponProjectile> deleteList)
             : base (weapon.projectileTexture)

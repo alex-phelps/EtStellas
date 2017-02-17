@@ -1,4 +1,5 @@
 ﻿using BPA_RPG.GameObjects;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +9,6 @@ namespace BPA_RPG.GameItems.Weapons
 {
     public abstract class Weapon : ShipPart
     {
-        //Static weapons
         public static List<Weapon> weapons = new List<Weapon>();
 
 
@@ -62,7 +62,7 @@ namespace BPA_RPG.GameItems.Weapons
 
             LaserWeapon.LoadContent(content);
             MissileWeapon.LoadContent(content);
-            BombWeapon.LoadContent(content); 
+            BombWeapon.LoadContent(content);
 
             MainGame.eventLogger.Log(typeof(Weapon), "Finished loading weapons");
         }

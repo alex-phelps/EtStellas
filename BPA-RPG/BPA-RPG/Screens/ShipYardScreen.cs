@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -21,6 +22,8 @@ namespace BPA_RPG.Screens
 
         private SpriteFont font;
         private Texture2D menu;
+
+        private SoundEffectInstance buy;
 
         public ShipYardScreen(List<Deal> deals)
             : base("Ship Yard")
@@ -38,6 +41,13 @@ namespace BPA_RPG.Screens
             textures = new List<GameObject>();
             itemNames = new List<DrawableString>();
             buyPrices = new List<DrawableString>();
+        }
+
+        ~ShipYardScreen()
+        {
+            if (MainGame.ContentUnloaded)
+                return;
+            buy.Dispose();
         }
 
         public override void LoadContent(ContentManager content)
@@ -73,7 +83,8 @@ namespace BPA_RPG.Screens
                         PlayerData.ship.baseShip = (Ship)deals[k].item;
                         PlayerData.AddMoney(deals[k].currency, -deals[k].buyPrice);
 
-                        // sounds
+                        buy.Pause(); //because stop doesnt work for some reason
+                        buy.Play();
                     }
                     else
                     {
@@ -83,6 +94,9 @@ namespace BPA_RPG.Screens
                 () => buyPrices[k].color = new Color(0, 60, 255),
                 () => buyPrices[k].color = Color.White));
             }
+
+            //Sounds
+            buy = SoundManager.GetEffectInstance("Buy1");
 
             base.LoadContent(content);
         }

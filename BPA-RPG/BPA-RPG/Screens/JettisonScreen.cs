@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -40,6 +41,9 @@ namespace BPA_RPG.Screens
 
         private Background background;
 
+        private SoundEffectInstance select;
+        private SoundEffectInstance error;
+
         /// <summary>
         /// Creates a new JettisonScreen
         /// </summary>
@@ -51,6 +55,17 @@ namespace BPA_RPG.Screens
             jettison = new List<GameItem>();
             itemRectsH = new List<GameObject>();
             itemRectsJ = new List<GameObject>();
+        }
+
+        /// <summary>
+        /// Dispose of soundeffects
+        /// </summary>
+        ~JettisonScreen()
+        {
+            if (MainGame.ContentUnloaded)
+                return;
+            select.Dispose();
+            error.Dispose();
         }
 
         public override void LoadContent(ContentManager content)
@@ -143,13 +158,21 @@ namespace BPA_RPG.Screens
             okButton = new ClickableObject(content.Load<Texture2D>("Images/InfoBoxButton"), () =>
             {
                 if (ready)
+                {
+                    select.Play();
                     manager.Push(new InfoBoxScreen("Jettison", "Cargo specified successfully\njettisoned into space.", () => manager.Pop()));
+                }
+                else error.Play();
             })
             {
                 position = new Vector2(512, 418)
             };
 
             background = new Background(Color.Black * .6f);
+
+            //Sounds
+            select = SoundManager.GetEffectInstance("Select1");
+            error = SoundManager.GetEffectInstance("Hazard1");
 
             base.LoadContent(content);
         }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BPA_RPG.GameObjects;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.GameItems.Weapons
 {
@@ -16,6 +17,8 @@ namespace BPA_RPG.GameItems.Weapons
             emp,
             fire
         }
+        
+        private static SoundEffectInstance emp;
 
 
         public Effect effect { get; private set; }
@@ -33,6 +36,9 @@ namespace BPA_RPG.GameItems.Weapons
             switch (effect)
             {
                 case Effect.emp:
+                    emp.Pause();
+                    emp.Play();
+
                     target.EMP();
                     break;
 
@@ -50,6 +56,8 @@ namespace BPA_RPG.GameItems.Weapons
                 4, 8, .55f, Effect.fire, "A bomb weapon that sets enemy's systems on fire.");
             new BombWeapon("EMP Bomb", 1, content.Load<Texture2D>("Images/Items/Weapons/EMPBomb"), content.Load<Texture2D>("Images/EMPBomb"),
                 0, 8, .7f, Effect.emp, "Launches a bomb that released an electromagnetic pulse to disable enemy systems.");
+            
+            emp = SoundManager.GetEffectInstance("EMP1");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading bomb weapons");
         }

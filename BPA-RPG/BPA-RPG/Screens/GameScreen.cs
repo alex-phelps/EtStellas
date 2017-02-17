@@ -9,6 +9,7 @@ using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Input;
 using BPA_RPG.GameItems;
 using System.IO;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -52,6 +53,9 @@ namespace BPA_RPG.Screens
 
         private Camera playerCamera;
         private Camera miniMapCamera;
+
+        private SoundEffectInstance thrusters;
+        private SoundEffectInstance select;
         
         /// <summary>
         /// Creates a new Gamescreen
@@ -71,6 +75,17 @@ namespace BPA_RPG.Screens
             miniMapCamera = new Camera();
 
             rand = new Random();
+        }
+
+        /// <summary>
+        /// Dispose of soundeffects
+        /// </summary>
+        ~GameScreen()
+        {
+            if (MainGame.ContentUnloaded)
+                return;
+            thrusters.Dispose();
+            select.Dispose();
         }
 
         public override void LoadContent(ContentManager content)
@@ -98,6 +113,7 @@ namespace BPA_RPG.Screens
             planetInfoBox = content.Load<Texture2D>("Images/PlanetInfoBox");
             planetInfoLandButton = new ClickableObject(content.Load<Texture2D>("Images/PlanetInfoLandButton"), () =>
             {
+                select.Play();
                 if (ship.inOrbit)
                     manager.Push(new TabMenuScreen(new MenuChoiceScreen(ship.lastPlanet.name, ship.lastPlanet.name.Replace(" ", "")), new ShipHoldScreen()));
                 else manager.Push(new TabMenuScreen(new ShipHoldScreen()));
@@ -135,6 +151,11 @@ namespace BPA_RPG.Screens
                 position = new Vector2(MainGame.WindowWidth - 10, MainGame.WindowHeight - 137)
             };
 
+            //Sounds
+            select = SoundManager.GetEffectInstance("Select1");
+            thrusters = SoundManager.GetEffectInstance("Thruster1");
+            thrusters.IsLooped = true;
+
             base.LoadContent(content);
         }
 
@@ -146,6 +167,7 @@ namespace BPA_RPG.Screens
 
         public override void Deactivated()
         {
+            thrusters.Stop();
             drawHUD = false;
             base.Deactivated();
         }
@@ -240,6 +262,13 @@ namespace BPA_RPG.Screens
             if (!ship.inOrbit && ship.speed == 0 && PlayerData.inventory.Count(x => x.name == "Fuel") <= 0)
                 manager.Push(new TabMenuScreen(new MenuChoiceScreen("No Fuel", "GameOverFuel")));
 
+            //Play sounds
+            if (ship.accelerating && !ship.inOrbit)
+            {
+                if (thrusters.State == SoundState.Stopped)
+                    thrusters.Play();
+            }
+            else thrusters.Stop();
 
             base.Update(gameTime);
         }

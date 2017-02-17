@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BPA_RPG.GameObjects;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -23,6 +24,8 @@ namespace BPA_RPG.Screens
         private SpriteFont infoFont;
         private Texture2D menu;
 
+        private SoundEffectInstance buy;
+
         public ShopScreen(List<Deal> deals) 
             : base("Shop")
         {
@@ -31,6 +34,16 @@ namespace BPA_RPG.Screens
             itemNames = new List<DrawableString>();
             buyPrices = new List<DrawableString>();
             sellPrices = new List<DrawableString>();
+        }
+
+        /// <summary>
+        /// Dispose of soundeffects
+        /// </summary>
+        ~ShopScreen()
+        {
+            if (MainGame.ContentUnloaded)
+                return;
+            buy.Dispose();
         }
 
         public override void LoadContent(ContentManager content)
@@ -65,7 +78,8 @@ namespace BPA_RPG.Screens
                                 PlayerData.inventory.Add(deals[k].item);
                                 PlayerData.AddMoney(deals[k].currency, -deals[k].buyPrice);
 
-                                // sounds
+                                buy.Pause(); //stop doesnt work for some reason
+                                buy.Play();
                             }
                             else
                             {
@@ -87,7 +101,8 @@ namespace BPA_RPG.Screens
                             {
                                 PlayerData.AddMoney(deals[k].currency, deals[k].sellPrice);
 
-                                // Add sounds here
+                                buy.Pause();
+                                buy.Play();
                             }
                             else
                             {
@@ -98,6 +113,9 @@ namespace BPA_RPG.Screens
                         () => sellPrices[k].color = Color.White));
                 else sellPrices.Add(new DrawableString(font, "N/A", pos - font.MeasureString("N/A") / 2, Color.White));
             }
+
+            //Sounds
+            buy = SoundManager.GetEffectInstance("Buy1");
 
             base.LoadContent(content);
         }

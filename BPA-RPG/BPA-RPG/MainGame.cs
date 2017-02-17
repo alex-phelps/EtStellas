@@ -15,6 +15,7 @@ namespace BPA_RPG
     /// </summary>
     public class MainGame : Game
     {
+        public static bool ContentUnloaded = false;
         public static readonly int WindowWidth = 1024;
         public static readonly int WindowHeight = 576;
         public static Vector2 WindowCenter => new Vector2(WindowWidth / 2, WindowHeight / 2);
@@ -64,15 +65,15 @@ namespace BPA_RPG
         {
             mouseIcon = Content.Load<Texture2D>("Images/MouseIcon");
 
+            //Load sounds
+            SoundManager.LoadContent(Content);
+
             //Load game items, ships, and planets
             GameItem.LoadContent(Content);
             Engine.LoadContent(Content);
             Weapon.LoadContent(Content);
             Ship.LoadContent(Content);
             Planet.LoadContent(Content);
-
-            //Load sounds
-            SoundManager.LoadContent(Content);
 
             //Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -104,7 +105,7 @@ namespace BPA_RPG
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            ContentUnloaded = true;
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.Choice;
 using Microsoft.Xna.Framework.Content;
 using BPA_RPG.GameItems;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -79,7 +80,14 @@ namespace BPA_RPG.Screens
                         options.Add(new DrawableString(choiceFont, value.options[i].synopsis + (canChoose ? "" : " " + requirements),
                             synopsis.position + new Vector2(0, synopsis.boundingRectangle.Height + 20 + 30 * (k)),
                             canChoose ? Color.White : Color.Gray, 
-                            () => { if (canChoose) value.options[j].Activate(); },
+                            () => 
+                            {
+                                if (canChoose)
+                                {
+                                    select.Play();
+                                    value.options[j].Activate();
+                                }
+                            },
                             () => { if (canChoose) options[k].color = new Color(0, 60, 255); },
                             () => { if (canChoose) options[k].color = Color.White; }));
                     }
@@ -98,11 +106,20 @@ namespace BPA_RPG.Screens
         private SpriteFont choiceFont;
         private Texture2D choiceMenu;
 
+        private SoundEffectInstance select;
+
         public MenuChoiceScreen(string title, string scriptName)
             : base(title)
         {
             this.scriptName = scriptName;
             translucent = true;
+        }
+
+        ~MenuChoiceScreen()
+        {
+            if (MainGame.ContentUnloaded)
+                return;
+            select.Dispose();
         }
 
         public override void Activated()
@@ -119,6 +136,8 @@ namespace BPA_RPG.Screens
             choiceMenu = content.Load<Texture2D>("Images/ChoiceMenu");
 
             LoadEvents();
+
+            select = SoundManager.GetEffectInstance("Select1");
 
             base.LoadContent(content);
         }

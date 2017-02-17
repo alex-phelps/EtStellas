@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using BPA_RPG.GameItems;
 using BPA_RPG.GameItems.Weapons;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -51,6 +52,10 @@ namespace BPA_RPG.Screens
         private Camera playerCamera = new Camera();
         private Camera enemyCamera = new Camera();
 
+        private SoundEffectInstance laser;
+        private SoundEffectInstance shield;
+        private SoundEffectInstance death;
+
         public BattleScreen(PlayerShip player, int level) // or something
             : base("Battle")
         {
@@ -69,6 +74,15 @@ namespace BPA_RPG.Screens
 
             projectiles = new List<WeaponProjectile>();
             projDelete = new List<WeaponProjectile>();
+        }
+
+        ~BattleScreen()
+        {
+            if (MainGame.ContentUnloaded)
+                return;
+            laser.Dispose();
+            shield.Dispose();
+            death.Dispose();
         }
 
         public override void LoadContent(ContentManager content)
@@ -97,7 +111,12 @@ namespace BPA_RPG.Screens
             weaponCooldown = content.Load<Texture2D>("Images/WeaponCooldown");
 
             playerShieldButton = new ClickableObject(content.Load<Texture2D>("Images/ShieldButton"),
-                () => player.shield.Activate())
+                () =>
+                {
+                    shield.Pause();
+                    shield.Play();
+                    player.shield.Activate();
+                })
             {
                 position = new Vector2(MainGame.WindowWidth / 4, MainGame.WindowHeight / 2 + 115)
             };
@@ -157,6 +176,11 @@ namespace BPA_RPG.Screens
             foreach (Weapon weapon in enemy.weapons)
                 enemyShotCount.Add(0);
 
+            //Sounds
+            laser = SoundManager.GetEffectInstance("Laser3");
+            shield = SoundManager.GetEffectInstance("Powerup1");
+            death = SoundManager.GetEffectInstance("Thruster2");
+
             base.LoadContent(content);
         }
 
@@ -200,7 +224,13 @@ namespace BPA_RPG.Screens
             }
 
             if (projectiles.Count(p => p.speed > 0) > 0)
-                enemy.shield.Activate();
+            {
+                if (enemy.shield.Activate())
+                {
+                    shield.Pause();
+                    shield.Play();
+                }
+            }
 
             playerCamera.Update(player.position, MainGame.WindowCenter / 2);
             enemyCamera.Update(enemy.position, MainGame.WindowCenter / 2);
@@ -246,17 +276,23 @@ namespace BPA_RPG.Screens
                 else enemyShotOldTime[i] = gameTime.TotalGameTime.TotalMilliseconds;
             }
 
-            //Close if battle is over; we get the results later by checking player health
+            //Close if battle is over
             if (enemy.hullPoints < 0)
+            {
+                death.Play();
                 manager.Push(new InfoBoxScreen("Battle Result", "You won!", () => manager.Pop()));
+            }
 
             if (player.hullPoints <= 0)
+            {
+                death.Play();
                 manager.Push(new InfoBoxScreen("Battle Result", "You Lost!", () =>
                 {
                     manager.Pop();
                     manager.Pop();
                     manager.Push(new TabMenuScreen(new MenuChoiceScreen("Ship Destroyed", "GameOverDmg")));
                 }));
+            }
 
             base.Update(gameTime);
         }
@@ -435,11 +471,23 @@ namespace BPA_RPG.Screens
 
         private void PlayerFire(Weapon weapon)
         {
+            if (weapon is LaserWeapon)
+            {
+                laser.Pause();
+                laser.Play();
+            }
+
             projectiles.Add(new WeaponProjectile(weapon, player.position, enemy, weapon.speed, projDelete));
         }
 
         private void EnemyFire(Weapon weapon)
         {
+            if (weapon is LaserWeapon)
+            {
+                laser.Pause();
+                laser.Play();
+            }
+
             projectiles.Add(new WeaponProjectile(weapon, enemy.position, player, -weapon.speed, projDelete));
         }
     }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -22,6 +23,8 @@ namespace BPA_RPG.Screens
 
         private Background background;
 
+        private SoundEffectInstance select;
+
         public InfoBoxScreen(string title, string text, Action onExit = null)
             : base(title)
         {
@@ -31,6 +34,13 @@ namespace BPA_RPG.Screens
             translucent = true;
         }
 
+        ~InfoBoxScreen()
+        {
+            if (MainGame.ContentUnloaded)
+                return;
+            select.Dispose();
+        }
+
         public override void LoadContent(ContentManager content)
         {
             infoFont = content.Load<SpriteFont>("Fonts/InfoFont");
@@ -38,6 +48,7 @@ namespace BPA_RPG.Screens
 
             button = new ClickableObject(content.Load<Texture2D>("Images/InfoBoxButton"), () =>
             {
+                select.Play();
                 manager.Pop();
                 onExit?.Invoke();
             })
@@ -47,6 +58,8 @@ namespace BPA_RPG.Screens
             infoBox = content.Load<Texture2D>("Images/InfoBox");
 
             background = new Background(Color.Black * .6f);
+
+            select = SoundManager.GetEffectInstance("Select1");
 
             base.LoadContent(content);
         }

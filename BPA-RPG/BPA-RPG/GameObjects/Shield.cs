@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.GameObjects
 {
@@ -64,13 +65,16 @@ namespace BPA_RPG.GameObjects
             base.Update(gameTime);
         }
 
-        public void Activate()
+        public bool Activate()
         {
             if (!visible && canActivate)
             {
                 shieldTimeTime = shieldTimeMax;
                 cooldownTime = 0;
+                return true;
             }
+
+            return false;
         }
 
         public void EMP()

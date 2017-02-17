@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.Screens
 {
@@ -19,10 +20,22 @@ namespace BPA_RPG.Screens
         private SpriteFont font;
         private List<DrawableString> options;
 
+        private SoundEffectInstance select;
+
         public PauseScreen()
             : base("Pause")
         {
             translucent = true;
+        }
+
+        /// <summary>
+        /// Dispose of soundeffects
+        /// </summary>
+        ~PauseScreen()
+        {
+            if (MainGame.ContentUnloaded)
+                return;
+            select.Dispose();
         }
 
         public override void LoadContent(ContentManager content)
@@ -48,6 +61,9 @@ namespace BPA_RPG.Screens
                 manager.Pop();
                 manager.Pop();
             }));
+
+            //Sounds
+            select = SoundManager.GetEffectInstance("Select1");
 
             base.LoadContent(content);
         }
@@ -77,7 +93,7 @@ namespace BPA_RPG.Screens
         private DrawableString CreateOption(string name, int index, Action onClick = null)
         {
             return new DrawableString(font, name, new Vector2(880, 280 + 60 * index) - font.MeasureString(name), Color.White,
-                onClick,
+                (() => select.Play()) + onClick,
                 () =>
                 {
                     options[index].text = name + "  ";

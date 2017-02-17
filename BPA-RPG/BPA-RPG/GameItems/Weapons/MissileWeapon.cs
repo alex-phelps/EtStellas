@@ -6,11 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BPA_RPG.GameObjects;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG.GameItems.Weapons
 {
     public class MissileWeapon : Weapon
     {
+        private static SoundEffectInstance explosion;
+
         private Random rand;
         private int damageBonus;
 
@@ -24,6 +27,9 @@ namespace BPA_RPG.GameItems.Weapons
 
         protected override void GotHit(BattleShip target)
         {
+            explosion.Pause();
+            explosion.Play();
+
             target.hullPoints -= damage + rand.Next(damageBonus);
         }
 
@@ -37,6 +43,9 @@ namespace BPA_RPG.GameItems.Weapons
                 20, 10, 1, 15, .75f, "A basic missile weapon that can pierce shields.");
             new MissileWeapon("Heavy Missile", 3, content.Load<Texture2D>("Images/Items/Weapons/HeavyMissile"), projTex,
                 15, 20, 2, 20, .6f, "A two shot missile with high damage but somewhat unrealiable.");
+            
+
+            explosion = SoundManager.GetEffectInstance("Explosion1");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading missile weapons");
         }
