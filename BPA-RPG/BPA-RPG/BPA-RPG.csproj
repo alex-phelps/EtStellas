@@ -231,6 +231,7 @@
     <Content Include="Content\Sounds\Powerup1.wav" />
     <Content Include="Content\Sounds\Select1.wav" />
     <Content Include="Content\Sounds\Select2.wav" />
+    <Content Include="Content\Sounds\ThemeSong.wav" />
     <Content Include="Content\Sounds\Thruster1.wav" />
     <Content Include="Content\Sounds\Thruster2.wav" />
     <Content Include="Icon.ico" />

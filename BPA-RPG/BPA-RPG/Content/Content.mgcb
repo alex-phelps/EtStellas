@@ -1084,3 +1084,9 @@
 /processorParam:Quality=Best
 /build:Sounds/Thruster2.wav
 
+#begin Sounds/ThemeSong.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/ThemeSong.wav
+
