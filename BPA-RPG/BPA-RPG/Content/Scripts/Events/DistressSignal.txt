@@ -11,8 +11,9 @@ jex 50
 
 choice
 {
-"Thank you very much! With this we can hopefully make it to the
-nearest filling outpost. Take this as a small token of our thanks."
+"Thank you very much! With this we can hopefully make it to 
+the nearest filling outpost. Take this as a small token of
+our thanks."
 
 - You got 50 jex!
 
@@ -28,7 +29,8 @@ get firebomb 1
 
 choice 
 {
-"Wow! Thank you so much! I don't know how to thank you - take this!"
+"Wow! Thank you so much! I don't know how to thank you - 
+take this!"
 
 - You got a Fire Bomb!
 
@@ -40,9 +42,11 @@ exit
 
 choice
 {
-You tell the stranded ship that you can't afford to spare any fuel.
+You tell the stranded ship that you can't afford to spare any 
+fuel.
 
-"Okay... Plases, if you can, could you inform someone of our situation?"
+"Okay... Please, if you can, could you inform someone of our 
+situation?"
 
 > Exit
 exit
@@ -52,17 +56,17 @@ exit
 
 choice
 {
-You turn to attack the stranded ship. To your suprise, however, your
-prey suddenly boots up its weapons system.
+You turn to attack the stranded ship. To your suprise, however,
+your prey suddenly boots up its weapons system.
 
 > Fight
 enemy
 
 choice
 {
-After the fight, you wade through the wreckage, searing for anything
-useful. However, it seems the ship really did have nothing interesting
-aboard.
+After the fight, you wade through the wreckage, searing for 
+anything useful. However, it seems the ship really did have 
+nothing interesting aboard.
 
 > Exit
 exit

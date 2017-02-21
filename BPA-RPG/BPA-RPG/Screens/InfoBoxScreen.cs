@@ -34,13 +34,6 @@ namespace BPA_RPG.Screens
             translucent = true;
         }
 
-        ~InfoBoxScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            select.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             infoFont = content.Load<SpriteFont>("Fonts/InfoFont");

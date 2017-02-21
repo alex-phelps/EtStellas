@@ -49,6 +49,7 @@ namespace BPA_RPG
     public struct OptionsData
     {
         public bool isFullscreen;
+        public float volume;
     }
     
     /// <summary>

@@ -12,7 +12,6 @@ namespace BPA_RPG
     public static class SoundManager
     {
         private static List<SoundEffect> sfx = new List<SoundEffect>();
-        private static List<SoundEffectInstance> instances = new List<SoundEffectInstance>();
 
         public static void LoadContent(ContentManager content)
         {
@@ -26,30 +25,7 @@ namespace BPA_RPG
 
         public static SoundEffectInstance GetEffectInstance(string assetName)
         {
-            SoundEffectInstance effect = sfx.First(x => x.Name.Replace("Sounds/", "").Replace(".xnb", "").ToLower() == assetName.ToLower()).CreateInstance();
-
-            //Add new instance to list and update the list
-            UpdateSfxInstances();
-            instances.Add(effect);
-
-            return effect;
-        }
-
-        /// <summary>
-        /// Changes volume of all SFX instances
-        /// </summary>
-        /// <param name="volume"></param>
-        public static void ChangeSFXVolume(float volume)
-        {
-            instances.ForEach(x => x.Volume = volume);
-        }
-
-        /// <summary>
-        /// Removes any disposed instances from 
-        /// </summary>
-        private static void UpdateSfxInstances()
-        {
-            instances.RemoveAll(x => x.IsDisposed);
+            return sfx.First(x => x.Name.Replace("Sounds/", "").Replace(".xnb", "").ToLower() == assetName.ToLower()).CreateInstance();
         }
     }
 }

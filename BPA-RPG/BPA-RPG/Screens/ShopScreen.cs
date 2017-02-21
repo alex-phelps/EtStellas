@@ -36,16 +36,6 @@ namespace BPA_RPG.Screens
             sellPrices = new List<DrawableString>();
         }
 
-        /// <summary>
-        /// Dispose of soundeffects
-        /// </summary>
-        ~ShopScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            buy.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             font = content.Load<SpriteFont>("Fonts/ChoiceFont");

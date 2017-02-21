@@ -57,17 +57,6 @@ namespace BPA_RPG.Screens
             itemRectsJ = new List<GameObject>();
         }
 
-        /// <summary>
-        /// Dispose of soundeffects
-        /// </summary>
-        ~JettisonScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            select.Dispose();
-            error.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             font = content.Load<SpriteFont>("Fonts/ChoiceFont");

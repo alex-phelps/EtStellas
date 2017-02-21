@@ -34,17 +34,6 @@ namespace BPA_RPG.Screens
 
         }
 
-        /// <summary>
-        /// Dispose of soundeffects
-        /// </summary>
-        ~TitleScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            selectSound.Dispose();
-            errorSound.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             background1 = new Background(content.Load<Texture2D>("Images/StarBackground"));

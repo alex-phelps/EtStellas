@@ -28,16 +28,6 @@ namespace BPA_RPG.Screens
             translucent = true;
         }
 
-        /// <summary>
-        /// Disposes of soundeffects
-        /// </summary>
-        ~OptionsScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            selectSound.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             background = new Background(Color.Black * 0.6f);
@@ -54,6 +44,16 @@ namespace BPA_RPG.Screens
             {
                 MainGame.graphicsDeviceManager.IsFullScreen = !MainGame.graphicsDeviceManager.IsFullScreen;
                 MainGame.graphicsDeviceManager.ApplyChanges();
+            }));
+
+            //Volume option
+            options.Add(CreateOption("Volume", 2, () =>
+            {
+                float volume = SoundEffect.MasterVolume + 0.1f;
+                if (volume > 1)
+                    volume = 0;
+                SoundEffect.MasterVolume = volume;
+
             }));
 
             //Sounds
@@ -87,7 +87,7 @@ namespace BPA_RPG.Screens
         private DrawableString CreateOption(string name, int index, Action onClick = null)
         {
             return new DrawableString(font, name, new Vector2(880, 280 + 60 * index) - font.MeasureString(name), Color.White,
-                (() => selectSound.Play()) + onClick,
+                onClick + (() => selectSound.Play()),
                 () =>
                 {
                     options[index].text = name + "  ";

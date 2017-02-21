@@ -7,6 +7,7 @@ using BPA_RPG.GameItems.Weapons;
 using System.Xml.Serialization;
 using System.IO;
 using System;
+using Microsoft.Xna.Framework.Audio;
 
 namespace BPA_RPG
 {
@@ -145,7 +146,8 @@ namespace BPA_RPG
             XmlSerializer xml = new XmlSerializer(typeof(OptionsData));
             OptionsData data = new OptionsData()
             {
-                isFullscreen = graphics.IsFullScreen
+                isFullscreen = graphics.IsFullScreen,
+                volume = SoundEffect.MasterVolume
             };
 
             using (TextWriter writer = new StreamWriter(filename))
@@ -158,16 +160,21 @@ namespace BPA_RPG
         {
             filename += ".dat";
 
-            XmlSerializer xml = new XmlSerializer(typeof(OptionsData));
-            OptionsData data;
+            if (File.Exists(filename))
+            {
+                XmlSerializer xml = new XmlSerializer(typeof(OptionsData));
+                OptionsData data;
 
-            using (TextReader reader = new StreamReader(filename))
-                data = (OptionsData)xml.Deserialize(reader);
+                using (TextReader reader = new StreamReader(filename))
+                    data = (OptionsData)xml.Deserialize(reader);
 
-            graphics.IsFullScreen = data.isFullscreen;
-            graphics.ApplyChanges();
+                graphics.IsFullScreen = data.isFullscreen;
+                graphics.ApplyChanges();
 
-            eventLogger.Log(this, "Loaded options");
+                SoundEffect.MasterVolume = data.volume;
+
+                eventLogger.Log(this, "Loaded options");
+            }
         }
     }
 }

@@ -28,16 +28,6 @@ namespace BPA_RPG.Screens
             translucent = true;
         }
 
-        /// <summary>
-        /// Dispose of soundeffects
-        /// </summary>
-        ~PauseScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            select.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             background = new Background(Color.Black * 0.6f);

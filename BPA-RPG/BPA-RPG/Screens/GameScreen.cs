@@ -77,17 +77,6 @@ namespace BPA_RPG.Screens
             rand = new Random();
         }
 
-        /// <summary>
-        /// Dispose of soundeffects
-        /// </summary>
-        ~GameScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            thrusters.Dispose();
-            select.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             keyFont = content.Load<SpriteFont>("Fonts/KeyFont");

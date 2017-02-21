@@ -115,13 +115,6 @@ namespace BPA_RPG.Screens
             translucent = true;
         }
 
-        ~MenuChoiceScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            select.Dispose();
-        }
-
         public override void Activated()
         {
             base.Activated();

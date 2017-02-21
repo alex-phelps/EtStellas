@@ -76,15 +76,6 @@ namespace BPA_RPG.Screens
             projDelete = new List<WeaponProjectile>();
         }
 
-        ~BattleScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            laser.Dispose();
-            shield.Dispose();
-            death.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             player.shield = new Shield(content.Load<Texture2D>("Images/Shield"), player);

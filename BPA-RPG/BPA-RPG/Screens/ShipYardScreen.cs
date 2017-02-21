@@ -43,13 +43,6 @@ namespace BPA_RPG.Screens
             buyPrices = new List<DrawableString>();
         }
 
-        ~ShipYardScreen()
-        {
-            if (MainGame.ContentUnloaded)
-                return;
-            buy.Dispose();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             font = content.Load<SpriteFont>("Fonts/ChoiceFont");
