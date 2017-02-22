@@ -1,5 +1,17 @@
 ﻿You meet a roaming jex merchant selling various goods.
 He invites you to check out his wares.
 
+> Apprehend
+invisible
+require var policeMission 1
+var add merchApprehended 1
+choice
+{
+You arrest the illegal merchant.
+
+> Leave
+exit
+}
+
 > Leave
 exit

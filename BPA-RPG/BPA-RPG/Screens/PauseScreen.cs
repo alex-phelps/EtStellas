@@ -53,7 +53,7 @@ namespace BPA_RPG.Screens
             }));
 
             //Sounds
-            select = SoundManager.GetEffectInstance("Select1");
+            select = SoundEffectManager.GetEffectInstance("Select1");
 
             base.LoadContent(content);
         }

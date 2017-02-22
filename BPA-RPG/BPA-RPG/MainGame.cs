@@ -8,15 +8,15 @@ using System.Xml.Serialization;
 using System.IO;
 using System;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace BPA_RPG
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// This is the main type for the game.
     /// </summary>
     public class MainGame : Game
     {
-        public static bool ContentUnloaded = false;
         public static readonly int WindowWidth = 1024;
         public static readonly int WindowHeight = 576;
         public static Vector2 WindowCenter => new Vector2(WindowWidth / 2, WindowHeight / 2);
@@ -43,9 +43,6 @@ namespace BPA_RPG
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
         {
@@ -55,19 +52,21 @@ namespace BPA_RPG
             //Create new EventLogger to log important events
             eventLogger = new EventLogger();
 
+            //Set mediaplayer to repeat songs
+            MediaPlayer.IsRepeating = true;
+
             base.Initialize();
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        /// Called once per game and is loads the game content
         /// </summary>
         protected override void LoadContent()
         {
             mouseIcon = Content.Load<Texture2D>("Images/MouseIcon");
 
             //Load sounds
-            SoundManager.LoadContent(Content);
+            SoundEffectManager.LoadContent(Content);
 
             //Load game items, ships, and planets
             GameItem.LoadContent(Content);
@@ -101,15 +100,6 @@ namespace BPA_RPG
         }
 
         /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            ContentUnloaded = true;
-        }
-
-        /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
@@ -139,6 +129,9 @@ namespace BPA_RPG
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Saves game options to file
+        /// </summary>
         private void Save(string filename = "options")
         {
             filename += ".dat";
@@ -156,6 +149,9 @@ namespace BPA_RPG
             eventLogger.Log(this, "Saved options");
         }
 
+        /// <summary>
+        /// Loads game options from file
+        /// </summary>
         private void Load(string filename = "options")
         {
             filename += ".dat";
@@ -172,6 +168,7 @@ namespace BPA_RPG
                 graphics.ApplyChanges();
 
                 SoundEffect.MasterVolume = data.volume;
+                MediaPlayer.Volume = data.volume;
 
                 eventLogger.Log(this, "Loaded options");
             }

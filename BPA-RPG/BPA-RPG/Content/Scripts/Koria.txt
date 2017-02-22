@@ -1,0 +1,37 @@
+﻿Koria: A shady mining facility that specializes in the
+production of Korian Steel.
+
+> Deliver Custolla Naphtha
+invisible
+require var custollaShipping 1
+require naphtha 20
+var set custollaShipping 0
+remove naphtha 20
+jex 150
+choice
+{
+You deliver the Naphtha and recieve payment.
+
+- You got 150 jex!
+
+> Leave
+return
+}
+
+> Deliver Waning Suns from Wrankok Farms
+invisible
+require var wrankokShipping 1
+require waningSun 25
+var set wrankokShipping 2
+remove waningSun 25
+choice
+{
+You delivered the good. Now to return to Menkov IV
+for payment.
+
+> Leave
+return
+}
+
+> Leave
+exit

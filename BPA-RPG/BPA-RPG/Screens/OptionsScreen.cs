@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BPA_RPG.GameObjects;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace BPA_RPG.Screens
 {
@@ -54,10 +55,14 @@ namespace BPA_RPG.Screens
                     volume = 0;
                 SoundEffect.MasterVolume = volume;
 
+                volume = MediaPlayer.Volume + 0.1f;
+                if (volume > 1)
+                    volume = 0;
+                MediaPlayer.Volume = volume;
             }));
 
             //Sounds
-            selectSound = SoundManager.GetEffectInstance("Select1");
+            selectSound = SoundEffectManager.GetEffectInstance("Select1");
 
             base.LoadContent(content);
         }

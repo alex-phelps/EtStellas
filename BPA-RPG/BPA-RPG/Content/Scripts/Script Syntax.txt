@@ -5,16 +5,20 @@ choice //starts a choice
 {
 >choice text
 // choice methods
-require item 3 // makes choice require certain items. A negative number or 0 means player must have less than that number
+require item 3 // makes choice require certain items. A negative number or 0 means player must have less than or equal to that number
 require currency 3 // same as items but with money
+require var varName 3 // Require named variable with a certain value
 invisible // makes choice invisible if you don't meet the requirements
+var set name 3 // sets named var to 3
+var add name 3 // adds 3 to named variable
 credits 500 //adds 500 credits to player's bank
 jex 80
 get item // gives player an item
 remove item // removes an item from the player
-enemy // encounter an enemy
+enemy // encounter an random enemy based on player position
 return // goes back one screen
 exit // exits
+gameover // triggers game over and deletes save data
 
 choice // nested choices
 {

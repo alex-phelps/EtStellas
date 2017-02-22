@@ -3,8 +3,8 @@
 They make a demand: 
     "Your money or your life!"
 
-> Pay 100 credits
-require credits 100
+> Pay 600 credits
+require credits 600
 
 choice
 {
@@ -18,8 +18,8 @@ Soon the ship is out of sight.
 exit
 }
 
-> Pay 12 jex
-require jex 22
+> Pay 250 jex
+require jex 250
 
 choice
 {

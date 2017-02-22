@@ -278,7 +278,8 @@ namespace BPA_RPG.Choice
                             manager.Pop();
                             manager.Pop();
 
-                            File.Delete("saveData.sav");
+                            if (File.Exists("saveData.sav"))
+                                File.Delete("saveData.sav");
 
                             MainGame.eventLogger.Log(typeof(ChoiceOption), "Deleted save data at: saveData.sav");
                         };

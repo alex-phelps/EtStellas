@@ -160,8 +160,8 @@ namespace BPA_RPG.Screens
             background = new Background(Color.Black * .6f);
 
             //Sounds
-            select = SoundManager.GetEffectInstance("Select1");
-            error = SoundManager.GetEffectInstance("Hazard1");
+            select = SoundEffectManager.GetEffectInstance("Select1");
+            error = SoundEffectManager.GetEffectInstance("Hazard1");
 
             base.LoadContent(content);
         }

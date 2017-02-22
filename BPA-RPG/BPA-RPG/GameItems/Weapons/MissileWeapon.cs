@@ -45,7 +45,7 @@ namespace BPA_RPG.GameItems.Weapons
                 15, 20, 2, 20, .6f, "A two shot missile with high damage but somewhat unrealiable.");
             
 
-            explosion = SoundManager.GetEffectInstance("Explosion1");
+            explosion = SoundEffectManager.GetEffectInstance("Explosion1");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading missile weapons");
         }

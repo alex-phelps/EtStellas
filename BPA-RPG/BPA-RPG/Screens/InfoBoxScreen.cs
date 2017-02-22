@@ -52,7 +52,7 @@ namespace BPA_RPG.Screens
 
             background = new Background(Color.Black * .6f);
 
-            select = SoundManager.GetEffectInstance("Select1");
+            select = SoundEffectManager.GetEffectInstance("Select1");
 
             base.LoadContent(content);
         }

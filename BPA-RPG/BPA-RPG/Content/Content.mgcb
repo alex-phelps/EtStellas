@@ -73,9 +73,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/ChoiceMenu.png
 
-#begin Scripts/DebugPlanet.txt
-/copy:Scripts/DebugPlanet.txt
-
 #begin Scripts/Script Syntax.txt
 /copy:Scripts/Script Syntax.txt
 
@@ -108,9 +105,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/DebugTexture.png
-
-#begin Scripts/DebugPlanetShop.txt
-/copy:Scripts/DebugPlanetShop.txt
 
 #begin Images/ShipHoldMenu.png
 /importer:TextureImporter
@@ -508,9 +502,6 @@
 /processorParam:TextureFormat=Color
 /build:Images/MMScrollIcon.png
 
-#begin Scripts/DebugPlanetShipyard.txt
-/copy:Scripts/DebugPlanetShipyard.txt
-
 #begin Images/Missile.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -786,18 +777,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/MouseIcon.png
-
-#begin Images/Planets/DebugPlanet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Images/Planets/DebugPlanet.png
 
 #begin Images/Planets/MenkovIV.png
 /importer:TextureImporter
@@ -1084,15 +1063,66 @@
 /processorParam:Quality=Best
 /build:Sounds/Thruster2.wav
 
-#begin Sounds/BattleSong.wav
+#begin Sounds/Music/BattleSong.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
-/build:Sounds/BattleSong.wav
+/build:Sounds/Music/BattleSong.wav
 
-#begin Sounds/MenuSong.wav
+#begin Sounds/Music/MenuSong.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
-/build:Sounds/MenuSong.wav
+/build:Sounds/Music/MenuSong.wav
+
+#begin Images/CTMCredits.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/CTMCredits.png
+
+#begin Images/DevCredits.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/DevCredits.png
+
+#begin Scripts/Custolla.txt
+/copy:Scripts/Custolla.txt
+
+#begin Scripts/CustollaShipyard.txt
+/copy:Scripts/CustollaShipyard.txt
+
+#begin Scripts/CustollaShop.txt
+/copy:Scripts/CustollaShop.txt
+
+#begin Scripts/EmphasliaShipyard.txt
+/copy:Scripts/EmphasliaShipyard.txt
+
+#begin Scripts/Koria.txt
+/copy:Scripts/Koria.txt
+
+#begin Scripts/KoriaShop.txt
+/copy:Scripts/KoriaShop.txt
+
+#begin Scripts/MenkovIV.txt
+/copy:Scripts/MenkovIV.txt
+
+#begin Scripts/MenkovIVShipyard.txt
+/copy:Scripts/MenkovIVShipyard.txt
+
+#begin Scripts/MenkovIVShop.txt
+/copy:Scripts/MenkovIVShop.txt
 

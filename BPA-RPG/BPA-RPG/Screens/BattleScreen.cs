@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using BPA_RPG.GameItems;
 using BPA_RPG.GameItems.Weapons;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace BPA_RPG.Screens
 {
@@ -51,6 +52,8 @@ namespace BPA_RPG.Screens
 
         private Camera playerCamera = new Camera();
         private Camera enemyCamera = new Camera();
+
+        private Song battleSong;
 
         private SoundEffectInstance laser;
         private SoundEffectInstance shield;
@@ -168,11 +171,29 @@ namespace BPA_RPG.Screens
                 enemyShotCount.Add(0);
 
             //Sounds
-            laser = SoundManager.GetEffectInstance("Laser3");
-            shield = SoundManager.GetEffectInstance("Powerup1");
-            death = SoundManager.GetEffectInstance("Thruster2");
+            battleSong = content.Load<Song>("Sounds/Music/BattleSong");
+            laser = SoundEffectManager.GetEffectInstance("Laser3");
+            shield = SoundEffectManager.GetEffectInstance("Powerup1");
+            death = SoundEffectManager.GetEffectInstance("Thruster2");
+
+            //Start song
+            MediaPlayer.Play(battleSong);
 
             base.LoadContent(content);
+        }
+
+        public override void Activated()
+        {
+            MediaPlayer.Play(battleSong);
+
+            base.Activated();
+        }
+
+        public override void Deactivated()
+        {
+            MediaPlayer.Stop();
+
+            base.Deactivated();
         }
 
         public override void Update(GameTime gameTime)

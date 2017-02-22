@@ -97,7 +97,9 @@ namespace BPA_RPG.Choice
                     endOfLine = true;
             }
 
-            return new MenuChoice(synopsis, options) { baseChoice = baseChoice };
+            if (baseChoice != null)
+                return new MenuChoice(synopsis, options, baseChoice);
+            else return new MenuChoice(synopsis, options);
         }
     }
 }

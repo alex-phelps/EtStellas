@@ -103,6 +103,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Screens\BattleScreen.cs" />
+    <Compile Include="Screens\CreditsScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\InfoBoxScreen.cs" />
     <Compile Include="Screens\JettisonScreen.cs" />
@@ -131,6 +132,8 @@
     <Content Include="Content\Images\AKey.png" />
     <Content Include="Content\Images\BattleOverlay.png" />
     <Content Include="Content\Images\CloseX.png" />
+    <Content Include="Content\Images\CTMCredits.png" />
+    <Content Include="Content\Images\DevCredits.png" />
     <Content Include="Content\Images\Items\AntimatterEngine.png" />
     <Content Include="Content\Images\Items\BasicEngine.png" />
     <Content Include="Content\Images\Items\CryothermalEngine.png" />
@@ -144,7 +147,6 @@
     <Content Include="Content\Images\Items\Weapons\BurstLaser.png" />
     <Content Include="Content\Images\Items\Weapons\HeavyMissile.png" />
     <Content Include="Content\Images\Items\Weapons\WeakLaser.png" />
-    <Content Include="Content\Images\Planets\DebugPlanet.png" />
     <Content Include="Content\Images\DebugTexture.png" />
     <Content Include="Content\Images\DKey.png" />
     <Content Include="Content\Images\EMPBomb.png" />
@@ -203,11 +205,17 @@
     <Content Include="Content\Images\WeaponCooldownBar.png" />
     <Content Include="Content\Images\Laser.png" />
     <Content Include="Content\Images\WKey.png" />
+    <Content Include="Content\Scripts\CustollaShop.txt" />
+    <Content Include="Content\Scripts\CustollaShipyard.txt" />
+    <Content Include="Content\Scripts\KoriaShop.txt" />
+    <Content Include="Content\Scripts\MenkovIVShipyard.txt" />
+    <Content Include="Content\Scripts\MenkovIVShop.txt" />
+    <Content Include="Content\Scripts\MenkovIV.txt" />
+    <Content Include="Content\Scripts\Koria.txt" />
+    <Content Include="Content\Scripts\Custolla.txt" />
+    <Content Include="Content\Scripts\EmphasliaShipyard.txt" />
     <Content Include="Content\Scripts\EmphasliaShop.txt" />
     <Content Include="Content\Scripts\Emphaslia.txt" />
-    <Content Include="Content\Scripts\DebugPlanet.txt" />
-    <Content Include="Content\Scripts\DebugPlanetShipyard.txt" />
-    <Content Include="Content\Scripts\DebugPlanetShop.txt" />
     <Content Include="Content\Scripts\DefaultPlanetScript.txt" />
     <Content Include="Content\Scripts\Events\DistressSignal.txt" />
     <Content Include="Content\Scripts\Events\RoamingMerchantShop.txt" />
@@ -219,7 +227,7 @@
     <Content Include="Content\Scripts\Planets.txt" />
     <Content Include="Content\Scripts\Script Syntax.txt" />
     <Content Include="Content\Scripts\Shop Script Syntax.txt" />
-    <Content Include="Content\Sounds\BattleSong.wav" />
+    <Content Include="Content\Sounds\Music\BattleSong.wav" />
     <Content Include="Content\Sounds\Buy1.wav" />
     <Content Include="Content\Sounds\EMP1.wav" />
     <Content Include="Content\Sounds\Explosion1.wav" />
@@ -229,7 +237,7 @@
     <Content Include="Content\Sounds\laser1.wav" />
     <Content Include="Content\Sounds\laser2.wav" />
     <Content Include="Content\Sounds\laser3.wav" />
-    <Content Include="Content\Sounds\MenuSong.wav" />
+    <Content Include="Content\Sounds\Music\MenuSong.wav" />
     <Content Include="Content\Sounds\Powerup1.wav" />
     <Content Include="Content\Sounds\Select1.wav" />
     <Content Include="Content\Sounds\Select2.wav" />

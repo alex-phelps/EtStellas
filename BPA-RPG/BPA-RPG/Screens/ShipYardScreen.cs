@@ -89,7 +89,7 @@ namespace BPA_RPG.Screens
             }
 
             //Sounds
-            buy = SoundManager.GetEffectInstance("Buy1");
+            buy = SoundEffectManager.GetEffectInstance("Buy1");
 
             base.LoadContent(content);
         }

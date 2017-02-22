@@ -1,2 +1,74 @@
-﻿> Leave
+﻿You find yourself among the crowds on the streets of Emphaslia, 
+the captial of the galaxy.
+
+As you wander around, you spot a few miscellaneous shops and
+outposts.
+
+Where should you go?
+
+> Mordicol Engineering
+choice
+{
+The leading manifactuaring company, Mordical Engineering creates
+most of the electronics in this sector of the galaxy.
+
+> Ask around for work
+invisible
+require var mordicalwork 0
+var set mordicalwork 1
+choice
+{
+After asking around for a bit, you find a job.
+
+- New job: Retrieve and deliver 10 Roxol Quartz from Custolla
+
+> Leave
+return
+}
+
+> Deliver the quartz
+invisible
+require var mordicalwork 2
+require roxolQuartz 10
+var set mordicalwork 0
+remove roxolQuartz 10
+credits 200
+
+choice
+{
+You deliver the Roxol Quartz and recieve your payment.
+
+- You got 200 credits!
+
+> Leave
+return
+}
+
+> Leave
+return
+}
+
+> Currency Exchange
+choice
+{
+Here you can exchange jex for credits. Would you like to trade
+50 jex for 120 credits?
+
+> Yes
+require jex 50
+jex -50
+credits 120
+choice
+{
+- You traded 50 jex for 120 credits!
+
+> Return
+return
+}
+
+> No
+return
+}
+
+> Leave
 exit

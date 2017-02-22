@@ -57,7 +57,7 @@ namespace BPA_RPG.GameItems.Weapons
             new BombWeapon("EMP Bomb", 1, content.Load<Texture2D>("Images/Items/Weapons/EMPBomb"), content.Load<Texture2D>("Images/EMPBomb"),
                 0, 8, .7f, Effect.emp, "Launches a bomb that released an electromagnetic pulse to disable enemy systems.");
             
-            emp = SoundManager.GetEffectInstance("EMP1");
+            emp = SoundEffectManager.GetEffectInstance("EMP1");
 
             MainGame.eventLogger.Log(typeof(LaserWeapon), "Finished loading bomb weapons");
         }

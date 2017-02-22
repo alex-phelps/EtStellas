@@ -1,0 +1,6 @@
+﻿fuel credits 10 8
+waningSun credits 220 null
+qChip jex 150 null
+antimatterEngine jex 700 null
+heavyMissile jex 350 325
+empBomb jex 50 null

@@ -130,7 +130,7 @@ namespace BPA_RPG.Screens
 
             LoadEvents();
 
-            select = SoundManager.GetEffectInstance("Select1");
+            select = SoundEffectManager.GetEffectInstance("Select1");
 
             base.LoadContent(content);
         }

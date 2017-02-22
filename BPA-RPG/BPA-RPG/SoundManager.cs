@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace BPA_RPG
 {
-    public static class SoundManager
+    public static class SoundEffectManager
     {
         private static List<SoundEffect> sfx = new List<SoundEffect>();
 
         public static void LoadContent(ContentManager content)
         {
-            MainGame.eventLogger.Log(typeof(SoundManager), "Begin loading sounds");
+            MainGame.eventLogger.Log(typeof(SoundEffectManager), "Begin loading sounds");
 
             foreach (string se in Directory.EnumerateFiles("Content/Sounds/"))
                 sfx.Add(content.Load<SoundEffect>(se.Replace("Content/", "").Replace(".xnb", "")));
 
-            MainGame.eventLogger.Log(typeof(SoundManager), "Finished loading sounds");
+            MainGame.eventLogger.Log(typeof(SoundEffectManager), "Finished loading sounds");
         }
 
         public static SoundEffectInstance GetEffectInstance(string assetName)

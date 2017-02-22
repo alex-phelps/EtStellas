@@ -9,6 +9,7 @@ using BPA_RPG.GameObjects;
 using BPA_RPG.GameItems;
 using System.IO;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace BPA_RPG.Screens
 {
@@ -25,13 +26,18 @@ namespace BPA_RPG.Screens
 
         private GameObject ship;
 
+        private bool creditsShown;
+        private Texture2D ctmCredits;
+        private Texture2D devCredits;
+
+        private Song menuSong;
+
         private SoundEffectInstance selectSound;
         private SoundEffectInstance errorSound;
 
         public TitleScreen() 
             : base("Title Screen")
         {
-
         }
 
         public override void LoadContent(ContentManager content)
@@ -92,15 +98,43 @@ namespace BPA_RPG.Screens
                 Environment.Exit(0);
             }));
 
-            //Sfx
-            selectSound = SoundManager.GetEffectInstance("Select1");
-            errorSound = SoundManager.GetEffectInstance("Hazard1");
+            //Load credits images
+            ctmCredits = content.Load<Texture2D>("Images/CTMCredits");
+            devCredits = content.Load<Texture2D>("Images/DevCredits");
+
+            //Sounds
+            menuSong = content.Load<Song>("Sounds/Music/MenuSong");
+            selectSound = SoundEffectManager.GetEffectInstance("Select1");
+            errorSound = SoundEffectManager.GetEffectInstance("Hazard1");
 
             base.LoadContent(content);
         }
 
+        public override void Activated()
+        {
+            //Start song
+            MediaPlayer.Play(menuSong);
+
+            base.Activated();
+        }
+
+        public override void Deactivated()
+        {
+            //Stop song
+            MediaPlayer.Stop();
+
+            base.Deactivated();
+        }
+
         public override void Update(GameTime gameTime)
         {
+            if (!creditsShown)
+            {
+                manager.Push(new CreditsScreen(devCredits));
+                manager.Push(new CreditsScreen(ctmCredits));
+                creditsShown = true;
+            }
+
             background1.Scroll(backgroundScroll, .25f);
             background2.Scroll(backgroundScroll, .28f);
             backgroundScroll.Y -= 18;

@@ -141,8 +141,8 @@ namespace BPA_RPG.Screens
             };
 
             //Sounds
-            select = SoundManager.GetEffectInstance("Select1");
-            thrusters = SoundManager.GetEffectInstance("Thruster1");
+            select = SoundEffectManager.GetEffectInstance("Select1");
+            thrusters = SoundEffectManager.GetEffectInstance("Thruster1");
             thrusters.IsLooped = true;
 
             base.LoadContent(content);

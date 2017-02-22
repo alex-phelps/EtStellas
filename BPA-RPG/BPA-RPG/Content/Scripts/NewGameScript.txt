@@ -52,7 +52,7 @@ and board the ship.
 - You got a Basic Laser!
 - You got a Basic Missile!
 - You got a Basic Engine!
-- You got 500 credits!
+- You got 300 credits!
 
 Check your hold to equip items!
 
@@ -61,7 +61,7 @@ get basicengine 1
 get fuel 5
 get basiclaser 1
 get basicmissile 1
-credits 500
+credits 300
 exit
 
 > Read again

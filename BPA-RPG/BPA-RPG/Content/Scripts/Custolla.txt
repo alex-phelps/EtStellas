@@ -1,0 +1,48 @@
+﻿Custolla is the trading giant of the galaxy. Trading ships
+bustle through the streets and there are a staggering amount
+of factories within view.
+
+> Pick up Roxol Quartz for Mordical Engineering
+invisible
+require var mordicalwork 1
+var set mordicalwork 2
+get roxolquartz 10
+choice
+{
+You pick up the quartz from a narby manufacturer. 
+
+Now to deliver it back to Mordical Engineering on Emphaslia.
+
+> Leave
+return
+}
+
+> Look for shipping jobs
+invisible
+require var custollaShipping 0
+var set custollaShipping 1
+get naphtha 20
+choice
+{
+You manage to find a company asking you to ship some cargo
+to Koria
+
+- New Job: Bring 20 Naphtha to Koria
+
+> Leave
+return
+}
+
+> Look for shipping jobs
+invisible
+require var custollaShipping 1
+choice
+{
+You look around for a while, but find no success.
+
+> Leave
+return
+}
+
+> Leave
+exit

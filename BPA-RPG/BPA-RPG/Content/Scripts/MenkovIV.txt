@@ -1,0 +1,94 @@
+﻿You arrive at Menkov IV, a lucious planet that cultivates
+food and also serves as an energy farm for many planets.
+
+> Police Headquarters
+invisible
+require var policeMission 0
+var set policeMission 1
+choice
+{
+You recieve a police request to help apprehend some illegal
+jex merchants that have been roaming around the galaxy 
+recently.
+
+- New Job: Apprehend 5 Roaming Jex Merchants
+
+> Leave
+return
+}
+
+> Police Headquarters
+invisible
+require var policeMission 1
+require var merchApprehended 5
+set var merchApprehended 0
+set var policeMission 0
+credits 2000
+choice
+{
+You report back to the police with the apprehended 
+criminals.
+
+- You were rewarded 2000 credits!
+
+> Leave
+return
+}
+
+> Sell 20 Naphtha
+invisible
+require naphtha 20
+choice
+{
+You find a place where you can sell some of your Naphtha
+to a local factory.
+
+> Sell 20 Naphtha
+require naptha 20
+remove naphtha 20
+jex 400
+choice
+{
+- You sold your Naphtha for 400 jex!
+
+> Leave
+return
+}
+
+> No thanks
+leave
+}
+
+> Pick up shipping work for Wrankok Farms
+invisible
+require var wrankokShipping 0
+set var wrankokShipping 1
+get waningSun 25
+choice
+{
+You decide to help out Wrankok Farms by shipping some
+Waning Suns to Koria
+
+- New Job: Transport 25 Waning Suns to Koria
+
+> Leave
+return
+}
+
+> Get payment from Wrankok Farms
+invisible
+require var wrankokShipping 2
+set var wrankokShipping 0
+jex 1000
+choice
+{
+You report back to the farm and recieve payment.
+
+- You got 1000 jex!
+
+> Leave
+return
+}
+
+> Leave
+exit

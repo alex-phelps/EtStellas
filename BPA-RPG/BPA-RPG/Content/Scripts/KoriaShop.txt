@@ -1,0 +1,3 @@
+﻿fuel jex 3 null
+korianSteel jex 20 null
+redeye credits 500 null
