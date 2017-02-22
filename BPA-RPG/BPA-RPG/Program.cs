@@ -17,9 +17,6 @@ namespace EtStellas
         [STAThread]
         static void Main()
         {
-            using (var game = new MainGame())
-                game.Run();
-
             try
             {
                 using (var game = new MainGame())
