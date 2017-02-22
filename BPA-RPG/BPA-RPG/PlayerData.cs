@@ -1,14 +1,13 @@
-﻿using BPA_RPG.GameItems;
-using BPA_RPG.GameItems.Weapons;
-using BPA_RPG.GameObjects;
+﻿using EtStellas.GameItems;
+using EtStellas.GameItems.Weapons;
+using EtStellas.GameObjects;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using System.Linq;
 
-namespace BPA_RPG
+namespace EtStellas
 {
     /// <summary>
     /// The different currencies that money can be stored as

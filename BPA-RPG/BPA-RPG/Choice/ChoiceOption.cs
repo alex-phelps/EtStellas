@@ -1,13 +1,11 @@
-﻿using BPA_RPG.GameItems;
-using BPA_RPG.Screens;
+﻿using EtStellas.GameItems;
+using EtStellas.Screens;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BPA_RPG.Choice
+namespace EtStellas.Choice
 {
     /// <summary>
     /// Represents an option in a MenuChoice

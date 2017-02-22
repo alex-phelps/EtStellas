@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BPA_RPG.Screens;
-using BPA_RPG.GameItems;
-using BPA_RPG.GameObjects;
-using BPA_RPG.GameItems.Weapons;
+using EtStellas.Screens;
+using EtStellas.GameItems;
+using EtStellas.GameObjects;
+using EtStellas.GameItems.Weapons;
 using System.Xml.Serialization;
 using System.IO;
 using System;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
-namespace BPA_RPG
+namespace EtStellas
 {
     /// <summary>
     /// This is the main type for the game.

@@ -8,8 +8,8 @@
     <ProjectGuid>{C46D552B-1729-4D3B-BE3A-968409E453E9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BPA_RPG</RootNamespace>
-    <AssemblyName>BPA-RPG</AssemblyName>
+    <RootNamespace>EtStellas</RootNamespace>
+    <AssemblyName>EtStellas</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <MonoGameContentBuilderExe>
@@ -176,6 +176,7 @@
     <Content Include="Content\Images\MMScrollBar.png" />
     <Content Include="Content\Images\MMScrollIcon.png" />
     <Content Include="Content\Images\MouseIcon.png" />
+    <Content Include="Content\Images\Planets\DebugPlanet.png" />
     <Content Include="Content\Images\Planets\Emphaslia.png" />
     <Content Include="Content\Images\Planets\Koria.png" />
     <Content Include="Content\Images\Planets\MenkovIV.png" />

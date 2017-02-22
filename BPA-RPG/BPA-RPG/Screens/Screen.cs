@@ -2,8 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-
-namespace BPA_RPG.Screens
+namespace EtStellas.Screens
 {
     /// <summary>
     /// A screen to be added to a screen manager. 

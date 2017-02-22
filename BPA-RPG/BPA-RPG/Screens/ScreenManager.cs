@@ -1,10 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BPA_RPG.Screens
+namespace EtStellas.Screens
 {
     /// <summary>
     /// A collection/stack of active screens in the game.

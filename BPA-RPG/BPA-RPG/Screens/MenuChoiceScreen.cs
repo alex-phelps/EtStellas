@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BPA_RPG.Choice;
+using EtStellas.Choice;
 using Microsoft.Xna.Framework.Content;
-using BPA_RPG.GameItems;
+using EtStellas.GameItems;
 using Microsoft.Xna.Framework.Audio;
 
-namespace BPA_RPG.Screens
+namespace EtStellas.Screens
 {
     public class MenuChoiceScreen : Screen
     {

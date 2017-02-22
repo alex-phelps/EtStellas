@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Mail;
 
-namespace BPA_RPG
+namespace EtStellas
 {
 #if WINDOWS || LINUX
     /// <summary>

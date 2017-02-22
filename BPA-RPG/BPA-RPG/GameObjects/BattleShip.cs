@@ -1,14 +1,12 @@
-﻿using BPA_RPG.GameItems;
+﻿using EtStellas.GameItems;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
-using BPA_RPG.GameItems.Weapons;
+using EtStellas.GameItems.Weapons;
 
-namespace BPA_RPG.GameObjects
+namespace EtStellas.GameObjects
 {
     /// <summary>
     /// Represents a ship in a battle screen

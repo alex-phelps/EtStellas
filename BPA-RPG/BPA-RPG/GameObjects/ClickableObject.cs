@@ -3,7 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace BPA_RPG.GameObjects
+namespace EtStellas.GameObjects
 {
     public class ClickableObject : GameObject
     {

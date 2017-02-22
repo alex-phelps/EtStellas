@@ -1,11 +1,10 @@
-﻿using BPA_RPG.GameObjects;
-using Microsoft.Xna.Framework.Audio;
+﻿using EtStellas.GameObjects;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace BPA_RPG.GameItems.Weapons
+namespace EtStellas.GameItems.Weapons
 {
     public abstract class Weapon : ShipPart
     {

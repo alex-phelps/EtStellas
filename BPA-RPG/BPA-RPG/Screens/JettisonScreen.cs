@@ -1,12 +1,12 @@
-﻿using BPA_RPG.GameItems;
+﻿using EtStellas.GameItems;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BPA_RPG.GameObjects;
+using EtStellas.GameObjects;
 using Microsoft.Xna.Framework.Audio;
 
-namespace BPA_RPG.Screens
+namespace EtStellas.Screens
 {
     /// <summary>
     /// Screen for player item disposal

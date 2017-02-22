@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BPA_RPG.GameObjects;
+using EtStellas.GameObjects;
 using Microsoft.Xna.Framework.Audio;
 
-namespace BPA_RPG.GameItems.Weapons
+namespace EtStellas.GameItems.Weapons
 {
     public class MissileWeapon : Weapon
     {

@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BPA_RPG
+namespace EtStellas
 {
     public static class SoundEffectManager
     {

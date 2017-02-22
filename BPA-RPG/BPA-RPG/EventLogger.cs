@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace BPA_RPG
+namespace EtStellas
 {
     public class EventLogger
     {

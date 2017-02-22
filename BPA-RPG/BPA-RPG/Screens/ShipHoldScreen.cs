@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using BPA_RPG.GameItems;
-using BPA_RPG.GameObjects;
+using EtStellas.GameItems;
+using EtStellas.GameObjects;
 using Microsoft.Xna.Framework.Input;
 using System.Text.RegularExpressions;
-using BPA_RPG.GameItems.Weapons;
+using EtStellas.GameItems.Weapons;
 
-namespace BPA_RPG.Screens
+namespace EtStellas.Screens
 {
     /// <summary>
     /// Screen for managing player inventory (hold) and items

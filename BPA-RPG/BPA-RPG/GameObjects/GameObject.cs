@@ -1,10 +1,9 @@
-﻿using BPA_RPG.GameItems;
+﻿using EtStellas.GameItems;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace BPA_RPG.GameObjects
+namespace EtStellas.GameObjects
 {
     /// <summary>
     /// Represents some object in the game

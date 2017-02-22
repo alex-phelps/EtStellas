@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace BPA_RPG
+namespace EtStellas
 {
     public static class InputManager
     {

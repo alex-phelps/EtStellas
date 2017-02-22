@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace BPA_RPG
+namespace EtStellas
 {
     public class Camera
     {
