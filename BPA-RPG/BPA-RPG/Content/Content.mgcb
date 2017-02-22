@@ -1084,9 +1084,15 @@
 /processorParam:Quality=Best
 /build:Sounds/Thruster2.wav
 
-#begin Sounds/ThemeSong.wav
+#begin Sounds/BattleSong.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/ThemeSong.wav
+/build:Sounds/BattleSong.wav
+
+#begin Sounds/MenuSong.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/MenuSong.wav
 
