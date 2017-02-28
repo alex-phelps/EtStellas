@@ -8,6 +8,7 @@ using EtStellas.GameObjects;
 using System.IO;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using EtStellas.GameItems;
 
 namespace EtStellas.Screens
 {
@@ -65,6 +66,13 @@ namespace EtStellas.Screens
             options.Add(CreateOption("New Game", 0, () =>
             {
                 selectSound.Play();
+                
+                //Set default player ship as Discorvery
+                PlayerData.ship = new PlayerShip(Ship.ships[0]);
+
+                //Reset player inv
+                PlayerData.inventory = new List<GameItem>();
+
                 manager.Push(new GameScreen());
                 manager.Push(new TabMenuScreen(false, new MenuChoiceScreen("Intro", "NewGameScript")));
             }));

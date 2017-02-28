@@ -81,9 +81,6 @@ namespace EtStellas
             //Create a new ScreenManager to handle different screens.
             screenManager = new ScreenManager(Content);
 
-            //Set default player ship as Discorvery
-            PlayerData.ship = new PlayerShip(Ship.ships[0]);
-
             //Create the Main Menu Screen
             screenManager.Push(new TitleScreen());
 
